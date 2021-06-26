@@ -7,25 +7,18 @@ import {
   InputAdornment,
   OutlinedInput,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import CropSquareIcon from "@material-ui/icons/CropSquare";
 import SearchIcon from "@material-ui/icons/Search";
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
+
 import { Blue } from "../../utils/colors";
 import { contentWrapper, sideWrapper } from "../../utils/wrappers";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-}));
+
 
 export default function Header() {
-  const classes = useStyles();
-
   return (
-    <AppBar color="transparent">
+    <AppBar color="transparent" position="static">
       <Toolbar>
         <Box display="flex" style={sideWrapper}>
           <CropSquareIcon fontSize="large" style={{ color: Blue }} />
