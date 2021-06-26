@@ -3,7 +3,6 @@ import express, {Application, Request, Response, NextFunction} from "express";
 
 import morgan from "morgan";
 
-// @ts-ignore
 import cors from "cors";
 
 const app: Application = express();
