@@ -6,6 +6,8 @@ import {
   ListItem,
   ListItemAvatar,
   Box,
+  Divider,
+  ListSubheader
 } from "@material-ui/core";
 import { ListItemText, Toolbar } from "@material-ui/core";
 import DashboardIcon from "@material-ui/icons/Dashboard";
@@ -24,17 +26,24 @@ import clsx from "clsx";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    appBar: {
-      zIndex: theme.zIndex.drawer + 1,
-    },
     drawer: {
       width: sideWrapperWidth,
       flexShrink: 0,
+      height: "100vh",
       display: "none",
     },
     drawerClose: {
       display: "block"
     },
+    FF: {
+      backgroundColor: 'green'
+    },
+    MH: {
+      backgroundColor: "purple"
+    },
+    JF: {
+      backgroundColor: '#1b40a7'
+    }
   })
 );
 
@@ -93,6 +102,33 @@ export default function Sidebar() {
             <CardGiftcardRoundedIcon />
           </ListItemIcon>
           <ListItemText primary="Marketplace" />
+        </ListItem>
+        <Divider />
+        {/* pages you may lika */}
+        <ListSubheader>Pages You May Like</ListSubheader>
+        <ListItem button>
+            <ListItemAvatar>
+              <Avatar variant="rounded" className={classes.FF}>
+                FF
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary="Football FC" />
+        </ListItem>
+        <ListItem button>
+          <ListItemAvatar>
+            <Avatar variant="rounded" className={classes.MH} >
+              M
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Moto House"/>
+        </ListItem>
+        <ListItem button>
+          <ListItemAvatar>
+            <Avatar variant="rounded" className={classes.JF} >
+              Jj
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Jazz Festivals"/>
         </ListItem>
       </List>
     </Box>
