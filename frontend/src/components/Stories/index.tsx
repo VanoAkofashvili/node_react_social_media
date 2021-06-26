@@ -7,12 +7,15 @@ import {
   Divider,
   IconButton,
   ListItem,
-  ListItemAvatar,
   ListItemText,
 } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
-import { MainBackground } from "../../utils/colors";
+import { Blue, MainBackground } from "../../utils/colors";
+import { Avatar, ListItemAvatar } from "@material-ui/core";
+
+import storyAvatar from "../../static/avatar/2.jpeg";
+const date = new Date()
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: MainBackground,
     },
     list: {
-      width: "250px",
+      width: "300px",
       backgroundColor: "white",
       borderRadius: "10px",
     },
@@ -30,6 +33,9 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "space-between",
       borderRadius: "10px",
     },
+    viewed: {
+        border: `3px solid ${Blue}`
+    }
   })
 );
 
@@ -39,7 +45,7 @@ export default function Stories() {
     <div className={classes.root}>
       <Toolbar />
       <Box>
-        {/* <List
+        <List
           component="nav"
           subheader={
             <ListSubheader component="div" className={classes.subHeader}>
@@ -52,11 +58,37 @@ export default function Stories() {
           className={classes.list}
         >
           <Divider />
-          <ListItem button>
-            <ListItemAvatar></ListItemAvatar>
-            <ListItemText primary="Jazz Festivals" />
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar alt="profile" src={storyAvatar} />
+            </ListItemAvatar>
+            <ListItemText primary="Hallword Moon" secondary={date.toDateString()} />
           </ListItem>
-        </List> */}
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar alt="profile" src={storyAvatar} />
+            </ListItemAvatar>
+            <ListItemText primary="Hallword Moon" secondary={date.toDateString()}/>
+          </ListItem>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar alt="profile" src={storyAvatar} className={classes.viewed}/>
+            </ListItemAvatar>
+            <ListItemText primary="Hallword Moon" secondary={date.toDateString()}/>
+          </ListItem>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar alt="profile" src={storyAvatar} />
+            </ListItemAvatar>
+            <ListItemText primary="Hallword Moon" secondary={date.toDateString()}/>
+          </ListItem>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar alt="profile" src={storyAvatar} />
+            </ListItemAvatar>
+            <ListItemText primary="Hallword Moon" secondary={date.toDateString()}/>
+          </ListItem>
+        </List>
       </Box>
     </div>
   );

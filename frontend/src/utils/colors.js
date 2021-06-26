@@ -1,2 +1,2 @@
-export const Blue = '#1480ff'
+export const Blue = '#00b8ff'
 export const MainBackground = "#f1f1f1"
