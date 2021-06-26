@@ -19,7 +19,24 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Item.init({
-    entityId: DataTypes.NUMBER
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: Sequelize.INTEGER
+    },
+    itemType: {
+      allowNull: false,
+      type: Sequelize.STRING,
+    },
+    createdAt: {
+      allowNull: false,
+      type: Sequelize.DATE
+    },
+    updatedAt: {
+      allowNull: false,
+      type: Sequelize.DATE
+    }
   }, {
     sequelize,
     modelName: 'Item',

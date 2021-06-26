@@ -14,7 +14,20 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Post.init({
-    entityId: DataTypes.NUMBER
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: Sequelize.INTEGER
+    },
+    createdAt: {
+      allowNull: false,
+      type: Sequelize.DATE
+    },
+    updatedAt: {
+      allowNull: false,
+      type: Sequelize.DATE
+    }
   }, {
     sequelize,
     modelName: 'Post',
