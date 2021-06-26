@@ -12,9 +12,10 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import EventIcon from "@material-ui/icons/Event";
 import OndemandVideoIcon from "@material-ui/icons/OndemandVideo";
 import PhotoSizeSelectActualOutlinedIcon from "@material-ui/icons/PhotoSizeSelectActualOutlined";
-import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
+import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";   
 import CardGiftcardRoundedIcon from "@material-ui/icons/CardGiftcardRounded";
 import AccountTreeOutlinedIcon from "@material-ui/icons/AccountTreeOutlined";
+import  profileAvatar from  '../../static/avatar/1.jpg'
 
 export default function Sidebar() {
   return (
@@ -22,7 +23,7 @@ export default function Sidebar() {
       <List component="nav">
         <ListItem>
           <ListItemAvatar>
-            <Avatar alt="profile" src="" />
+            <Avatar alt="profile" src={profileAvatar} />
           </ListItemAvatar>
           <ListItemText primary="Ahmad Nur Fawaid" secondary="@afmad" />
         </ListItem>
