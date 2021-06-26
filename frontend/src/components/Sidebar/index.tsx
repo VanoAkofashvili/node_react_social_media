@@ -7,7 +7,7 @@ import {
   ListItemAvatar,
   Box,
   Divider,
-  ListSubheader
+  ListSubheader,
 } from "@material-ui/core";
 import { ListItemText, Toolbar } from "@material-ui/core";
 import DashboardIcon from "@material-ui/icons/Dashboard";
@@ -29,21 +29,22 @@ const useStyles = makeStyles((theme: Theme) =>
     drawer: {
       width: sideWrapperWidth,
       flexShrink: 0,
-      height: "100vh",
+      minHeight: "100vh",
       display: "none",
     },
     drawerClose: {
-      display: "block"
+      display: "block",
+      // position: "fixed",
     },
     FF: {
-      backgroundColor: 'green'
+      backgroundColor: "green",
     },
     MH: {
-      backgroundColor: "purple"
+      backgroundColor: "purple",
     },
     JF: {
-      backgroundColor: '#1b40a7'
-    }
+      backgroundColor: "#1b40a7",
+    },
   })
 );
 
@@ -107,28 +108,28 @@ export default function Sidebar() {
         {/* pages you may lika */}
         <ListSubheader>Pages You May Like</ListSubheader>
         <ListItem button>
-            <ListItemAvatar>
-              <Avatar variant="rounded" className={classes.FF}>
-                FF
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Football FC" />
+          <ListItemAvatar>
+            <Avatar variant="rounded" className={classes.FF}>
+              FF
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Football FC" />
         </ListItem>
         <ListItem button>
           <ListItemAvatar>
-            <Avatar variant="rounded" className={classes.MH} >
+            <Avatar variant="rounded" className={classes.MH}>
               M
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Moto House"/>
+          <ListItemText primary="Moto House" />
         </ListItem>
         <ListItem button>
           <ListItemAvatar>
-            <Avatar variant="rounded" className={classes.JF} >
-              Jj
+            <Avatar variant="rounded" className={classes.JF}>
+              JF
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Jazz Festivals"/>
+          <ListItemText primary="Jazz Festivals" />
         </ListItem>
       </List>
     </Box>

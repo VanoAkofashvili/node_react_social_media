@@ -4,6 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Header from './components/Header'
 import MainContent from './components/MainContent';
 import Sidebar from './components/Sidebar';
+import Stories from './components/Stories';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,6 +24,7 @@ export default function ClippedDrawer() {
       <Header />
       <Sidebar />
       <MainContent />
+      <Stories />
     </div>
   );
 }
