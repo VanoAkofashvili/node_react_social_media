@@ -1,16 +1,27 @@
-import { CssBaseline } from "@material-ui/core";
-import React from "react";
-import Header from "./components/Header";
-import Sidebar from "./components/Sidebar.js";
+import React from 'react';
+import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Header from './components/Header'
+import MainContent from './components/MainContent';
+import Sidebar from './components/Sidebar';
 
-const App: React.FC = () => {
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+    }
+  }),
+);
+
+export default function ClippedDrawer() {
+  const classes = useStyles();
+
   return (
-    <div>
+    <div className={classes.root}>
       <CssBaseline />
       <Header />
       <Sidebar />
+      <MainContent />
     </div>
   );
-};
-
-export default App;
+}

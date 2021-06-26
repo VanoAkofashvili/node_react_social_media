@@ -1,2 +1,2 @@
 export const contentWrapper={width: "45%"}
-export const sideWrapper={ width: "19%"}
+export const sideWrapperWidth = "250px"

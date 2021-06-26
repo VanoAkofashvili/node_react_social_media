@@ -1,11 +1,11 @@
 import React from "react";
-import { sideWrapperWidth } from "../../utils/wrappers";
 import {
   Avatar,
   List,
   ListItemIcon,
   ListItem,
   ListItemAvatar,
+  Box
 } from "@material-ui/core";
 import { ListItemText, Toolbar } from "@material-ui/core";
 import DashboardIcon from "@material-ui/icons/Dashboard";
@@ -16,34 +16,27 @@ import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
 import CardGiftcardRoundedIcon from "@material-ui/icons/CardGiftcardRounded";
 import AccountTreeOutlinedIcon from "@material-ui/icons/AccountTreeOutlined";
 import profileAvatar from "../../static/avatar/1.jpg";
-import { Drawer } from "@material-ui/core";
+import { sideWrapperWidth } from "../../utils/wrappers";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
-const drawerWidth = 240;
-
-const useStyles = makeStyles((theme: Theme) => createStyles({
-  drawer: {
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    appBar: {
+      zIndex: theme.zIndex.drawer + 1,
+    },
     drawer: {
-      width: drawerWidth,
+      width: sideWrapperWidth,
       flexShrink: 0,
     },
-    drawerPaper: {
-      width: drawerWidth,
-    },
-  }
-}));
+  })
+);
 
 export default function Sidebar() {
-
-  const classes = useStyles()
+  const classes = useStyles();
   return (
-    <Drawer
-      variant="permanent"
+    <Box
       className={classes.drawer}
-      // classes={{
-      //   paper: classes.drawerPaper,
-      // }}
     >
       <Toolbar />
       <List component="nav">
@@ -96,6 +89,6 @@ export default function Sidebar() {
           <ListItemText primary="Marketplace" />
         </ListItem>
       </List>
-    </Drawer>
+    </Box>
   );
 }
