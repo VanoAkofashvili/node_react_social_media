@@ -2,11 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "start.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node dist/app.js",
-    "dev": "nodemon src/app.ts",
+    "start": "node dist/start.js",
+    "dev": "nodemon src/start.ts",
     "build": "tsc -p .",
     "migrate": "cross-env NODE_ENV=development npx sequelize-cli db:migrate",
     "migrate:reset": "cross-env NODE_ENV=development npx sequelize-cli db:migrate:undo:all && npm run migrate"
