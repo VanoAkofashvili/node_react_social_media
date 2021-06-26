@@ -5,7 +5,7 @@ import {
   ListItemIcon,
   ListItem,
   ListItemAvatar,
-  Box
+  Box,
 } from "@material-ui/core";
 import { ListItemText, Toolbar } from "@material-ui/core";
 import DashboardIcon from "@material-ui/icons/Dashboard";
@@ -19,6 +19,8 @@ import profileAvatar from "../../static/avatar/1.jpg";
 import { sideWrapperWidth } from "../../utils/wrappers";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { useMediaQuery } from "@material-ui/core";
+import clsx from "clsx";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,16 +30,20 @@ const useStyles = makeStyles((theme: Theme) =>
     drawer: {
       width: sideWrapperWidth,
       flexShrink: 0,
+      display: "none",
+    },
+    drawerClose: {
+      display: "block"
     },
   })
 );
 
 export default function Sidebar() {
   const classes = useStyles();
+  const matches = useMediaQuery("(min-width: 712px)");
+
   return (
-    <Box
-      className={classes.drawer}
-    >
+    <Box className={clsx(classes.drawer, matches && classes.drawerClose)}>
       <Toolbar />
       <List component="nav">
         <ListItem>

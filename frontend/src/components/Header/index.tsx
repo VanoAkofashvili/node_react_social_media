@@ -12,7 +12,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import PersonAddOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
 
 import { Blue, MainBackground } from "../../utils/colors";
-import { contentWrapper, sideWrapperWidth } from "../../utils/wrappers";
+import { contentWrapperWidth, sideWrapperWidth } from "../../utils/wrappers";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -20,6 +20,13 @@ const useStyles = makeStyles((theme: Theme) =>
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
     },
+    input: {
+      paddingRight: "5px",
+      width: "60%",
+      borderRadius: "10px",
+      backgroundColor: MainBackground,
+      marginLeft: "10px"
+    }
   })
 );
 
@@ -35,7 +42,7 @@ export default function Header() {
             Square
           </Typography>
         </Box>
-        <Box style={contentWrapper}>
+        <Box style={{width: contentWrapperWidth}}>
           <OutlinedInput
             inputProps={{
               style: {
@@ -48,12 +55,7 @@ export default function Header() {
                 <SearchIcon />
               </InputAdornment>
             }
-            style={{
-              paddingRight: "5px",
-              width: "60%",
-              borderRadius: "10px",
-              backgroundColor: MainBackground,
-            }}
+            className={classes.input}
           />
         </Box>
         <PersonAddOutlinedIcon style={{ marginLeft: "auto" }} />
