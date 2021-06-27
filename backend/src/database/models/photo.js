@@ -20,13 +20,9 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    createdAt: {
+    imageUrl: {
       allowNull: false,
-      type: Sequelize.DATE
-    },
-    updatedAt: {
-      allowNull: false,
-      type: Sequelize.DATE
+      type: Sequelize.STRING,
     }
   }, {
     sequelize,
