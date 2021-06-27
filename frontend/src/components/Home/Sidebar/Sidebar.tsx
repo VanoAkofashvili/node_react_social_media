@@ -17,8 +17,8 @@ import PhotoSizeSelectActualOutlinedIcon from "@material-ui/icons/PhotoSizeSelec
 import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
 import CardGiftcardRoundedIcon from "@material-ui/icons/CardGiftcardRounded";
 import AccountTreeOutlinedIcon from "@material-ui/icons/AccountTreeOutlined";
-import profileAvatar from "../../static/avatar/1.jpg";
-import { sideWrapperWidth } from "../../utils/wrappers";
+import profileAvatar from "../../../assets/avatar/1.jpg";
+import { sideWrapperWidth } from "../../../assets/const/wrappers";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { useMediaQuery } from "@material-ui/core";
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function Sidebar() {
+const Sidebar: React.FC = () => {
   const classes = useStyles();
   const matches = useMediaQuery("(min-width: 712px)");
 
@@ -136,3 +136,4 @@ export default function Sidebar() {
     </Box>
   );
 }
+export default Sidebar

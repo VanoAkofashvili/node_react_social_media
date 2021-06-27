@@ -2,10 +2,8 @@ import React from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Header from './components/Header'
-import MainContent from './components/MainContent';
-import Sidebar from './components/Sidebar';
-import Stories from './components/Stories';
-import { MainBackground } from './utils/colors';
+import Home from './components/Home';
+import { MainBackground } from './assets/const/colors';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,9 +21,7 @@ export default function ClippedDrawer() {
     <div className={classes.root}>
       <CssBaseline />
       <Header />
-      <Sidebar />
-      <MainContent />
-      <Stories />
+      <Home />
     </div>
   );
 }

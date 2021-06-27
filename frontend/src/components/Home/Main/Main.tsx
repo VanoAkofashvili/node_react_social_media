@@ -11,13 +11,13 @@ import {
   IconButton,
   Box,
 } from "@material-ui/core";
-import { MainBackground } from "../../utils/colors";
-import { contentWrapperWidth } from "../../utils/wrappers";
-import NewPostModal from "../Modals/NewPost/NewPostModal";
-import profileAvatar from "../../static/avatar/1.jpg";
+import { MainBackground } from "../../../assets/const/colors";
+import { contentWrapperWidth } from "../../../assets/const/wrappers";
+import NewPostModal from "../../Modals/NewPost";
+import profileAvatar from "../../../assets/avatar/1.jpg";
 import MovieCreationOutlinedIcon from "@material-ui/icons/MovieCreationOutlined";
 import PanoramaOutlinedIcon from "@material-ui/icons/PanoramaOutlined";
-import Post from './Post'
+import Post from "../Posts";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,13 +45,13 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     buttonGroup: {
-      display:"flex",
+      display: "flex",
       marginLeft: "auto",
     },
   })
 );
 
-export default function MainContent() {
+const Main: React.FC = () => {
   const classes = useStyles();
 
   return (
@@ -71,7 +71,7 @@ export default function MainContent() {
           <ListItemAvatar>
             <Avatar alt="profile pic" src={profileAvatar} />
           </ListItemAvatar>
-          <div style={{flexBasis: "70%"}}>
+          <div style={{ flexBasis: "70%" }}>
             <NewPostModal>
               <Box className={classes.postInput}>
                 Write what's in your mind...
@@ -91,4 +91,5 @@ export default function MainContent() {
       <Post />
     </main>
   );
-}
+};
+export default Main;
