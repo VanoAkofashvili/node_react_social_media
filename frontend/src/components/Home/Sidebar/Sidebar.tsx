@@ -5,9 +5,9 @@ import {
   ListItemIcon,
   ListItem,
   ListItemAvatar,
-  Box,
   Divider,
   ListSubheader,
+  Drawer,
 } from "@material-ui/core";
 import { ListItemText, Toolbar } from "@material-ui/core";
 import DashboardIcon from "@material-ui/icons/Dashboard";
@@ -31,11 +31,14 @@ const useStyles = makeStyles((theme: Theme) =>
       flexShrink: 0,
       minHeight: "100vh",
       display: "none",
-      backgroundColor: "white"
+      backgroundColor: "white",
+      border: 'none'
     },
     drawerClose: {
       display: "block",
-      // position: "fixed",
+    },
+    list: {
+      border: "none",
     },
     FF: {
       backgroundColor: "green",
@@ -54,9 +57,12 @@ const Sidebar: React.FC = () => {
   const matches = useMediaQuery("(min-width: 712px)");
 
   return (
-    <Box className={clsx(classes.drawer, matches && classes.drawerClose)}>
+    <Drawer
+      variant="permanent"
+      className={clsx(classes.drawer, matches && classes.drawerClose)}
+    >
       <Toolbar />
-      <List component="nav">
+      <List component="nav" className={classes.list}>
         <ListItem>
           <ListItemAvatar>
             <Avatar alt="profile" src={profileAvatar} />
@@ -133,7 +139,7 @@ const Sidebar: React.FC = () => {
           <ListItemText primary="Jazz Festivals" />
         </ListItem>
       </List>
-    </Box>
+    </Drawer>
   );
-}
-export default Sidebar
+};
+export default Sidebar;

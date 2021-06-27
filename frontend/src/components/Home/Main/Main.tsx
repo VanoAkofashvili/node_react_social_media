@@ -54,6 +54,21 @@ const useStyles = makeStyles((theme: Theme) =>
 const Main: React.FC = () => {
   const classes = useStyles();
 
+  const posts = [
+    {
+      id: "1",
+      text: "This will be the first post"
+    },
+    {
+      id: "2",
+      text: "This is the second post"
+    },
+    {
+      id: "3",
+      text: "This is third post"
+    }
+  ]
+
   return (
     <main className={classes.root}>
       <Toolbar />
@@ -88,7 +103,9 @@ const Main: React.FC = () => {
           </div>
         </ListItem>
       </List>
-      <Post />
+      {posts.map(post => (
+        <Post post={post} />
+      ))}
     </main>
   );
 };
