@@ -5,12 +5,13 @@ import Header from './components/Header'
 import MainContent from './components/MainContent';
 import Sidebar from './components/Sidebar';
 import Stories from './components/Stories';
+import { MainBackground } from './utils/colors';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
-      // width: "800px"
+      backgroundColor: MainBackground,
     }
   }),
 );

@@ -8,25 +8,37 @@ import {
   IconButton,
   ListItem,
   ListItemText,
+  ListItemIcon,
+  useMediaQuery,
 } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
 import { Blue, MainBackground } from "../../utils/colors";
 import { Avatar, ListItemAvatar } from "@material-ui/core";
+import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
+import clsx from "clsx";
 
 import storyAvatar from "../../static/avatar/2.jpeg";
-const date = new Date()
+import { Button } from "@material-ui/core";
+const date = new Date();
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      marginTop: "20px",
+      display: "none",
+      marginTop: "23px",
+      flex: "0 1 20%",
       backgroundColor: MainBackground,
+      marginRight: "30px",
+      minWidth: "240px"
+    },
+    rootHide: {
+      display: 'block'
     },
     list: {
-      width: "300px",
       backgroundColor: "white",
       borderRadius: "10px",
+      paddingBottom: 0,
     },
     subHeader: {
       display: "flex",
@@ -34,22 +46,33 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: "10px",
     },
     viewed: {
-        border: `3px solid ${Blue}`
-    }
+      border: `3px solid ${Blue}`,
+    },
+    addStory: {
+      color: Blue,
+      backgroundColor: "white",
+      boxShadow: ` 0 0 .3em ${MainBackground}, 0 0 .3em ${MainBackground}`,
+    },
+    btnSeeAll: {
+      width: "100%",
+      color: Blue,
+    },
   })
 );
 
 export default function Stories() {
   const classes = useStyles();
+  const matches = useMediaQuery("(min-width: 972px)");
+
   return (
-    <div className={classes.root}>
+    <div className={clsx(classes.root, matches && classes.rootHide)}>
       <Toolbar />
       <Box>
         <List
           component="nav"
           subheader={
             <ListSubheader component="div" className={classes.subHeader}>
-              Suggest Stories
+              Suggested Stories
               <IconButton>
                 <MoreHorizOutlinedIcon />
               </IconButton>
@@ -59,35 +82,48 @@ export default function Stories() {
         >
           <Divider />
           <ListItem>
+            <ListItemIcon>
+              <IconButton className={classes.addStory}>
+                <AddOutlinedIcon />
+              </IconButton>
+            </ListItemIcon>
+            <ListItemText
+              primary="Create Your Story"
+              secondary="Click beside to create yours"
+            />
+          </ListItem>
+          <ListItem button>
             <ListItemAvatar>
               <Avatar alt="profile" src={storyAvatar} />
             </ListItemAvatar>
-            <ListItemText primary="Hallword Moon" secondary={date.toDateString()} />
+            <ListItemText
+              primary="Hallword Moon"
+              secondary={date.toDateString()}
+            />
           </ListItem>
-          <ListItem>
+          <ListItem button>
             <ListItemAvatar>
               <Avatar alt="profile" src={storyAvatar} />
             </ListItemAvatar>
-            <ListItemText primary="Hallword Moon" secondary={date.toDateString()}/>
+            <ListItemText
+              primary="Hallword Moon"
+              secondary={date.toDateString()}
+            />
           </ListItem>
-          <ListItem>
+          <ListItem button>
             <ListItemAvatar>
-              <Avatar alt="profile" src={storyAvatar} className={classes.viewed}/>
+              <Avatar
+                alt="profile"
+                src={storyAvatar}
+                className={classes.viewed}
+              />
             </ListItemAvatar>
-            <ListItemText primary="Hallword Moon" secondary={date.toDateString()}/>
+            <ListItemText
+              primary="Hallword Moon"
+              secondary={date.toDateString()}
+            />
           </ListItem>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar alt="profile" src={storyAvatar} />
-            </ListItemAvatar>
-            <ListItemText primary="Hallword Moon" secondary={date.toDateString()}/>
-          </ListItem>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar alt="profile" src={storyAvatar} />
-            </ListItemAvatar>
-            <ListItemText primary="Hallword Moon" secondary={date.toDateString()}/>
-          </ListItem>
+          <Button className={classes.btnSeeAll}>See All</Button>
         </List>
       </Box>
     </div>

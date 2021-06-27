@@ -1,89 +1,94 @@
 import React from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import { Toolbar, Typography } from "@material-ui/core";
+import {
+  List,
+  Toolbar,
+  ListSubheader,
+  Divider,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  IconButton,
+  Box,
+} from "@material-ui/core";
 import { MainBackground } from "../../utils/colors";
 import { contentWrapperWidth } from "../../utils/wrappers";
+import NewPostModal from "../Modals/NewPost/NewPostModal";
+import profileAvatar from "../../static/avatar/1.jpg";
+import MovieCreationOutlinedIcon from "@material-ui/icons/MovieCreationOutlined";
+import PanoramaOutlinedIcon from "@material-ui/icons/PanoramaOutlined";
+import Post from './Post'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    main: {
+    root: {
       backgroundColor: MainBackground,
       width: contentWrapperWidth,
       padding: theme.spacing(3),
     },
-    content: {
-      margin: "10px",
-      padding: theme.spacing(3),
+    list: {
       backgroundColor: "white",
+      borderRadius: "15px",
+    },
+    listSubHeader: {
+      borderRadius: "15px",
+    },
+    postInput: {
+      flex: "1 1 70%",
+      backgroundColor: MainBackground,
+      padding: "10px",
+      borderRadius: "15px",
+      cursor: "pointer",
+      textAlign: "start",
+      "&:hover": {
+        backgroundColor: "lightgray",
+      },
+    },
+    buttonGroup: {
+      display:"flex",
+      marginLeft: "auto",
     },
   })
 );
 
 export default function MainContent() {
   const classes = useStyles();
-  return (
-    <main className={classes.main}>
-      <div className={classes.content}>
-        <Toolbar />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
 
-      </div>
+  return (
+    <main className={classes.root}>
+      <Toolbar />
+      <List
+        component="ul"
+        subheader={
+          <ListSubheader className={classes.listSubHeader}>
+            Post Something
+          </ListSubheader>
+        }
+        className={classes.list}
+      >
+        <Divider />
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar alt="profile pic" src={profileAvatar} />
+          </ListItemAvatar>
+          <div style={{flexBasis: "70%"}}>
+            <NewPostModal>
+              <Box className={classes.postInput}>
+                Write what's in your mind...
+              </Box>
+            </NewPostModal>
+          </div>
+          <div className={classes.buttonGroup}>
+            <IconButton>
+              <MovieCreationOutlinedIcon fontSize="large" />
+            </IconButton>
+            <IconButton>
+              <PanoramaOutlinedIcon fontSize="large" />
+            </IconButton>
+          </div>
+        </ListItem>
+      </List>
+      <Post />
     </main>
   );
 }

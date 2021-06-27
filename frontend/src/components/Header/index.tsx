@@ -6,7 +6,7 @@ import {
   Box,
   InputAdornment,
   OutlinedInput,
-  Badge
+  // Badge
 } from "@material-ui/core";
 import CropSquareIcon from "@material-ui/icons/CropSquare";
 import SearchIcon from "@material-ui/icons/Search";
