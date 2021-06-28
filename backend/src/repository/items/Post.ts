@@ -1,4 +1,8 @@
-import statusCodes from "http-status-codes";
+import statusCodes, {OK} from "http-status-codes";
+import {Post} from "../../public/models/items/Post";
+import {PostResponse} from "../../public/responses/items/PostResponses";
+
+const models = require('../../database/models');
 
 class PostRepository {
     public async getSinglePost(postId: number) {
@@ -18,6 +22,17 @@ class PostRepository {
         })
         const data = await promise;
         return Promise.resolve(data);
+    }
+
+    public async createNewPost(post: Post): Promise<PostResponse> {
+        const c_post = await models.Post.build(post);
+
+        console.log(JSON.stringify(c_post, null, 4), 'created_post');
+        return Promise.resolve({
+            code: OK,
+            success: true
+        })
+
     }
 }
 

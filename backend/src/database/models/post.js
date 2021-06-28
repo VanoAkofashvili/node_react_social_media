@@ -14,15 +14,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Post.init({
-    id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: Sequelize.INTEGER
-    },
     content: {
       allowNull: false,
-      type: Sequelize.TEXT
+      type: DataTypes.TEXT
     }
   }, {
     sequelize,

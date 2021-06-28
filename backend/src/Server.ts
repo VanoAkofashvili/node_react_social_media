@@ -10,7 +10,7 @@ const app: Application = express();
 
 app.use(cors());
 app.use(morgan('tiny'));
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(express.json());
 
 
 app.use('/api', BaseRouter);

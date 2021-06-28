@@ -7,6 +7,7 @@ const check = require('check-types');
 
 import {postService} from "../../service/items/Post";
 import {Post} from "../../public/models/items/Post";
+import {ItemTypes} from "../../public/models/items/ItemTypes";
 
 const router = Router();
 
@@ -41,23 +42,26 @@ const getSinglePost = async (req: Request, res: Response) => {
 
 const createNewPost = async (req: Request, res: Response) => {
     const body = req.body;
-    const {post} = body;
+    const {post, userId} = body;
 
-    if (check.undefined(post)) {
+    if (check.undefined(post) || check.undefined(userId)) {
         return res.status(BAD_REQUEST).json({
             code: BAD_REQUEST,
             success: false,
             message: 'bad params'
         })
     }
-    const newPost = plainToClass(Post, post, {excludeExtraneousValues: true});
 
-    console.log(newPost, 'newPost');
+    const newPost = plainToClass(Post, {
+        ...post,
+        userId,
+        itemType: ItemTypes.Post
+    } as Post, {excludeExtraneousValues: true});
 
+    const response = await postService.createNewPost(newPost);
     res.status(201).json({
         message: 'post created'
     })
-
 }
 
 router.get('/all', asyncHandler(getAllPosts));

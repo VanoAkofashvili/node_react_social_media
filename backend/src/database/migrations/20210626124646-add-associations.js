@@ -16,6 +16,8 @@ module.exports = {
         // Item hasOne Post
         return queryInterface.addColumn('posts', 'itemId', {
           type: Sequelize.INTEGER,
+          allowNull: false,
+          primaryKey: true,
           references: {
             model: 'items',
             key: 'id'
@@ -27,6 +29,7 @@ module.exports = {
       .then(() => {
         // Item hasOne Photo
         return queryInterface.addColumn('photos', 'itemId', {
+          allowNull: false,
           type: Sequelize.INTEGER,
           references: {
             model: 'items',

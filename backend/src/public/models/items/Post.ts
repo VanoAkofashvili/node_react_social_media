@@ -1,19 +1,27 @@
 import {Expose} from "class-transformer";
+import {IItem, Item} from "./Item";
 
-export interface IPost {
-    id: number,
-    content: string,
-    itemId: number
+export interface IPost extends IItem {
+    content: string
 }
 
-export class Post {
-    @Expose() id: number;
+export class Post extends Item {
     @Expose() content: string;
-    @Expose() itemId: number;
+    // @Expose() id?: number;
+    // @Expose() createdAt?: Date;
+    // @Expose() updatedAt?: Date;
 
-    constructor(id: number, content: string, itemId: number) {
-        this.id = id;
+    // constructor(id: number, createdAt: Date, updatedAt: Date, itemType: string, userId: number, content: string) {
+    constructor(content: string, itemType: string, userId: number, id?: number, createdAt?: Date, updatedAt?: Date) {
+        super(itemType, userId, id);
         this.content = content;
-        this.itemId = itemId;
+
+        // const optionals = {id, createdAt, updatedAt};
+        //
+        // Object.keys(optionals).forEach(key => {
+        //     // @ts-ignore
+        //     this[key] = optionals[key];
+        // })
     }
 }
+
