@@ -67,7 +67,6 @@ class PostRepository {
                     [models.Sequelize.col('Item.userId'), 'userId']
                 ]
             })
-            console.log(posts, 'POSTEBI');
             return Promise.resolve({
                 code: OK,
                 success: true,
