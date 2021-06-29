@@ -10,6 +10,7 @@ import {
   ListItemIcon,
   Divider,
   TextareaAutosize,
+  Button,
 } from "@material-ui/core";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
 
@@ -51,7 +52,7 @@ interface PostProps {
   post: { id: string; text: string };
 }
 
-const Post: React.FC<PostProps> = props => {
+const Post: React.FC<PostProps> = (props) => {
   const classes = useStyles();
 
   return (
@@ -66,9 +67,7 @@ const Post: React.FC<PostProps> = props => {
             <MoreHorizOutlinedIcon />
           </IconButton>
         </ListItem>
-        <ListItem>
-          {props.post.text}
-        </ListItem>
+        <ListItem>{props.post.text}</ListItem>
         <Divider />
         <ListItem className={classes.actionsToPost}>
           <ListItemIcon>
@@ -106,6 +105,9 @@ const Post: React.FC<PostProps> = props => {
             placeholder="Comment..."
             className={classes.commentField}
           />
+          <Button color="primary">
+            post
+          </Button>
         </ListItem>
       </List>
     </div>

@@ -66,6 +66,18 @@ const Main: React.FC = () => {
     {
       id: "3",
       text: "This is third post"
+    },
+    {
+      id: "4",
+      text: "This will be the first post"
+    },
+    {
+      id: "5",
+      text: "This is the second post"
+    },
+    {
+      id: "6",
+      text: "This is third post"
     }
   ]
 
@@ -104,7 +116,7 @@ const Main: React.FC = () => {
         </ListItem>
       </List>
       {posts.map(post => (
-        <Post post={post} />
+        <Post post={post} key={post.id}/>
       ))}
     </main>
   );

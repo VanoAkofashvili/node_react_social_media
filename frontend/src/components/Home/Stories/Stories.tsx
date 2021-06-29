@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme: Theme) =>
       flex: "0 1 20%",
       backgroundColor: MainBackground,
       marginRight: "30px",
-      minWidth: "240px"
+      minWidth: "240px",
+      positino: "fixed"
     },
     rootHide: {
       display: 'block'

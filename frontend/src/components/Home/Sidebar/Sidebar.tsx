@@ -32,7 +32,9 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: "100vh",
       display: "none",
       backgroundColor: "white",
-      border: 'none'
+    },
+    border: {
+      border: "none"
     },
     drawerClose: {
       display: "block",
@@ -60,6 +62,7 @@ const Sidebar: React.FC = () => {
     <Drawer
       variant="permanent"
       className={clsx(classes.drawer, matches && classes.drawerClose)}
+      classes={{paperAnchorDockedLeft: classes.border }}
     >
       <Toolbar />
       <List component="nav" className={classes.list}>

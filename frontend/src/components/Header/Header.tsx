@@ -44,7 +44,7 @@ export default function Header() {
         <Box display="flex" className={classes.logo}>
           <CropSquareIcon fontSize="large" style={{ color: Blue }} />
           <Typography variant="h5" style={{ paddingTop: "2px" }}>
-            Square
+            Saseburg
           </Typography>
         </Box>
         <Box style={{ width: contentWrapperWidth }}>
