@@ -7,13 +7,14 @@ const models = require('../../database/models');
 class ItemRepository {
     public async createNewItem(item: Item): Promise<ItemResponse> {
         try {
-            const item_create = await models.Item.create(item);
+            const item_create = await models.item.create(item);
             return Promise.resolve({
                 code: CREATED,
                 success: true,
                 item: item_create
             })
         } catch (err) {
+            console.log(err);
             return Promise.resolve({
                 code: INTERNAL_SERVER_ERROR,
                 message: err.message,
