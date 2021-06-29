@@ -17,7 +17,7 @@ module.exports = {
         return queryInterface.addColumn('posts', 'itemId', {
           type: Sequelize.INTEGER,
           allowNull: false,
-          primaryKey: true,
+          // primaryKey: true,
           references: {
             model: 'items',
             key: 'id'

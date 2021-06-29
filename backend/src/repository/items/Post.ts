@@ -1,4 +1,4 @@
-import statusCodes, {OK} from "http-status-codes";
+import statusCodes, {INTERNAL_SERVER_ERROR, OK} from "http-status-codes";
 import {Post} from "../../public/models/items/Post";
 import {PostResponse} from "../../public/responses/items/PostResponses";
 
@@ -25,13 +25,25 @@ class PostRepository {
     }
 
     public async createNewPost(post: Post): Promise<PostResponse> {
-        const c_post = await models.Post.build(post);
+        try {
+            const created_post = await models.sequelize.models.Post.create({
+                content: post.content,
+                itemId: post.itemId
+            });
+            return Promise.resolve({
+                code: OK,
+                success: true,
+                post: created_post
+            })
+        } catch (err) {
+            console.log(err, 'err');
+            return Promise.resolve({
+                code: INTERNAL_SERVER_ERROR,
+                success: false,
+                message: err.message
+            })
+        }
 
-        console.log(JSON.stringify(c_post, null, 4), 'created_post');
-        return Promise.resolve({
-            code: OK,
-            success: true
-        })
 
     }
 }

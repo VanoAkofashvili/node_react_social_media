@@ -59,9 +59,7 @@ const createNewPost = async (req: Request, res: Response) => {
     } as Post, {excludeExtraneousValues: true});
 
     const response = await postService.createNewPost(newPost);
-    res.status(201).json({
-        message: 'post created'
-    })
+    res.status(response.code).json(response);
 }
 
 router.get('/all', asyncHandler(getAllPosts));
