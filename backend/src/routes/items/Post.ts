@@ -11,23 +11,9 @@ import {ItemTypes} from "../../public/models/items/ItemTypes";
 
 const router = Router();
 
-const posts = [
-    {
-        userId: 1,
-        content: 'this is the first post'
-    },
-    {
-        userId: 1,
-        content: 'this is the second post'
-    },
-    {
-        userId: 2,
-        content: 'this is the third post'
-    }
-]
-
 const getAllPosts = async (req: Request, res: Response) => {
-    res.json(posts);
+    const response = await postService.getAllPosts();
+    return res.status(response.code).json(response);
 }
 
 const getSinglePost = async (req: Request, res: Response) => {

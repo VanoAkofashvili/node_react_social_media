@@ -1,6 +1,6 @@
 import statusCodes, {INTERNAL_SERVER_ERROR, OK} from "http-status-codes";
 import {Post} from "../../public/models/items/Post";
-import {PostResponse} from "../../public/responses/items/PostResponses";
+import {PostResponse, PostsResponse} from "../../public/responses/items/PostResponses";
 
 const models = require('../../database/models');
 
@@ -45,6 +45,43 @@ class PostRepository {
         }
 
 
+    }
+
+    public async getAllPosts(where = {}): Promise<PostsResponse> {
+        try {
+            const posts = await models.Post.findAll({
+                where,
+                include: [
+                    {
+                        model: models.Item,
+                        required: true,
+                        attributes: []
+
+                    }
+                ],
+                attributes: [
+                    ['itemId', 'id'],
+                    'content',
+                    [models.Sequelize.col('Item.createdAt'), 'createdAt'],
+                    [models.Sequelize.col('Item.updatedAt'), 'updatedAt'],
+                    [models.Sequelize.col('Item.userId'), 'userId']
+                ]
+            })
+            console.log(posts, 'POSTEBI');
+            return Promise.resolve({
+                code: OK,
+                success: true,
+                posts: posts,
+                numberOfPost: posts.length
+            })
+        } catch (err) {
+            console.log(err);
+            return Promise.resolve({
+                success: false,
+                code: INTERNAL_SERVER_ERROR,
+                message: err.message
+            })
+        }
     }
 }
 
