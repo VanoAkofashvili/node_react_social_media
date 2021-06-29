@@ -11,11 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // Item.belongsTo(models.user);
-      Item.hasOne(models.Post, {foreignKey: 'itemId'});
-      Item.hasOne(models.Photo, {foreignKey: 'itemId'});
-      Item.belongsToMany(models.User, {through: 'liked_items'});
-      Item.belongsToMany(models.User, {through: 'items_comments'});
+      Item.belongsTo(models.user);
+      Item.hasOne(models.post, {foreignKey: 'itemId'});
+      Item.hasOne(models.photo, {foreignKey: 'itemId'});
+      Item.belongsToMany(models.user, {through: 'liked_items'});
+      Item.belongsToMany(models.user, {through: 'items_comments'});
     }
   };
   Item.init({
@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Item',
+    modelName: 'item',
   });
   return Item;
 };

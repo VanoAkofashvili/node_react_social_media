@@ -26,7 +26,7 @@ class PostRepository {
 
     public async createNewPost(post: Post): Promise<PostResponse> {
         try {
-            const created_post = await models.sequelize.models.Post.create({
+            const created_post = await models.post.create({
                 content: post.content,
                 itemId: post.itemId
             });
@@ -49,11 +49,11 @@ class PostRepository {
 
     public async getAllPosts(where = {}): Promise<PostsResponse> {
         try {
-            const posts = await models.Post.findAll({
+            const posts = await models.post.findAll({
                 where,
                 include: [
                     {
-                        model: models.Item,
+                        model: models.item,
                         required: true,
                         attributes: []
 
@@ -62,9 +62,9 @@ class PostRepository {
                 attributes: [
                     ['itemId', 'id'],
                     'content',
-                    [models.Sequelize.col('Item.createdAt'), 'createdAt'],
-                    [models.Sequelize.col('Item.updatedAt'), 'updatedAt'],
-                    [models.Sequelize.col('Item.userId'), 'userId']
+                    [models.Sequelize.col('item.createdAt'), 'createdAt'],
+                    [models.Sequelize.col('item.updatedAt'), 'updatedAt'],
+                    [models.Sequelize.col('item.userId'), 'userId']
                 ]
             })
             return Promise.resolve({

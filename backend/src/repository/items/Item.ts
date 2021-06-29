@@ -14,8 +14,7 @@ class ItemRepository {
                 item: item_create
             })
         } catch (err) {
-            console.log(err.message);
-            
+            console.log(err);
             return Promise.resolve({
                 code: INTERNAL_SERVER_ERROR,
                 message: err.message,

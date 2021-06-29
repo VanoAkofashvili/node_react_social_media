@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Post.belongsTo(models.Item, {foreignKey: 'itemId'});
+      Post.belongsTo(models.item, {foreignKey: 'itemId'});
     }
   };
   Post.init({
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Post',
+    modelName: 'post',
     timestamps: false,
   });
   return Post;

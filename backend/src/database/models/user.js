@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(models.Item);
-      User.belongsToMany(models.Item, {through: 'liked_items'})
-      User.belongsToMany(models.Item, {through: 'items_comments'});
+      User.hasMany(models.item);
+      User.belongsToMany(models.item, {through: 'liked_items'})
+      User.belongsToMany(models.item, {through: 'items_comments'});
     }
   };
   User.init({
@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'user',
   });
   return User;
 };
