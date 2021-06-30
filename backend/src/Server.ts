@@ -4,6 +4,8 @@ import morgan from "morgan";
 import multer from "multer";
 import cors from "cors";
 import BaseRouter from "./routes";
+import {errorHandler} from "./middleware/error";
+import {BAD_REQUEST} from "http-status-codes";
 
 const md5 = require('md5');
 
@@ -59,5 +61,14 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 })
 
 app.use('/api', BaseRouter);
+
+app.use(errorHandler);
+
+// @ts-ignore
+app.get('*', (req: Request, res: Response) => {
+    // res.sendFile('index.html', {root: viewsDir});
+    // @ts-ignore
+    res.status(BAD_REQUEST).json({success: false})
+});
 
 export default app;

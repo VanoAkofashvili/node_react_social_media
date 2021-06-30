@@ -1,4 +1,4 @@
-import {Router, Request, Response} from "express";
+import {Router, Request, Response, NextFunction} from "express";
 import asyncHandler from "express-async-handler";
 import {BAD_REQUEST} from "http-status-codes";
 import {plainToClass} from "class-transformer";
@@ -19,7 +19,7 @@ const getSinglePost = async (req: Request, res: Response) => {
     // Get the post id
     const {id} = req.params;
 
-    if (check.undefined(id)) {
+    if (check.undefined(id) || !check.integer(id)) {
         return res.status(BAD_REQUEST).json({
             code: BAD_REQUEST,
             success: false,
@@ -37,7 +37,6 @@ const getSinglePost = async (req: Request, res: Response) => {
 const createNewPost = async (req: Request, res: Response) => {
     const body = req.body;
     const {post, userId} = body;
-    console.log(post);
     const image = req.file;
 
     if (check.undefined(image) || check.undefined(post) || check.undefined(userId)) {
