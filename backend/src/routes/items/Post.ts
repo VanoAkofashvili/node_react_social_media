@@ -7,6 +7,8 @@ import {ItemTypes} from "../../public/models/items/ItemTypes";
 const check = require('check-types');
 import {Post} from "../../public/models/items/Post";
 import {postService} from "../../service/items/Post";
+import {checkFileType} from "../../middleware/fileType";
+import multer from "multer";
 
 const router = Router();
 
@@ -39,7 +41,7 @@ const createNewPost = async (req: Request, res: Response) => {
     const {post, userId} = body;
     const image = req.file;
 
-    if (check.undefined(image) || check.undefined(post) || check.undefined(userId)) {
+    if (check.undefined(post) || check.undefined(userId)) {
         return res.status(BAD_REQUEST).json({
             code: BAD_REQUEST,
             success: false,
@@ -61,7 +63,6 @@ const createNewPost = async (req: Request, res: Response) => {
 
 router.get('/all', asyncHandler(getAllPosts));
 router.get('/:id', asyncHandler(getSinglePost));
-
-router.post('/add-new-post', asyncHandler(createNewPost));
+router.post('/add-new-post', multer().any(), checkFileType, asyncHandler(createNewPost));
 
 export default router;
