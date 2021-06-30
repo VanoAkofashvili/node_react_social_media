@@ -14,7 +14,7 @@ export class Item {
     // @Expose() updatedAt?: Date;
     @Expose() itemType: string;
     @Expose() userId: number;
-    @Expose() itemId?: number
+
 
     // constructor(id: number, createdAt: Date, updatedDate: Date, itemType: string, userId: number) {
     constructor(itemType: string, userId: number, itemId?: number) {
@@ -24,8 +24,5 @@ export class Item {
         this.itemType = itemType;
         this.userId = userId;
 
-        if (itemId) {
-            this.itemId = itemId;
-        }
     }
 }

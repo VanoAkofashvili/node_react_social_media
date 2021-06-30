@@ -17,6 +17,7 @@
   "author": "Vaniko Akopashvili",
   "license": "ISC",
   "dependencies": {
+    "@types/multer": "^1.4.6",
     "body-parser": "^1.19.0",
     "check-types": "^11.1.2",
     "class-transformer": "^0.4.0",
@@ -25,8 +26,10 @@
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
     "http-status-codes": "^2.1.4",
+    "md5": "^2.3.0",
     "module-alias": "^2.2.2",
     "morgan": "^1.10.0",
+    "multer": "^1.4.2",
     "mysql2": "^2.2.5",
     "sequelize": "^6.6.2"
   },

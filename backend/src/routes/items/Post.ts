@@ -2,12 +2,11 @@ import {Router, Request, Response} from "express";
 import asyncHandler from "express-async-handler";
 import {BAD_REQUEST} from "http-status-codes";
 import {plainToClass} from "class-transformer";
+import {ItemTypes} from "../../public/models/items/ItemTypes";
 
 const check = require('check-types');
-
-import {postService} from "../../service/items/Post";
 import {Post} from "../../public/models/items/Post";
-import {ItemTypes} from "../../public/models/items/ItemTypes";
+import {postService} from "../../service/items/Post";
 
 const router = Router();
 
@@ -38,18 +37,22 @@ const getSinglePost = async (req: Request, res: Response) => {
 const createNewPost = async (req: Request, res: Response) => {
     const body = req.body;
     const {post, userId} = body;
+    console.log(post);
+    const image = req.file;
 
-    if (check.undefined(post) || check.undefined(userId)) {
+    if (check.undefined(image) || check.undefined(post) || check.undefined(userId)) {
         return res.status(BAD_REQUEST).json({
             code: BAD_REQUEST,
             success: false,
             message: 'bad params'
         })
     }
+    const imageUrl = image?.path;
 
     const newPost = plainToClass(Post, {
         ...post,
         userId,
+        imageUrl: imageUrl,
         itemType: ItemTypes.Post
     } as Post, {excludeExtraneousValues: true});
 
