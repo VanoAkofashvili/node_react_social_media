@@ -19,7 +19,16 @@ const getAllPosts = async (req: Request, res: Response) => {
 const getSinglePost = async (req: Request, res: Response) => {
     // Get the post id
     const {id} = req.params;
-    const response = await postService.getSinglePost(Number(id));
+
+    if (check.undefined(id)) {
+        return res.status(BAD_REQUEST).json({
+            code: BAD_REQUEST,
+            success: false,
+            message: 'bad params'
+        })
+    }
+
+    const response = await postService.getPostById(Number(id));
     console.log(response);
     res.send({
         msg: true

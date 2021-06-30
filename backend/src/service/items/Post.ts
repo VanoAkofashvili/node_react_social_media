@@ -7,8 +7,8 @@ import {ExtendBaseResponse} from "../../public/responses/BaseResponse";
 import {PostsResponse} from "../../public/responses/items/PostResponses";
 
 class PostService {
-    public async getSinglePost(postId: number) {
-        return await postRepo.getSinglePost(postId);
+    public async getPostById(postId: number) {
+        return await postRepo.getPostById(postId);
     }
 
     public async createNewPost(post: Post): Promise<ExtendBaseResponse> {

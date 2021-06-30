@@ -5,23 +5,37 @@ import {PostResponse, PostsResponse} from "../../public/responses/items/PostResp
 const models = require('../../database/models');
 
 class PostRepository {
-    public async getSinglePost(postId: number) {
-        const promise = new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve({
-                    code: statusCodes.OK,
-                    posts: [
-                        {
-                            content: 'this is the first post',
-                            userId: 1
-                        }
-                    ],
-                    success: true
-                })
-            }, 5000)
-        })
-        const data = await promise;
-        return Promise.resolve(data);
+    // Needs better approach
+    public async getPostById(postId: number): Promise<PostResponse> {
+        try {
+            const post = await models.post.findByPk(postId, {
+                include: [
+                    {
+                        model: models.item,
+                        attributes: []
+                    },
+                ],
+                attributes: [
+                    ['itemId', 'id'],
+                    'content',
+                    [models.Sequelize.col('item.createdAt'), 'createdAt'],
+                    [models.Sequelize.col('item.updatedAt'), 'updatedAt'],
+                    [models.Sequelize.col('item.userId'), 'userId']
+                ]
+            });
+            console.log(JSON.stringify(post, null, 4));
+            return Promise.resolve({
+                code: OK,
+                success: true,
+            })
+        } catch (err) {
+            console.log(err);
+            return Promise.resolve({
+                code: INTERNAL_SERVER_ERROR,
+                message: err.message,
+                success: false,
+            })
+        }
     }
 
     public async createNewPost(post: Post): Promise<PostResponse> {
@@ -43,7 +57,6 @@ class PostRepository {
                 message: err.message
             })
         }
-
 
     }
 
