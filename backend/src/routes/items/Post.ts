@@ -6,6 +6,7 @@ import {ItemTypes} from "../../public/models/items/ItemTypes";
 
 const check = require('check-types');
 import {Post} from "../../public/models/items/Post";
+import {Photo} from "../../public/models/photo/Photo";
 import {postService} from "../../service/items/Post";
 import {checkFileType} from "../../middleware/fileType";
 import multer from "multer";
@@ -39,10 +40,7 @@ const getSinglePost = async (req: Request, res: Response) => {
 const createNewPost = async (req: Request, res: Response) => {
     const body = req.body;
     const {post, userId} = body;
-    // const image = req.file;
     // @ts-ignore
-    console.log(req.files, 'FILE');
-
     if (check.undefined(post) || check.undefined(userId)) {
         return res.status(BAD_REQUEST).json({
             code: BAD_REQUEST,
@@ -58,8 +56,8 @@ const createNewPost = async (req: Request, res: Response) => {
         imageUrl: imageUrl,
         itemType: ItemTypes.Post
     } as Post, {excludeExtraneousValues: true});
-
-    const response = await postService.createNewPost(newPost);
+    const images = plainToClass(Photo, req.files as Photo[], {excludeExtraneousValues: true});
+    const response = await postService.createNewPost(newPost, images);
     res.status(response.code).json(response);
 }
 

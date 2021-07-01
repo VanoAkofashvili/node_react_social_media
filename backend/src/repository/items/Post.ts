@@ -1,6 +1,8 @@
 import statusCodes, {INTERNAL_SERVER_ERROR, OK} from "http-status-codes";
 import {Post} from "../../public/models/items/Post";
 import {PostResponse, PostsResponse} from "../../public/responses/items/PostResponses";
+import {Item} from "../../public/models/items/Item";
+import {create} from "domain";
 
 const models = require('../../database/models');
 
@@ -38,12 +40,17 @@ class PostRepository {
         }
     }
 
-    public async createNewPost(post: Post): Promise<PostResponse> {
+    public async createNewPost(post: Post, fromItem: any): Promise<PostResponse> {
         try {
-            const created_post = await models.post.create({
-                content: post.content,
-                itemId: post.itemId
-            });
+            // const created_post = await models.post.create({
+            //     content: post.content,
+            //     itemId: post.itemId
+            // });
+
+            // const created_post = await models.item.createPost(post);
+            console.log(fromItem, 'item');
+            const created_post = await fromItem.createPost(post);
+            console.log(created_post, 'created_post in post repo');
             return Promise.resolve({
                 code: OK,
                 success: true,
