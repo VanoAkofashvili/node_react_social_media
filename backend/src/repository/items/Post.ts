@@ -50,7 +50,6 @@ class PostRepository {
                 post: created_post
             })
         } catch (err) {
-            console.log(err, 'err');
             return Promise.resolve({
                 code: INTERNAL_SERVER_ERROR,
                 success: false,
@@ -87,7 +86,6 @@ class PostRepository {
                 numberOfPost: posts.length
             })
         } catch (err) {
-            console.log(err);
             return Promise.resolve({
                 success: false,
                 code: INTERNAL_SERVER_ERROR,

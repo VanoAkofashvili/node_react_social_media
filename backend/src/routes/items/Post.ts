@@ -30,7 +30,6 @@ const getSinglePost = async (req: Request, res: Response) => {
     }
 
     const response = await postService.getPostById(Number(id));
-    console.log(response);
     res.send({
         msg: true
     })
@@ -39,8 +38,8 @@ const getSinglePost = async (req: Request, res: Response) => {
 const createNewPost = async (req: Request, res: Response) => {
     const body = req.body;
     const {post, userId} = body;
-    const image = req.file;
-
+    // const image = req.file;
+    console.log(req.file, 'FILE');
     if (check.undefined(post) || check.undefined(userId)) {
         return res.status(BAD_REQUEST).json({
             code: BAD_REQUEST,
@@ -48,8 +47,8 @@ const createNewPost = async (req: Request, res: Response) => {
             message: 'bad params'
         })
     }
-    const imageUrl = image?.path;
-
+    // const imageUrl = image?.path;
+    const imageUrl = 'imageUrl';
     const newPost = plainToClass(Post, {
         ...post,
         userId,

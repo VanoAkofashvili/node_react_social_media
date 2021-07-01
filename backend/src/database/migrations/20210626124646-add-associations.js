@@ -26,36 +26,6 @@ module.exports = {
           onDelete: 'CASCADE'
         })
       })
-      .then(() => {
-        // Item hasOne Photo
-        return queryInterface.addColumn('photos', 'itemId', {
-          allowNull: false,
-          type: Sequelize.INTEGER,
-          references: {
-            model: 'items',
-            key: 'id'
-          },
-          onUpdate: 'CASCADE',
-          onDelete: 'CASCADE'
-        })
-      })
-    // .then(() => {
-    //   // User hasMany Item
-    //   return queryInterface.addColumn(
-    //     'items',
-    //     'userId',
-    //     {
-    //       type: Sequelize.INTEGER,
-    //       references: {
-    //         model: 'users',
-    //         key: 'id',
-    //       },
-    //       onDelete: 'CASCADE',
-    //       onUpdate: 'CASCADE'
-    //     }
-    //   )
-    //
-    // })
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -71,19 +41,5 @@ module.exports = {
           'itemId'
         )
       })
-      .then(() => {
-        // remove Item hasOne Photo
-        return queryInterface.removeColumn(
-          'photos',
-          'itemId'
-        )
-      })
-    // .then(() => {
-    //   // remove User hasMany Item
-    //   return queryInterface.removeColumn(
-    //     'items',
-    //     'userId'
-    //   )
-    // })
   }
 };
