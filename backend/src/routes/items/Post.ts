@@ -9,6 +9,7 @@ import {Post} from "../../public/models/items/Post";
 import {postService} from "../../service/items/Post";
 import {checkFileType} from "../../middleware/fileType";
 import multer from "multer";
+import multerPhoto from "../../shared/MulterPhoto";
 
 const router = Router();
 
@@ -39,7 +40,9 @@ const createNewPost = async (req: Request, res: Response) => {
     const body = req.body;
     const {post, userId} = body;
     // const image = req.file;
-    console.log(req.file, 'FILE');
+    // @ts-ignore
+    console.log(req.files, 'FILE');
+
     if (check.undefined(post) || check.undefined(userId)) {
         return res.status(BAD_REQUEST).json({
             code: BAD_REQUEST,
@@ -62,6 +65,5 @@ const createNewPost = async (req: Request, res: Response) => {
 
 router.get('/all', asyncHandler(getAllPosts));
 router.get('/:id', asyncHandler(getSinglePost));
-router.post('/add-new-post', multer().any(), checkFileType, asyncHandler(createNewPost));
-
+router.post('/add-new-post', multerPhoto(multer).any(), checkFileType, asyncHandler(createNewPost));
 export default router;

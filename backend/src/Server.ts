@@ -11,24 +11,7 @@ import {BAD_REQUEST} from "http-status-codes";
 
 const app: Application = express();
 
-// const fileStorage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'images');
-//     },
-//     filename: (req, file, cb) => {
-//         const d = new Date();
-//         const dateFileName = `${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}`;
-//         cb(null, md5(file.originalname) + '-' + dateFileName);
-//     }
-// });
-// //@ts-ignore
-// const fileFilter = (req, file, cb) => {
-//     if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg') {
-//         cb(null, true);
-//     } else {
-//         cb(null, false);
-//     }
-// }
+
 
 app.use(cors());
 app.use(morgan('tiny'));

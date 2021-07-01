@@ -4,9 +4,7 @@ import {BAD_REQUEST, INTERNAL_SERVER_ERROR} from "http-status-codes";
 
 export function checkFileType(req: Request, res: Response, next: NextFunction) {
     try {
-
         const files = req.files || [req.file];
-        console.log(files);
         let validFiles = true;
         // @ts-ignore
         for (let file of files) {
