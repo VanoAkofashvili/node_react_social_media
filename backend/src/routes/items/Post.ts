@@ -9,8 +9,8 @@ import {Post} from "../../public/models/items/Post";
 import {Photo} from "../../public/models/photo/Photo";
 import {postService} from "../../service/items/Post";
 import {checkFileType} from "../../middleware/fileType";
-import multer from "multer";
 import multerPhoto from "../../shared/MulterPhoto";
+import {userService} from "../../service/users/User";
 
 const router = Router();
 
@@ -63,5 +63,5 @@ const createNewPost = async (req: Request, res: Response) => {
 
 router.get('/all', asyncHandler(getAllPosts));
 router.get('/:id', asyncHandler(getSinglePost));
-router.post('/add-new-post', multerPhoto(multer).any(), checkFileType, asyncHandler(createNewPost));
+router.post('/add-new-post', multerPhoto().any(), checkFileType, asyncHandler(createNewPost));
 export default router;

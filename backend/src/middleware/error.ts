@@ -1,8 +1,21 @@
 import {NextFunction, Request, Response} from "express";
-import {INTERNAL_SERVER_ERROR} from "http-status-codes";
+import {StatusCodes} from "http-status-codes";
+
+const {INTERNAL_SERVER_ERROR} = StatusCodes;
 
 export const errorHandler = (error: Error, req: Request, res: Response, next: NextFunction) => {
     const status = INTERNAL_SERVER_ERROR;
     const errorMessage = error.message;
-    return res.status(status).send({success: false, message: errorMessage});
+
+    const errObj = {
+        success: false,
+        message: errorMessage
+    }
+
+    if ('data' in error) {
+        //@ts-ignore
+        errObj.data = error.data;
+    }
+
+    return res.status(status).send(errObj);
 }

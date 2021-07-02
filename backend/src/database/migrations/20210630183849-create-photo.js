@@ -29,11 +29,11 @@ module.exports = {
           type: Sequelize.INTEGER,
           primaryKey: true,
         },
-        photoId: {
+        postId: {
           type: Sequelize.INTEGER,
           primaryKey: true
         }
-      },
+      }
     )
 
     await queryInterface.addColumn('users', 'profileId', {

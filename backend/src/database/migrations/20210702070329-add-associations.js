@@ -26,6 +26,18 @@ module.exports = {
           onDelete: 'CASCADE'
         })
       })
+      .then(() => {
+        return queryInterface.addColumn('users', 'coverId', {
+          type: Sequelize.INTEGER,
+          allowNull: true,
+          references: {
+            model: 'covers',
+            key: 'id',
+          },
+          onDelete: 'SET NULL',
+          onUpdate: 'CASCADE'
+        })
+      })
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -40,6 +52,9 @@ module.exports = {
           'posts',
           'itemId'
         )
+      })
+      .then(() => {
+        return queryInterface.removeColumn('users', 'coverId');
       })
   }
 };

@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Photo.belongsToMany(models.user, {through: 'user_photo'});
+      Photo.belongsToMany(models.post, {through: 'user_photo'});
 
     }
   };

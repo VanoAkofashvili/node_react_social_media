@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       Item.belongsTo(models.user);
       Item.hasOne(models.post, {foreignKey: 'itemId'});
       Item.belongsToMany(models.user, {through: 'liked_items'});
-      // Item.belongsToMany(models.user, {through: 'items_comments'});
+      // Item.belongsToMany(models.users, {through: 'items_comments'});
     }
   };
   Item.init({

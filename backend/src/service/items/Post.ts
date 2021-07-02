@@ -6,9 +6,7 @@ import {IItem, Item} from "../../public/models/items/Item";
 import {ExtendBaseResponse} from "../../public/responses/BaseResponse";
 import {PostsResponse} from "../../public/responses/items/PostResponses";
 import {Photo} from "../../public/models/photo/Photo";
-import {create} from "domain";
-import {photoRepo} from "../../repository/photos/Photo";
-import {photoService} from "../Photo/Photo";
+import {photoService} from "../photos/Photo";
 
 class PostService {
     public async getPostById(postId: number) {

@@ -15,11 +15,15 @@ module.exports = (sequelize, DataTypes) => {
       User.belongsToMany(models.item, {through: 'liked_items'})
       // User.belongsToMany(models.item, {through: 'items_comments'});
 
-      User.belongsToMany(models.photo, {through: 'user_photo'});
       User.belongsTo(models.photo, {
         foreignKey: 'profileId',
         targetKey: 'id'
       });
+
+      User.belongsTo(models.cover, {
+        foreignKey: 'coverId',
+        targetKey: 'id'
+      })
     }
   };
   User.init({

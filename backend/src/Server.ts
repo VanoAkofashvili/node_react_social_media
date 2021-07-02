@@ -1,19 +1,22 @@
-import express, {Application, NextFunction} from "express";
+import express, {Application} from "express";
 import morgan from "morgan";
 import cors from "cors";
+import helmet from "helmet";
 import BaseRouter from "./routes";
+import AuthRouter from "./routes/auth/Auth";
 import {errorHandler} from "./middleware/error";
-import {BAD_REQUEST} from "http-status-codes";
+import {StatusCodes} from "http-status-codes";
+const {BAD_REQUEST} = StatusCodes;
 
 
 const app: Application = express();
 
 app.use(cors());
 app.use(morgan('tiny'));
-// app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('image'))
+app.use(helmet());
 app.use(express.json());
 
-
+app.use('/auth', AuthRouter);
 app.use('/api', BaseRouter);
 
 app.use(errorHandler);

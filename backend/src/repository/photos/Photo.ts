@@ -6,8 +6,7 @@ const models = require('../../database/models');
 class PhotoRepository {
     public async addPostPhotos(postInstance: any, images: IPhoto) {
         try {
-            console.log(Object.keys(postInstance.__proto__), 'POST INSTANCE');
-            const photos = await postInstance.createPhoto(images);
+            const photos = await postInstance.addPhotos(images);
             console.log(photos, 'ADDED PHOTOS');
             return {
                 code: OK,
