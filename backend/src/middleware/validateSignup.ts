@@ -10,7 +10,6 @@ export default [
         .custom((value, {req}) => {
             return userService.findUserByEmail(value).then(({data: user}) => {
                 // if user exists reject
-                console.log(user, 'user');
                 if (user) {
                     return Promise.reject('E-Mail address already exists');
                 }

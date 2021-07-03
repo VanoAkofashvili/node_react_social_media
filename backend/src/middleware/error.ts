@@ -6,12 +6,10 @@ const {INTERNAL_SERVER_ERROR} = StatusCodes;
 export const errorHandler = (error: Error, req: Request, res: Response, next: NextFunction) => {
     const status = INTERNAL_SERVER_ERROR;
     const errorMessage = error.message;
-
     const errObj = {
         success: false,
-        message: errorMessage
+        message: errorMessage,
     }
-
     if ('data' in error) {
         //@ts-ignore
         errObj.data = error.data;

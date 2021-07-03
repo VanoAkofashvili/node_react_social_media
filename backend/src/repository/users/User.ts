@@ -11,7 +11,6 @@ class UserRepository {
     public async createNewUser(userObj: User) {
         try {
             const createdUser = await models.user.create(userObj);
-            console.log('createdUser', createdUser);
 
             return Promise.resolve({
                 code: CREATED,
