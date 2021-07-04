@@ -22,7 +22,7 @@ import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutline
 
 import postOwnerAvatar from "../../../assets/avatar/2.jpeg";
 import profileAvatar from "../../../assets/avatar/1.jpg";
-import { MainBackground } from "../../../assets/const/colors";
+import { MainBackground } from "../../../const/colors";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface PostProps {
-  post: { id: string; text: string };
+  post: { id: string; content: string };
 }
 
 const Post: React.FC<PostProps> = (props) => {
@@ -67,7 +67,7 @@ const Post: React.FC<PostProps> = (props) => {
             <MoreHorizOutlinedIcon />
           </IconButton>
         </ListItem>
-        <ListItem>{props.post.text}</ListItem>
+        <ListItem>{props.post.content}</ListItem>
         <Divider />
         <ListItem className={classes.actionsToPost}>
           <ListItemIcon>

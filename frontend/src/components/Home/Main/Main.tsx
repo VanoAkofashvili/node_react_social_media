@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import {
   List,
@@ -11,13 +11,13 @@ import {
   IconButton,
   Box,
 } from "@material-ui/core";
-import { MainBackground } from "../../../assets/const/colors";
-import { contentWrapperWidth } from "../../../assets/const/wrappers";
+import { MainBackground } from "../../../const/colors";
+import { contentWrapperWidth } from "../../../const/wrappers";
 import NewPostModal from "../../Modals/NewPost";
 import profileAvatar from "../../../assets/avatar/1.jpg";
 import MovieCreationOutlinedIcon from "@material-ui/icons/MovieCreationOutlined";
 import PanoramaOutlinedIcon from "@material-ui/icons/PanoramaOutlined";
-import Post from "../Posts";
+import Post from "../Post";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,37 +53,41 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Main: React.FC = () => {
   const classes = useStyles();
-
-  const posts = [
-    {
-      id: "1",
-      text: "This will be the first post"
-    },
-    {
-      id: "2",
-      text: "This is the second post"
-    },
-    {
-      id: "3",
-      text: "This is third post"
-    },
-    {
-      id: "4",
-      text: "This will be the first post"
-    },
-    {
-      id: "5",
-      text: "This is the second post"
-    },
-    {
-      id: "6",
-      text: "This is third post"
-    }
-  ]
+  const [posts, setPosts] = useState<any[]>([])
+  useEffect(() => {
+    fetch('http://localhost:3002/api/posts/all').then((data) => data.json()).then(data => setPosts(data.posts))
+  },[])
+  // const posts = [
+  // {
+  //     id: "1",
+  //     text: "This will be the first post"
+  //   },
+  //   {
+  //     id: "2",
+  //     text: "This is the second post"
+  //   },
+  //   {
+  //     id: "3",
+  //     text: "This is third post"
+  //   },
+  //   {
+  //     id: "4",
+  //     text: "This will be the first post"
+  //   },
+  //   {
+  //     id: "5",
+  //     text: "This is the second post"
+  //   },
+  //   {
+  //     id: "6",
+  //     text: "This is third post"
+  //   }
+  // ]
 
   return (
     <main className={classes.root}>
       <Toolbar />
+      {/* create post */}
       <List
         component="ul"
         subheader={
@@ -115,6 +119,7 @@ const Main: React.FC = () => {
           </div>
         </ListItem>
       </List>
+      {/* created posts */}
       {posts.map(post => (
         <Post post={post} key={post.id}/>
       ))}
