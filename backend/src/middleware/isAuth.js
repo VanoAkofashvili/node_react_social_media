@@ -22,4 +22,5 @@ module.exports = function (req, res, next) {
     throw new ExtendedError(UNAUTHORIZED, 'Not authenticated');
   }
   req.userId = decodedToken.id;
+  next();
 }
