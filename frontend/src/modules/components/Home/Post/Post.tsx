@@ -20,9 +20,9 @@ import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutline
 import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 
-import postOwnerAvatar from "../../../assets/avatar/2.jpeg";
-import profileAvatar from "../../../assets/avatar/1.jpg";
-import { MainBackground } from "../../../const/colors";
+import postOwnerAvatar from "../../../../assets/avatar/2.jpeg";
+import profileAvatar from "../../../../assets/avatar/1.jpg";
+import { MainBackground } from "../../../../const/colors";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

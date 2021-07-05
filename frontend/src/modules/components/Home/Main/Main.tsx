@@ -11,10 +11,10 @@ import {
   IconButton,
   Box,
 } from "@material-ui/core";
-import { MainBackground } from "../../../const/colors";
-import { contentWrapperWidth } from "../../../const/wrappers";
+import { MainBackground } from "../../../../const/colors";
+import { contentWrapperWidth } from "../../../../const/wrappers";
 import NewPostModal from "../../Modals/NewPost";
-import profileAvatar from "../../../assets/avatar/1.jpg";
+import profileAvatar from "../../../../assets/avatar/1.jpg";
 import MovieCreationOutlinedIcon from "@material-ui/icons/MovieCreationOutlined";
 import PanoramaOutlinedIcon from "@material-ui/icons/PanoramaOutlined";
 import Post from "../Post";

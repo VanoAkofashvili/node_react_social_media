@@ -1,11 +1,17 @@
 import React from "react";
-import { BrowserRouter as Router, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Redirect,
+  Route,
+} from "react-router-dom";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Home from "./routes/Home";
 import { MainBackground } from "./const/colors";
 
-import PrivateRoute from './components/HOC/PrivateRoute'
+import PrivateRoute from "./modules/components/HOC/PrivateRoute";
+import { Login, SignUp } from "./routes";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,8 +30,12 @@ const App: React.FC = () => {
       <div className={classes.root}>
         <CssBaseline />
         <Switch>
-          <PrivateRoute component={Home} path="/home" exact/>
-          {/* <PrivateRoute component={L} */}
+          <Route path="/" exact>
+            <Redirect to="/home" />
+          </Route>
+          <PrivateRoute component={Home} path="/home" exact />
+          <PrivateRoute component={Login} path="/login" />
+          <PrivateRoute component={SignUp} path="/signUp" />
         </Switch>
       </div>
     </Router>
