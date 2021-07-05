@@ -10,11 +10,9 @@ const fileFilter = (req, file, cb) => {
     }
 }
 const fileStorage = multer.diskStorage({
-    // @ts-ignore
     destination: (req, file, cb) => {
         cb(null, 'images');
     },
-    // @ts-ignore
     filename: (req, file, cb) => {
         const d = new Date();
         const dateFileName = `${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}`;

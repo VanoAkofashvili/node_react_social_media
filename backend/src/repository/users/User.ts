@@ -10,12 +10,12 @@ const {OK, INTERNAL_SERVER_ERROR, CREATED} = StatusCodes;
 class UserRepository {
     public async createNewUser(userObj: User) {
         try {
-            const createdUser = await models.user.create(userObj);
-
+            let createdUser = await models.user.create(userObj);
+            createdUser = createdUser.get({plain: true});
             return Promise.resolve({
                 code: CREATED,
                 success: true,
-                data: createdUser
+                user: createdUser
             })
 
         } catch (err) {
@@ -46,6 +46,7 @@ class UserRepository {
     }
 
     public async findUserByEmail(email: string): Promise<ExtendBaseResponse> {
+        console.log('findUserByEmail');
         try {
             const user = await models.user.findOne({
                 where: {

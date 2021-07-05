@@ -10,8 +10,7 @@ import {Photo} from "../../public/models/photo/Photo";
 import {postService} from "../../service/items/Post";
 import {checkFileType} from "../../middleware/fileType";
 import multerPhoto from "../../shared/MulterPhoto";
-import {userService} from "../../service/users/User";
-
+const isAuth = require('../../middleware/isAuth');
 const router = Router();
 
 const getAllPosts = async (req: Request, res: Response) => {
@@ -61,7 +60,7 @@ const createNewPost = async (req: Request, res: Response) => {
     res.status(response.code).json(response);
 }
 
-router.get('/all', asyncHandler(getAllPosts));
+router.get('/all', isAuth, asyncHandler(getAllPosts));
 router.get('/:id', asyncHandler(getSinglePost));
 router.post('/add-new-post', multerPhoto().any(), checkFileType, asyncHandler(createNewPost));
 export default router;

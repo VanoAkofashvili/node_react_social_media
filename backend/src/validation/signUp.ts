@@ -1,9 +1,7 @@
 import {body} from "express-validator";
 import {userService} from "../service/users/User";
-import {NextFunction, Request} from "express";
 
-
-export default [
+export const validateSignUp = [
     body('email')
         .isEmail()
         .withMessage('Please enter a valid email.')
@@ -24,4 +22,3 @@ export default [
         .not()
         .isEmpty(),
 ]
-

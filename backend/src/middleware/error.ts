@@ -1,16 +1,17 @@
 import {NextFunction, Request, Response} from "express";
 import {StatusCodes} from "http-status-codes";
+import {ExtendedError} from "../public/models/ExtendedError";
 
 const {INTERNAL_SERVER_ERROR} = StatusCodes;
 
-export const errorHandler = (error: Error, req: Request, res: Response, next: NextFunction) => {
-    const status = INTERNAL_SERVER_ERROR;
+export const errorHandler = (error: ExtendedError, req: Request, res: Response, next: NextFunction) => {
+    const status = error.statusCode || INTERNAL_SERVER_ERROR;
     const errorMessage = error.message;
     const errObj = {
         success: false,
         message: errorMessage,
     }
-    if ('data' in error) {
+    if (error.data) {
         //@ts-ignore
         errObj.data = error.data;
     }
