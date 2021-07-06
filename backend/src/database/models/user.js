@@ -11,9 +11,19 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(models.Item);
-      User.belongsToMany(models.Item, {through: 'liked_items'})
-      User.belongsToMany(models.Item, {through: 'items_comments'});
+      User.hasMany(models.item);
+      User.belongsToMany(models.item, {through: 'liked_items'})
+      // User.belongsToMany(models.item, {through: 'items_comments'});
+
+      User.belongsTo(models.photo, {
+        foreignKey: 'profileId',
+        targetKey: 'id'
+      });
+
+      User.belongsTo(models.cover, {
+        foreignKey: 'coverId',
+        targetKey: 'id'
+      })
     }
   };
   User.init({
@@ -21,36 +31,48 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.INTEGER
+      type: DataTypes.INTEGER
     },
     firstName: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING(50),
       allowNull: false,
     },
     lastName: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING(50),
       allowNull: false,
     },
     email: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING(50),
       allowNull: false,
       unique: true
     },
+    age: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    dateOfBirth: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    sex: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     password: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     createdAt: {
       allowNull: false,
-      type: Sequelize.DATE
+      type: DataTypes.DATE
     },
     updatedAt: {
       allowNull: false,
-      type: Sequelize.DATE
+      type: DataTypes.DATE
     }
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'user',
   });
   return User;
 };

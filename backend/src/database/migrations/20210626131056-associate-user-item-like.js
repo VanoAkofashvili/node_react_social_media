@@ -10,10 +10,6 @@ module.exports = {
           allowNull: false,
           type: Sequelize.DATE,
         },
-        updatedAt: {
-          allowNull: false,
-          type: Sequelize.DATE
-        },
         userId: {
           type: Sequelize.INTEGER,
           primaryKey: true
@@ -22,7 +18,7 @@ module.exports = {
           type: Sequelize.INTEGER,
           primaryKey: true
         }
-      }
+      },
     )
   },
 

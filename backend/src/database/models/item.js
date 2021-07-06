@@ -11,11 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // Item.belongsTo(models.user);
-      Item.hasOne(models.Post);
-      Item.hasOne(models.Photo);
-      Item.belongsToMany(models.User, {through: 'liked_items'});
-      Item.belongsToMany(models.User, {through: 'items_comments'});
+      Item.belongsTo(models.user);
+      Item.hasOne(models.post, {foreignKey: 'itemId'});
+      Item.belongsToMany(models.user, {through: 'liked_items'});
+      // Item.belongsToMany(models.users, {through: 'items_comments'});
     }
   };
   Item.init({
@@ -23,23 +22,23 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.INTEGER
+      type: DataTypes.INTEGER
     },
     itemType: {
       allowNull: false,
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
     },
     createdAt: {
       allowNull: false,
-      type: Sequelize.DATE
+      type: DataTypes.DATE
     },
     updatedAt: {
       allowNull: false,
-      type: Sequelize.DATE
+      type: DataTypes.DATE
     }
   }, {
     sequelize,
-    modelName: 'Item',
+    modelName: 'item',
   });
   return Item;
 };

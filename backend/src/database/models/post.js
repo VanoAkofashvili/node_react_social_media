@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Post.belongsTo(models.item, {foreignKey: 'itemId'});
+      Post.belongsToMany(models.photo, {through: 'user_photo'});
     }
   };
   Post.init({
@@ -18,19 +20,16 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.INTEGER
+      type: DataTypes.INTEGER
     },
-    createdAt: {
+    content: {
       allowNull: false,
-      type: Sequelize.DATE
-    },
-    updatedAt: {
-      allowNull: false,
-      type: Sequelize.DATE
+      type: DataTypes.TEXT
     }
   }, {
     sequelize,
-    modelName: 'Post',
+    modelName: 'post',
+    timestamps: false,
   });
   return Post;
 };
