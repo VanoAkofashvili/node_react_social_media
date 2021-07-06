@@ -31,7 +31,7 @@ class AuthService {
         const token = jwt.sign({
             user: forToken
         }, process.env.JWT_SECRET, {
-            expiresIn: '20h'
+            expiresIn: '3 days'
         })
 
         return Promise.resolve({

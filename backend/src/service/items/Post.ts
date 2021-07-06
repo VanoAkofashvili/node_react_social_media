@@ -4,7 +4,6 @@ import {StatusCodes} from "http-status-codes";
 import {WithItemResponse} from "../../public/responses/BaseResponse";
 import {PostsResponse} from "../../public/responses/items/PostResponses";
 import {userService} from "../users/User";
-import {create} from "domain";
 import {photoRepo} from "../../repository/photos/Photo";
 
 const {INTERNAL_SERVER_ERROR, CREATED} = StatusCodes;

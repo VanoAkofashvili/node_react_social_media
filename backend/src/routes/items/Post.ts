@@ -1,6 +1,6 @@
 import {Router, Request, Response} from "express";
 import asyncHandler from "express-async-handler";
-import {BAD_REQUEST} from "http-status-codes";
+import {StatusCodes} from "http-status-codes";
 import {plainToClass} from "class-transformer";
 
 const check = require('check-types');
@@ -14,6 +14,8 @@ import {Post} from "../../public/models/items/Post";
 
 const isAuth = require('../../middleware/isAuth');
 const router = Router();
+
+const {BAD_REQUEST} = StatusCodes;
 
 const getAllPosts = async (req: Request, res: Response) => {
     const response = await postService.getAllPosts();
@@ -59,13 +61,9 @@ const createNewPost = async (req: RequestUser, res: Response) => {
 
 
     return res.status(response.code).json(response);
-
-    // const images = plainToClass(Photo, req.files as Photo[], {excludeExtraneousValues: true});
-    // const response = await postService.createNewPost(newPost, images);
-    // res.status(response.code).json(response);
 }
 
-router.get('/all', asyncHandler(getAllPosts));
+router.get('/all', isAuth, asyncHandler(getAllPosts));
 router.get('/:id', asyncHandler(getSinglePost));
 router.post('/add-new-post', isAuth, multerPhoto().any(), checkFileType, validateNewPost, checkValidationErrors, asyncHandler(createNewPost));
 export default router;
