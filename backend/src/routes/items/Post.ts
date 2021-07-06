@@ -11,6 +11,7 @@ import {validateNewPost} from "../../validation";
 import checkValidationErrors from "../../middleware/checkValidationErrors";
 import {RequestUser} from "../../public/models/user/User";
 import {Post} from "../../public/models/items/Post";
+import {param} from "express-validator";
 
 const isAuth = require('../../middleware/isAuth');
 const router = Router();
@@ -25,7 +26,7 @@ const getAllPosts = async (req: Request, res: Response) => {
 const getSinglePost = async (req: Request, res: Response) => {
     // Get the post id
     const {id} = req.params;
-
+    console.log(id, 'id');
     if (check.undefined(id) || !check.integer(id)) {
         return res.status(BAD_REQUEST).json({
             code: BAD_REQUEST,
@@ -33,10 +34,9 @@ const getSinglePost = async (req: Request, res: Response) => {
             message: 'bad params'
         })
     }
-    const response = await postService.getPostById(Number(id));
-    res.send({
-        msg: true
-    })
+    const response = await postService.getPostById(+id);
+    console.log(response);
+    res.status(response.code).json(response)
 }
 
 const createNewPost = async (req: RequestUser, res: Response) => {
@@ -63,6 +63,17 @@ const createNewPost = async (req: RequestUser, res: Response) => {
 }
 
 router.get('/all', isAuth, asyncHandler(getAllPosts));
-router.get('/:id', asyncHandler(getSinglePost));
+router.get('/:id', isAuth, [
+    param('id')
+        .exists()
+        .toInt()
+        .custom((value, {req}) => {
+            if (!value) {
+                return Promise.reject('id must be a number')
+            }
+            return true;
+        }),
+    checkValidationErrors
+], asyncHandler(getSinglePost));
 router.post('/add-new-post', isAuth, multerPhoto().any(), checkFileType, validateNewPost, checkValidationErrors, asyncHandler(createNewPost));
 export default router;
