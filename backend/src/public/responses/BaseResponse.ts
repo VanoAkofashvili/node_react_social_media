@@ -8,6 +8,10 @@ export interface ExtendBaseResponse extends BaseResponse {
     data?: any;
 }
 
+export interface WithItemResponse {
+    [item: string]: any;
+}
+
 // export interface ErrorResponse {
 //     statusCode?: number,
 //     message?: string,

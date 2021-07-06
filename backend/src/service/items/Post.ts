@@ -1,37 +1,46 @@
 import {postRepo} from "../../repository/items/Post";
 import {Post} from "../../public/models/items/Post";
-import {CREATED, INTERNAL_SERVER_ERROR, OK} from "http-status-codes";
-import {itemService} from "./Item";
-import {IItem, Item} from "../../public/models/items/Item";
-import {ExtendBaseResponse} from "../../public/responses/BaseResponse";
+import {StatusCodes} from "http-status-codes";
+import {WithItemResponse} from "../../public/responses/BaseResponse";
 import {PostsResponse} from "../../public/responses/items/PostResponses";
-import {Photo} from "../../public/models/photo/Photo";
-import {photoService} from "../photos/Photo";
+import {userService} from "../users/User";
+import {create} from "domain";
+import {photoRepo} from "../../repository/photos/Photo";
+
+const {INTERNAL_SERVER_ERROR, CREATED} = StatusCodes;
 
 class PostService {
     public async getPostById(postId: number) {
         return await postRepo.getPostById(postId);
     }
 
-    public async createNewPost(post: Post, images: Photo[]): Promise<ExtendBaseResponse> {
-        // Corresponding item
-        const c_item: Item = {
-            itemType: post.itemType,
-            userId: post.userId
-        }
+    public async createNewPost(post: Post): Promise<WithItemResponse> {
         try {
-            const {item} = await itemService.createNewItem(c_item); // Corresponding post item
-            const {post: createdPost} = await postRepo.createNewPost(post, item);
-            await photoService.addPostPhotos(createdPost, images);
-            return {
-                code: OK,
+            const {user} = await userService.findUserById(post.userId);
+            const item = await user.createItem({
+                itemType: post.itemType
+            })
+            const createdPost = await item.createPost({
+                content: post.content
+            })
+            // create photos
+            const photos = await photoRepo.createNewPhotos(post.images);
+            await createdPost.addPhotos(photos);
+
+            const createdPostWithAllFields = await this.getPostById(createdPost.id);
+
+            return Promise.resolve({
+                code: CREATED,
                 success: true,
-                data: []
-            }
+                post: createdPostWithAllFields.post,
+            })
+
         } catch (err) {
+            console.log(err);
             return Promise.resolve({
                 code: INTERNAL_SERVER_ERROR,
-                success: false
+                success: false,
+                message: err.message
             })
         }
     }

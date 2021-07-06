@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   UserPhoto.init({
-    userId: {
+    photoId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
     },

@@ -1,15 +1,17 @@
-import {Router, Request, Response, NextFunction} from "express";
+import {Router, Request, Response} from "express";
 import asyncHandler from "express-async-handler";
 import {BAD_REQUEST} from "http-status-codes";
 import {plainToClass} from "class-transformer";
-import {ItemTypes} from "../../public/models/items/ItemTypes";
 
 const check = require('check-types');
-import {Post} from "../../public/models/items/Post";
-import {Photo} from "../../public/models/photo/Photo";
 import {postService} from "../../service/items/Post";
 import {checkFileType} from "../../middleware/fileType";
 import multerPhoto from "../../shared/MulterPhoto";
+import {validateNewPost} from "../../validation";
+import checkValidationErrors from "../../middleware/checkValidationErrors";
+import {RequestUser} from "../../public/models/user/User";
+import {Post} from "../../public/models/items/Post";
+
 const isAuth = require('../../middleware/isAuth');
 const router = Router();
 
@@ -36,31 +38,34 @@ const getSinglePost = async (req: Request, res: Response) => {
     })
 }
 
-const createNewPost = async (req: Request, res: Response) => {
-    const body = req.body;
-    const {post, userId} = body;
+const createNewPost = async (req: RequestUser, res: Response) => {
+    const {content} = req.body;
+    const userId = req.userId;
+    console.log(req.files, 'FILES');
     // @ts-ignore
-    if (check.undefined(post) || check.undefined(userId)) {
-        return res.status(BAD_REQUEST).json({
-            code: BAD_REQUEST,
-            success: false,
-            message: 'bad params'
-        })
-    }
-    // const imageUrl = image?.path;
-    const imageUrl = 'imageUrl';
-    const newPost = plainToClass(Post, {
-        ...post,
-        userId,
-        imageUrl: imageUrl,
-        itemType: ItemTypes.Post
-    } as Post, {excludeExtraneousValues: true});
-    const images = plainToClass(Photo, req.files as Photo[], {excludeExtraneousValues: true});
-    const response = await postService.createNewPost(newPost, images);
-    res.status(response.code).json(response);
+    const imgUrls = req.files.map(img => {
+        return {
+            path: img.path
+        }
+    });
+
+    const post = plainToClass(Post, {
+        content: content,
+        userId: userId,
+        images: imgUrls,
+    }, {excludeExtraneousValues: true});
+
+    const response = await postService.createNewPost(post);
+
+
+    return res.status(response.code).json(response);
+
+    // const images = plainToClass(Photo, req.files as Photo[], {excludeExtraneousValues: true});
+    // const response = await postService.createNewPost(newPost, images);
+    // res.status(response.code).json(response);
 }
 
-router.get('/all', isAuth, asyncHandler(getAllPosts));
+router.get('/all', asyncHandler(getAllPosts));
 router.get('/:id', asyncHandler(getSinglePost));
-router.post('/add-new-post', multerPhoto().any(), checkFileType, asyncHandler(createNewPost));
+router.post('/add-new-post', isAuth, multerPhoto().any(), checkFileType, validateNewPost, checkValidationErrors, asyncHandler(createNewPost));
 export default router;

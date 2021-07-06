@@ -1,8 +1,10 @@
 import {Expose} from "class-transformer";
+import {Request} from "express";
 
-// export interface IPhoto {
-//     [index: number]: { path: string; }
-// }
+export interface RequestUser extends Request {
+    userId?: number
+}
+
 
 export class User {
     @Expose() firstName: string;

@@ -23,9 +23,9 @@ module.exports = {
     });
 
     await queryInterface.createTable(
-      'user_photo',
+      'user_photos',
       {
-        userId: {
+        photoId: {
           type: Sequelize.INTEGER,
           primaryKey: true,
         },

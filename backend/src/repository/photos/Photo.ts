@@ -1,26 +1,25 @@
 import {IPhoto, Photo} from "../../public/models/photo/Photo";
-import {INTERNAL_SERVER_ERROR, OK} from "http-status-codes";
+import {StatusCodes} from "http-status-codes";
+
+const {INTERNAL_SERVER_ERROR} = StatusCodes;
 
 const models = require('../../database/models');
 
 class PhotoRepository {
-    public async addPostPhotos(postInstance: any, images: IPhoto) {
+    public async createNewPhotos(images: string[]) {
         try {
-            const photos = await postInstance.addPhotos(images);
-            console.log(photos, 'ADDED PHOTOS');
-            return {
-                code: OK,
-                success: true,
-                data: []
-            }
+            return await models.photo.bulkCreate(images);
+
         } catch (err) {
-            console.log(err);
+            console.log('createNewPhotos ERR', err);
             return Promise.resolve({
                 code: INTERNAL_SERVER_ERROR,
-                success: false
+                success: false,
+                message: err.message
             })
         }
     }
+
 }
 
 export const photoRepo = new PhotoRepository();

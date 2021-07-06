@@ -15,7 +15,7 @@ module.exports = {
         firstName: 'vaniko',
         lastName: 'akopashvili',
         email: 'vanikoakofa@gmail.com',
-        password: 'vano1234',
+        password: '$2y$12$fBQ3VlLzuWmXL8zC1iFpb.0x340bGqKLn9YWh4rITAIAm3PtEXgYa',
         age: 19,
         dateOfBirth: new Date('11-11-2001'),
         sex: 1,

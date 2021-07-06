@@ -1,4 +1,4 @@
-import {ExtendBaseResponse} from "../../public/responses/BaseResponse";
+import {WithItemResponse} from "../../public/responses/BaseResponse";
 import {userRepo} from "../../repository/users/User";
 import {User} from "../../public/models/user/User";
 
@@ -8,7 +8,7 @@ class UserService {
         return await userRepo.createNewUser(userObj);
     }
 
-    public async findUserById(userId: number): Promise<ExtendBaseResponse> {
+    public async findUserById(userId: number): Promise<WithItemResponse> {
         return await userRepo.findUserById(userId);
     }
 

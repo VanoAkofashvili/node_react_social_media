@@ -1,5 +1,5 @@
 import {StatusCodes} from "http-status-codes";
-import {ExtendBaseResponse} from "../../public/responses/BaseResponse";
+import {ExtendBaseResponse, WithItemResponse} from "../../public/responses/BaseResponse";
 import {User} from "../../public/models/user/User";
 
 const models = require('../../database/models');
@@ -28,13 +28,11 @@ class UserRepository {
         }
     }
 
-    public async findUserById(userId: number) {
+    public async findUserById(userId: number): Promise<WithItemResponse> {
         try {
             const user = await models.user.findByPk(userId);
             return {
-                code: OK,
-                success: true,
-                data: user
+                user: user
             }
         } catch (err) {
             console.log(err);

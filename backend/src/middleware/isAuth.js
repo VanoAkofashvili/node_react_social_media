@@ -6,9 +6,7 @@ const {UNAUTHORIZED} = StatusCodes;
 module.exports = function (req, res, next) {
   const authHeader = req.get('Authorization');
   if (!authHeader) {
-    console.log('aq aris');
     throw new ExtendedError(UNAUTHORIZED, 'Not authenticated.');
-
   }
   const token = authHeader.split(' ')[1];
   let decodedToken;
@@ -21,6 +19,7 @@ module.exports = function (req, res, next) {
   if (!decodedToken) {
     throw new ExtendedError(UNAUTHORIZED, 'Not authenticated');
   }
-  req.userId = decodedToken.id;
+  console.log(decodedToken.user.id, 'AIDI');
+  req.userId = Number(decodedToken.user.id);
   next();
 }

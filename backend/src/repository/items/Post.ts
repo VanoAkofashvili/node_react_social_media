@@ -1,8 +1,8 @@
-import statusCodes, {INTERNAL_SERVER_ERROR, OK} from "http-status-codes";
+import {StatusCodes} from "http-status-codes";
 import {Post} from "../../public/models/items/Post";
 import {PostResponse, PostsResponse} from "../../public/responses/items/PostResponses";
-import {Item} from "../../public/models/items/Item";
-import {create} from "domain";
+
+const {INTERNAL_SERVER_ERROR, OK} = StatusCodes;
 
 const models = require('../../database/models');
 
@@ -16,6 +16,12 @@ class PostRepository {
                         model: models.item,
                         attributes: []
                     },
+                    {
+                        model: models.photo,
+                        through: {
+                            attributes: []
+                        }
+                    }
                 ],
                 attributes: [
                     ['itemId', 'id'],
@@ -25,10 +31,10 @@ class PostRepository {
                     [models.Sequelize.col('item.userId'), 'userId']
                 ]
             });
-            console.log(JSON.stringify(post, null, 4));
             return Promise.resolve({
                 code: OK,
                 success: true,
+                post: post
             })
         } catch (err) {
             console.log(err);
@@ -48,9 +54,7 @@ class PostRepository {
             // });
 
             // const created_post = await models.item.createPost(post);
-            console.log(fromItem, 'item');
             const created_post = await fromItem.createPost(post);
-            console.log(created_post, 'created_post in post repo');
             return Promise.resolve({
                 code: OK,
                 success: true,

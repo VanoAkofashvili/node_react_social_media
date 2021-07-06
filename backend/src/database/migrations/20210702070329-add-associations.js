@@ -5,6 +5,7 @@ module.exports = {
     // item(posts, photos) belongsTo User
     return queryInterface.addColumn("items", "userId", {
       type: Sequelize.INTEGER,
+      allowNull: false,
       references: {
         model: 'users',
         key: 'id',
