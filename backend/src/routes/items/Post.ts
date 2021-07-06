@@ -33,7 +33,6 @@ const getSinglePost = async (req: Request, res: Response) => {
             message: 'bad params'
         })
     }
-
     const response = await postService.getPostById(Number(id));
     res.send({
         msg: true
