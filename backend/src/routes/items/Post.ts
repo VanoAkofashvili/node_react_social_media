@@ -1,4 +1,4 @@
-import {Router, Request, Response} from "express";
+import {Router, Request, Response, NextFunction} from "express";
 import asyncHandler from "express-async-handler";
 import {StatusCodes} from "http-status-codes";
 import {plainToClass} from "class-transformer";
@@ -62,6 +62,13 @@ const createNewPost = async (req: RequestUser, res: Response) => {
     return res.status(response.code).json(response);
 }
 
+const deletePost = async (req: RequestUser, res: Response, next: NextFunction) => {
+    const postId = req.params.postId;
+    const userId = req.userId!;
+    const response = await postService.deletePostById(+postId, +userId);
+    return res.status(response.code).json(response);
+}
+
 router.get('/all', isAuth, asyncHandler(getAllPosts));
 router.get('/:id', isAuth, [
     param('id')
@@ -76,4 +83,5 @@ router.get('/:id', isAuth, [
     checkValidationErrors
 ], asyncHandler(getSinglePost));
 router.post('/add-new-post', isAuth, multerPhoto().any(), checkFileType, validateNewPost, checkValidationErrors, asyncHandler(createNewPost));
+router.delete('/del/:postId', isAuth, asyncHandler(deletePost));
 export default router;

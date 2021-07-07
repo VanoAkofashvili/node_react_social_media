@@ -104,6 +104,32 @@ class PostRepository {
             })
         }
     }
+
+    public async deletePostById(postId: number) {
+        try {
+            const post = await models.post.findByPk(postId);
+            const postPhotos = await post.getPhotos();
+            await post.removePhotos(postPhotos);
+            const postItem = await post.getItem();
+            await postItem.destroy();
+            await post.destroy();
+            // console.log(post, 'POST');
+            // console.log(postPhotos, 'POST PHOTOS');
+            // console.log(removePhotos, 'REMOVE PHOTOS');
+            return Promise.resolve({
+                code: OK,
+                success: true,
+                message: 'Post deleted'
+            })
+        } catch (err) {
+            console.log('deletePostById ERR', err.message);
+            return Promise.resolve({
+                code: INTERNAL_SERVER_ERROR,
+                success: false,
+                message: err.message
+            })
+        }
+    }
 }
 
 export const postRepo = new PostRepository();

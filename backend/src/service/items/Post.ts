@@ -6,7 +6,7 @@ import {PostsResponse} from "../../public/responses/items/PostResponses";
 import {userService} from "../users/User";
 import {photoRepo} from "../../repository/photos/Photo";
 
-const {INTERNAL_SERVER_ERROR, CREATED} = StatusCodes;
+const {INTERNAL_SERVER_ERROR, CREATED, FORBIDDEN, NOT_FOUND} = StatusCodes;
 
 class PostService {
     public async getPostById(postId: number) {
@@ -46,6 +46,27 @@ class PostService {
 
     public async getAllPosts(where = {}): Promise<PostsResponse> {
         return await postRepo.getAllPosts(where);
+    }
+
+    public async deletePostById(postId: number, userId: number) {
+        const {user} = await userService.findUserById(userId);
+        const postResponse = await this.getPostById(postId);
+        if (!postResponse.post) {
+            return Promise.resolve({
+                code: NOT_FOUND,
+                success: false,
+                message: 'Post not found'
+            })
+        }
+        const uId = JSON.parse(JSON.stringify(postResponse.post)).userId;
+        if (user.id !== uId) {
+            return Promise.resolve({
+                code: FORBIDDEN,
+                success: false,
+                message: 'Forbidden'
+            })
+        }
+        return await postRepo.deletePostById(postId);
     }
 }
 
