@@ -11,12 +11,14 @@ import {validateNewPost} from "../../validation";
 import checkValidationErrors from "../../middleware/checkValidationErrors";
 import {RequestUser} from "../../public/models/user/User";
 import {Post} from "../../public/models/items/Post";
-import {param} from "express-validator";
+import {param, body} from "express-validator";
+import clearImage from "../../shared/ClearImage";
 
 const isAuth = require('../../middleware/isAuth');
 const router = Router();
 
-const {BAD_REQUEST} = StatusCodes;
+const {BAD_REQUEST, NOT_FOUND} = StatusCodes;
+
 
 const getAllPosts = async (req: Request, res: Response) => {
     const response = await postService.getAllPosts();
@@ -46,7 +48,7 @@ const createNewPost = async (req: RequestUser, res: Response) => {
     // @ts-ignore
     const imgUrls = req.files.map(img => {
         return {
-            path: img.path
+            path: img.path.replace('\\', '/')
         }
     });
 
@@ -69,19 +71,92 @@ const deletePost = async (req: RequestUser, res: Response, next: NextFunction) =
     return res.status(response.code).json(response);
 }
 
-router.get('/all', isAuth, asyncHandler(getAllPosts));
-router.get('/:id', isAuth, [
-    param('id')
-        .exists()
-        .toInt()
-        .custom((value, {req}) => {
-            if (!value) {
-                return Promise.reject('id must be a number')
-            }
-            return true;
-        }),
-    checkValidationErrors
-], asyncHandler(getSinglePost));
-router.post('/add-new-post', isAuth, multerPhoto().any(), checkFileType, validateNewPost, checkValidationErrors, asyncHandler(createNewPost));
-router.delete('/del/:postId', isAuth, asyncHandler(deletePost));
+const editPost = async (req: RequestUser, res: Response, next: NextFunction) => {
+    const postId = +req.params.postId; // update this post
+    const userId = +req.userId!; // post belongs to
+    const content = req.body.content; // new content
+    const postImages = JSON.parse(req.body.images); // previous images
+    // console.log(postImages, 'POST IMAGES');
+    let newImages = req.files || []; // new images
+    if (newImages.length > 0) {
+        //@ts-ignore
+        newImages = req.files.map((img) => img.path.replace('\\', '/'));
+    }
+    // console.log(newImages, 'NEW IMAGES');
+
+    // find difference
+    const imgDiff = postImages.filter((img: string) => {
+        //@ts-ignore
+        return !newImages.includes(img);
+    })
+
+    // console.log(imgDiff, 'IMAGE DIFF');
+
+    // delete previous pictures which aren't present in new images
+    // imgDiff.forEach((imgPath: string) => {
+    //     clearImage(imgPath);
+    // })
+
+    const postData = plainToClass(Post, {
+        content: content,
+        userId: userId,
+        images: newImages,
+    }, {excludeExtraneousValues: true});
+
+    const response = await postService.editPost(postId, userId, postData);
+    return res.status(200).json(response);
+
+}
+
+router.get('/all',
+    isAuth,
+    asyncHandler(getAllPosts));
+
+router.get('/:id',
+    isAuth,
+    [
+        param('id')
+            .exists()
+            .toInt()
+            .custom((value, {req}) => {
+                if (!value) {
+                    return Promise.reject('id must be a number')
+                }
+                return true;
+            }),
+        checkValidationErrors
+    ], asyncHandler(getSinglePost));
+
+router.post('/add-new-post',
+    isAuth,
+    multerPhoto().any(),
+    checkFileType,
+    validateNewPost,
+    checkValidationErrors,
+    asyncHandler(createNewPost));
+
+router.delete('/:postId',
+    isAuth,
+    asyncHandler(deletePost));
+
+router.put('/:postId',
+    isAuth,
+    multerPhoto().any(),
+    checkFileType,
+    [
+        body('content')
+            .trim(),
+
+    ],
+    checkValidationErrors,
+    asyncHandler(editPost));
+
+router.post('/test/:postId', asyncHandler(async (req, res, next) => {
+    const postId = +req.params.postId;
+    await postService.removePostPhotos(postId);
+    return res.json({
+        message: 'test'
+    })
+}))
+
 export default router;

@@ -130,6 +130,62 @@ class PostRepository {
             })
         }
     }
+
+    public async editPost(postId: number, postData: Post) {
+        try {
+
+            const post = await models.post.findByPk(postId);
+            post.content = postData.content;
+            // await post.removePhotos();
+
+
+            console.log(Object.keys(post.__proto__));
+            const postPhotos = await post.getPhotos();
+            console.log(postPhotos, 'POST PHOTOS');
+            console.log('POST_RESPONSE', post);
+
+
+            const photos = postData.images.filter(img => {
+                return {
+                    path: img
+                }
+            })
+
+            // await post.setPhotos(photos);
+            // await post.save();
+
+            // const newPost = await this.getPostById(postId);
+
+            return Promise.resolve({
+                code: OK,
+                success: true,
+                post: 'post'
+            })
+        } catch (err) {
+            console.log('editPost ERR', err.message);
+            return Promise.resolve({
+                code: INTERNAL_SERVER_ERROR,
+                success: false,
+                message: err.message
+            })
+        }
+    }
+
+    public async removePostPhotos(postId: number) {
+        try {
+            const post = await models.post.findByPk(postId);
+            const postPhotos = await post.getPhotos();
+            await post.removePhotos(postPhotos);
+
+        } catch (err) {
+            console.log('removePostPhotos ERR', err.message);
+            return Promise.resolve({
+                code: INTERNAL_SERVER_ERROR,
+                success: false,
+                message: err.message
+            })
+        }
+    }
 }
 
 export const postRepo = new PostRepository();

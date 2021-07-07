@@ -70,6 +70,34 @@ class PostService {
         }
         return await postRepo.deletePostById(postId);
     }
+
+    public async editPost(postId: number, userId: number, postData: Post) {
+        // console.log(postId, 'POST ID');
+        // console.log(userId, 'USER ID');
+        // console.log(postData, 'POST DATA');
+        const postResponse = await this.getPostById(postId);
+        if (!postResponse.post) {
+            return Promise.resolve({
+                code: NOT_FOUND,
+                success: false,
+                message: 'Post not found'
+            })
+        }
+        const belongsUser = await utilService.isPostBelongsToUser(userId, postId);
+        if (!belongsUser) {
+            return Promise.resolve({
+                code: FORBIDDEN,
+                success: false,
+                message: 'Forbidden'
+            })
+        }
+        return await postRepo.editPost(postId, postData);
+        // return Promise.resolve('Resolve');
+    }
+
+    public async removePostPhotos(postId: number) {
+        return await postRepo.removePostPhotos(postId);
+    }
 }
 
 export const postService = new PostService();
