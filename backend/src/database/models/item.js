@@ -12,10 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Item.belongsTo(models.user);
-      Item.hasOne(models.post, {foreignKey: 'itemId'});
-      Item.hasOne(models.photo, {foreignKey: 'itemId'});
+      Item.hasOne(models.post, {foreignKey: 'itemId', onDelete: 'CASCADE', onUpdate: 'CASCADE'});
       Item.belongsToMany(models.user, {through: 'liked_items'});
-      Item.belongsToMany(models.user, {through: 'items_comments'});
+      // Item.belongsToMany(models.users, {through: 'items_comments'});
     }
   };
   Item.init({

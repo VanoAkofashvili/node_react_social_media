@@ -5,6 +5,7 @@ module.exports = {
     // item(posts, photos) belongsTo User
     return queryInterface.addColumn("items", "userId", {
       type: Sequelize.INTEGER,
+      allowNull: false,
       references: {
         model: 'users',
         key: 'id',
@@ -27,35 +28,17 @@ module.exports = {
         })
       })
       .then(() => {
-        // Item hasOne Photo
-        return queryInterface.addColumn('photos', 'itemId', {
-          allowNull: false,
+        return queryInterface.addColumn('users', 'coverId', {
           type: Sequelize.INTEGER,
+          allowNull: true,
           references: {
-            model: 'items',
-            key: 'id'
+            model: 'covers',
+            key: 'id',
           },
-          onUpdate: 'CASCADE',
-          onDelete: 'CASCADE'
+          onDelete: 'SET NULL',
+          onUpdate: 'CASCADE'
         })
       })
-    // .then(() => {
-    //   // User hasMany Item
-    //   return queryInterface.addColumn(
-    //     'items',
-    //     'userId',
-    //     {
-    //       type: Sequelize.INTEGER,
-    //       references: {
-    //         model: 'users',
-    //         key: 'id',
-    //       },
-    //       onDelete: 'CASCADE',
-    //       onUpdate: 'CASCADE'
-    //     }
-    //   )
-    //
-    // })
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -72,18 +55,7 @@ module.exports = {
         )
       })
       .then(() => {
-        // remove Item hasOne Photo
-        return queryInterface.removeColumn(
-          'photos',
-          'itemId'
-        )
+        return queryInterface.removeColumn('users', 'coverId');
       })
-    // .then(() => {
-    //   // remove User hasMany Item
-    //   return queryInterface.removeColumn(
-    //     'items',
-    //     'userId'
-    //   )
-    // })
   }
 };

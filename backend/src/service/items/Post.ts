@@ -1,37 +1,74 @@
 import {postRepo} from "../../repository/items/Post";
 import {Post} from "../../public/models/items/Post";
-import {CREATED, INTERNAL_SERVER_ERROR, OK} from "http-status-codes";
-import {itemService} from "./Item";
-import {IItem, Item} from "../../public/models/items/Item";
-import {ExtendBaseResponse} from "../../public/responses/BaseResponse";
+import {StatusCodes} from "http-status-codes";
+import {WithItemResponse} from "../../public/responses/BaseResponse";
 import {PostsResponse} from "../../public/responses/items/PostResponses";
+import {userService} from "../users/User";
+import {photoRepo} from "../../repository/photos/Photo";
+import {utilService} from "../utility/Utility";
+
+const {INTERNAL_SERVER_ERROR, CREATED, FORBIDDEN, NOT_FOUND} = StatusCodes;
 
 class PostService {
-    public async getSinglePost(postId: number) {
-        return await postRepo.getSinglePost(postId);
+    public async getPostById(postId: number) {
+        return await postRepo.getPostById(postId);
     }
 
-    public async createNewPost(post: Post): Promise<ExtendBaseResponse> {
-        // Corresponding item
-        const c_item: Item = {
-            itemType: post.itemType,
-            userId: post.userId
-        }
+    public async createNewPost(post: Post): Promise<WithItemResponse> {
         try {
-            const {item: cd} = await itemService.createNewItem(c_item); // Corresponding post item
-            const {id} = cd as IItem;
-            post.itemId = id;
-            return await postRepo.createNewPost(post);
+            const {user} = await userService.findUserById(post.userId);
+            const item = await user.createItem({
+                itemType: post.itemType
+            })
+            const createdPost = await item.createPost({
+                content: post.content
+            })
+            // create photos
+            const photos = await photoRepo.createNewPhotos(post.images);
+            await createdPost.addPhotos(photos);
+
+            const createdPostWithAllFields = await this.getPostById(createdPost.id);
+
+            return Promise.resolve({
+                code: CREATED,
+                success: true,
+                post: createdPostWithAllFields.post,
+            })
+
         } catch (err) {
+            console.log(err);
             return Promise.resolve({
                 code: INTERNAL_SERVER_ERROR,
-                success: false
+                success: false,
+                message: err.message
             })
         }
     }
 
     public async getAllPosts(where = {}): Promise<PostsResponse> {
         return await postRepo.getAllPosts(where);
+    }
+
+    public async deletePostById(postId: number, userId: number) {
+        // const {user} = await userService.findUserById(userId);
+        const postResponse = await this.getPostById(postId);
+        if (!postResponse.post) {
+            return Promise.resolve({
+                code: NOT_FOUND,
+                success: false,
+                message: 'Post not found'
+            })
+        }
+        const isPostBelongsToUser = await utilService.isPostBelongsToUser(userId, postId);
+        // const uId = JSON.parse(JSON.stringify(postResponse.post)).userId;
+        if (!isPostBelongsToUser) {
+            return Promise.resolve({
+                code: FORBIDDEN,
+                success: false,
+                message: 'Forbidden'
+            })
+        }
+        return await postRepo.deletePostById(postId);
     }
 }
 
