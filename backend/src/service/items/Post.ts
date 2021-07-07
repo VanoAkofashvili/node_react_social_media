@@ -5,6 +5,7 @@ import {WithItemResponse} from "../../public/responses/BaseResponse";
 import {PostsResponse} from "../../public/responses/items/PostResponses";
 import {userService} from "../users/User";
 import {photoRepo} from "../../repository/photos/Photo";
+import {utilService} from "../utility/Utility";
 
 const {INTERNAL_SERVER_ERROR, CREATED, FORBIDDEN, NOT_FOUND} = StatusCodes;
 
@@ -49,7 +50,7 @@ class PostService {
     }
 
     public async deletePostById(postId: number, userId: number) {
-        const {user} = await userService.findUserById(userId);
+        // const {user} = await userService.findUserById(userId);
         const postResponse = await this.getPostById(postId);
         if (!postResponse.post) {
             return Promise.resolve({
@@ -58,8 +59,9 @@ class PostService {
                 message: 'Post not found'
             })
         }
-        const uId = JSON.parse(JSON.stringify(postResponse.post)).userId;
-        if (user.id !== uId) {
+        const isPostBelongsToUser = await utilService.isPostBelongsToUser(userId, postId);
+        // const uId = JSON.parse(JSON.stringify(postResponse.post)).userId;
+        if (!isPostBelongsToUser) {
             return Promise.resolve({
                 code: FORBIDDEN,
                 success: false,
