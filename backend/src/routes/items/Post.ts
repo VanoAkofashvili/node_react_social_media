@@ -91,7 +91,11 @@ const editPost = async (
 
     const content = req.body.content;
     const images = req.files;
-    const rmImages = JSON.parse(req.body.rmImages);
+    let rmImages = [];
+    if (req.body.rmImages) {
+        rmImages = JSON.parse(req.body.rmImages);
+    }
+
 
     const postObj = plainToClass(Post, {
         content,
@@ -116,7 +120,7 @@ router.get("/all", isAuth, asyncHandler(getAllPosts));
 
 router.get(
     "/:id",
-    // isAuth,
+    isAuth,
     [
         param("id")
             .exists()
