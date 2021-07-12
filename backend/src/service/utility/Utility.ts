@@ -6,6 +6,7 @@ class UtilityService {
         const {user} = await userService.findUserById(userId);
         const postResponse = await postService.getPostById(postId);
         const uId = JSON.parse(JSON.stringify(postResponse.post)).userId;
+
         if (user.id !== uId) {
             return Promise.resolve(false);
         }

@@ -6,6 +6,7 @@ import {PostsResponse} from "../../public/responses/items/PostResponses";
 import {userService} from "../users/User";
 import {photoRepo} from "../../repository/photos/Photo";
 import {utilService} from "../utility/Utility";
+import {create} from "domain";
 
 const {INTERNAL_SERVER_ERROR, CREATED, FORBIDDEN, NOT_FOUND} = StatusCodes;
 
@@ -14,20 +15,28 @@ class PostService {
         return await postRepo.getPostById(postId);
     }
 
-    public async createNewPost(post: Post): Promise<WithItemResponse> {
+    public async getActualPostObject(postId: number) {
+        return await postRepo.getActualPostObject(postId);
+    }
+
+    // public async createNewPost(post: Post): Promise<WithItemResponse> {
+    public async createNewPost(post: Post) {
         try {
             const {user} = await userService.findUserById(post.userId);
+            // console.log(Object.keys(user.__proto__));
             const item = await user.createItem({
                 itemType: post.itemType
             })
             const createdPost = await item.createPost({
                 content: post.content
             })
-            // create photos
-            const photos = await photoRepo.createNewPhotos(post.images);
-            await createdPost.addPhotos(photos);
 
-            const createdPostWithAllFields = await this.getPostById(createdPost.id);
+            // add photos
+            for await (const img of post.images) {
+                await createdPost.createPhoto(img);
+            }
+
+            const createdPostWithAllFields = await this.getPostById(createdPost.itemId);
 
             return Promise.resolve({
                 code: CREATED,
@@ -72,10 +81,10 @@ class PostService {
     }
 
     public async editPost(postId: number, userId: number, postData: Post) {
-        // console.log(postId, 'POST ID');
-        // console.log(userId, 'USER ID');
-        // console.log(postData, 'POST DATA');
-        const postResponse = await this.getPostById(postId);
+        console.log(postData, 'POSTDATA');
+
+        const postResponse = await postRepo.getPostById(postId);
+
         if (!postResponse.post) {
             return Promise.resolve({
                 code: NOT_FOUND,
@@ -83,16 +92,31 @@ class PostService {
                 message: 'Post not found'
             })
         }
-        const belongsUser = await utilService.isPostBelongsToUser(userId, postId);
-        if (!belongsUser) {
+
+        const belongsToUser = await utilService.isPostBelongsToUser(userId, postId);
+
+        if (!belongsToUser) {
             return Promise.resolve({
                 code: FORBIDDEN,
                 success: false,
                 message: 'Forbidden'
             })
         }
-        return await postRepo.editPost(postId, postData);
-        // return Promise.resolve('Resolve');
+
+        // check if old images (which will be removed) belongs to post
+        const actualPost = await this.getActualPostObject(postId);
+        const hasPhotos = await actualPost.hasPhotos(postData.rmImages);
+
+        if (!hasPhotos) {
+            return Promise.resolve({
+                code: FORBIDDEN,
+                success: false,
+                message: "Photos don't belong to this post"
+            })
+        }
+
+        return await postRepo.editPost(actualPost, postData);
+
     }
 
     public async removePostPhotos(postId: number) {

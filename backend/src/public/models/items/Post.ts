@@ -10,11 +10,17 @@ export interface IPost extends IItem {
 export class Post extends Item {
     @Expose() content: string;
     @Expose() images: string[];
+    @Expose() rmImages?: number[];
 
-    constructor(content: string, userId: number, images: string[]) {
+    constructor(content: string, userId: number, images: string[], rmImages?: number[]) {
         super(ItemTypes.Post, userId);
         this.content = content;
         this.images = images;
+
+        if (rmImages) {
+            this.rmImages = rmImages;
+        }
+
     }
 }
 

@@ -1,8 +1,10 @@
 import {StatusCodes} from "http-status-codes";
 import {Post} from "../../public/models/items/Post";
 import {PostResponse, PostsResponse} from "../../public/responses/items/PostResponses";
+import {itemService} from "../../service/items/Item";
+import {photoRepo} from "../photos/Photo";
 
-const {INTERNAL_SERVER_ERROR, OK} = StatusCodes;
+const {INTERNAL_SERVER_ERROR, OK, NOT_FOUND} = StatusCodes;
 
 const models = require('../../database/models');
 
@@ -18,9 +20,7 @@ class PostRepository {
                     },
                     {
                         model: models.photo,
-                        through: {
-                            attributes: []
-                        }
+                        attributes: ['id', 'path', 'createdAt', 'updatedAt'],
                     }
                 ],
                 attributes: [
@@ -31,6 +31,7 @@ class PostRepository {
                     [models.Sequelize.col('item.userId'), 'userId']
                 ]
             });
+
             return Promise.resolve({
                 code: OK,
                 success: true,
@@ -107,15 +108,17 @@ class PostRepository {
 
     public async deletePostById(postId: number) {
         try {
-            const post = await models.post.findByPk(postId);
-            const postPhotos = await post.getPhotos();
-            await post.removePhotos(postPhotos);
-            const postItem = await post.getItem();
-            await postItem.destroy();
-            await post.destroy();
+            // const post = await models.post.findByPk(postId);
+            // const postPhotos = await post.getPhotos();
+            // await post.removePhotos(postPhotos);
+            // const postItem = await post.getItem();
+            // await postItem.destroy();
+            // await post.destroy();
+            /////////////////////////////
             // console.log(post, 'POST');
             // console.log(postPhotos, 'POST PHOTOS');
             // console.log(removePhotos, 'REMOVE PHOTOS');
+            await itemService.deleteById(postId);
             return Promise.resolve({
                 code: OK,
                 success: true,
@@ -131,35 +134,23 @@ class PostRepository {
         }
     }
 
-    public async editPost(postId: number, postData: Post) {
+    public async editPost(actualPost: any, postData: Post) {
         try {
+            console.log(actualPost, 'actual post in repo');
+            actualPost.content = postData.content;
 
-            const post = await models.post.findByPk(postId);
-            post.content = postData.content;
-            // await post.removePhotos();
+            for await (const img of postData.images) {
+                await actualPost.createPhoto(img);
+            }
 
+            await photoRepo.deletePhotosById(postData.rmImages!);
 
-            console.log(Object.keys(post.__proto__));
-            const postPhotos = await post.getPhotos();
-            console.log(postPhotos, 'POST PHOTOS');
-            console.log('POST_RESPONSE', post);
-
-
-            const photos = postData.images.filter(img => {
-                return {
-                    path: img
-                }
-            })
-
-            // await post.setPhotos(photos);
-            // await post.save();
-
-            // const newPost = await this.getPostById(postId);
+            await actualPost.save();
 
             return Promise.resolve({
                 code: OK,
                 success: true,
-                post: 'post'
+                post: 'Post updated successfully'
             })
         } catch (err) {
             console.log('editPost ERR', err.message);
@@ -176,9 +167,24 @@ class PostRepository {
             const post = await models.post.findByPk(postId);
             const postPhotos = await post.getPhotos();
             await post.removePhotos(postPhotos);
+            return true;
 
         } catch (err) {
             console.log('removePostPhotos ERR', err.message);
+            return false;
+            // return Promise.resolve({
+            //     code: INTERNAL_SERVER_ERROR,
+            //     success: false,
+            //     message: err.message
+            // })
+        }
+    }
+
+    public async getActualPostObject(postId: number) {
+        try {
+            return await models.post.findByPk(postId);
+        } catch (err) {
+            console.log('getActualPostObject', err.message);
             return Promise.resolve({
                 code: INTERNAL_SERVER_ERROR,
                 success: false,

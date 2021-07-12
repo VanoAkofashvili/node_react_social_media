@@ -13,7 +13,7 @@
     "migrate:reset": "cross-env NODE_ENV=development npx sequelize-cli db:migrate:undo:all && npm run migrate",
     "seed:all": "npx sequelize-cli db:seed:all",
     "seed:undo": "npx sequelize-cli db:seed:undo:all",
-    "db:reset": "npm run migrate:reset && npm run seed:reset"
+    "db:reset": "npm run migrate:reset && npm run seed:undo && npm run seed:all"
   },
   "_moduleAliases": {
     "@models": "dist/database/models"
