@@ -10,6 +10,7 @@ import CloseOutlinedIcon from "@material-ui/icons/CloseOutlined";
 import FileUpload from "./Uploader";
 
 import Fade from "@material-ui/core/Fade";
+import { MainBackground } from "../../../../const/colors";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
       width: "30%",
+
     },
     header: {
       display: "flex",
@@ -35,7 +37,9 @@ const useStyles = makeStyles((theme: Theme) =>
     textArea: {
       marginTop: "10px",
       outline: "none",
-      border: "none"
+      border: "none",
+      backgroundColor: MainBackground
+
     }
   })
 );

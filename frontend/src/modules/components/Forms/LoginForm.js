@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -10,6 +10,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,8 +32,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// TO-DO: remember me 
+
 export function LoginForm() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const classes = useStyles();
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    const obj = {
+      email,password
+    }
+    console.log(obj)
+  }
 
   return (
      <Container component="main" maxWidth="xs">
@@ -43,12 +56,14 @@ export function LoginForm() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={onSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             id="email"
             label="Email Address"
             name="email"
@@ -60,6 +75,8 @@ export function LoginForm() {
             margin="normal"
             required
             fullWidth
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             name="password"
             label="Password"
             type="password"

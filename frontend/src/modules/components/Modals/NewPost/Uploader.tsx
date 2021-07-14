@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Button } from '@material-ui/core'
 
 const Uploader: React.FC = (props) => {
+    const imageRef = useRef([])
+
+  const handleChange = (e: any) => {
+    // imageRef.current = e.target.value
+    console.log(imageRef.current)
+  }
     return (
         <div>
              <input
@@ -9,6 +15,8 @@ const Uploader: React.FC = (props) => {
               style={{ display: "none" }}
               id="raised-button-file"
               multiple
+              // ref={imageRef}
+              onChange={handleChange}
               type="file"
             />
             <label htmlFor="raised-button-file">
