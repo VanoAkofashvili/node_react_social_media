@@ -1,6 +1,9 @@
 import {WithItemResponse} from "../../public/responses/BaseResponse";
 import {userRepo} from "../../repository/users/User";
 import {User} from "../../public/models/user/User";
+import {StatusCodes} from "http-status-codes";
+
+const {INTERNAL_SERVER_ERROR} = StatusCodes;
 
 
 class UserService {
@@ -14,6 +17,10 @@ class UserService {
 
     public async findUserByEmail(email: string) {
         return await userRepo.findUserByEmail(email);
+    }
+
+    static async validateFollowable(userId: number, whoId: number) {
+
     }
 }
 

@@ -4,6 +4,16 @@ export interface IPhoto {
     [index: number]: { path: string; }
 }
 
+export interface IImage {
+    fieldname: string;
+    originalname: string;
+    encoding: string;
+    destination: string;
+    filename: string;
+    path: string;
+    size: number
+}
+
 export class Photo {
     @Expose() originalname: string;
     @Expose() mimetype: string;

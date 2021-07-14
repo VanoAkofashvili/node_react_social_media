@@ -11,19 +11,34 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(models.item);
-      User.belongsToMany(models.item, {through: 'liked_items'})
+      User.hasMany(models.item, {
+        foreignKey: 'userId',
+        as: 'items'
+      });
+      // User.belongsToMany(models.item, {through: 'liked_items'})
       // User.belongsToMany(models.item, {through: 'items_comments'});
 
-      User.belongsTo(models.photo, {
-        foreignKey: 'profileId',
-        targetKey: 'id'
-      });
+      // User.belongsTo(models.photo, {
+      //   foreignKey: 'profileId',
+      //   targetKey: 'id',
+      //   onDelete: 'SET NULL',
+      //   onUpdate: 'CASCADE'
+      // });
+      //
+      // User.belongsTo(models.cover, {
+      //   foreignKey: 'coverId',
+      //   targetKey: 'id'
+      // })
+      //
+      // User.hasMany(models.followers, {
+      //   foreignKey: 'userId',
+      //   as: 'Followers',
+      // });
+      // User.hasMany(models.followers, {
+      //   foreignKey: 'followerId',
+      //   as: 'Followings',
+      // });
 
-      User.belongsTo(models.cover, {
-        foreignKey: 'coverId',
-        targetKey: 'id'
-      })
     }
   };
   User.init({

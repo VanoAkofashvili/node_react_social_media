@@ -8,6 +8,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      postId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'posts',
+          key: 'itemId',
+        },
+        allowNull: false,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      },
       path: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -22,35 +32,9 @@ module.exports = {
       }
     });
 
-    await queryInterface.createTable(
-      'user_photos',
-      {
-        photoId: {
-          type: Sequelize.INTEGER,
-          primaryKey: true,
-        },
-        postId: {
-          type: Sequelize.INTEGER,
-          primaryKey: true
-        }
-      }
-    )
 
-    await queryInterface.addColumn('users', 'profileId', {
-      type: Sequelize.INTEGER,
-      allowNull: true,
-      // primaryKey: true,
-      references: {
-        model: 'photos',
-        key: 'id'
-      },
-      onUpdate: 'CASCADE',
-      onDelete: 'SET NULL'
-    })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeColumn('users', 'profileId');
     await queryInterface.dropTable('photos');
-    await queryInterface.dropTable('user_photo');
   }
 };
