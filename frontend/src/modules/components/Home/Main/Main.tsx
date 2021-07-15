@@ -18,8 +18,9 @@ import profileAvatar from "../../../../assets/avatar/1.jpg";
 import MovieCreationOutlinedIcon from "@material-ui/icons/MovieCreationOutlined";
 import PanoramaOutlinedIcon from "@material-ui/icons/PanoramaOutlined";
 import Post from "../Post";
-import { gql, useLazyQuery, useQuery } from '@apollo/client'
-import { SettingsBackupRestoreSharp } from "@material-ui/icons";
+import {  useQuery } from '@apollo/client'
+import { ALL_POSTS } from "../../../../Graphql/queries";
+// import { SettingsBackupRestoreSharp } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,56 +54,22 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const ALL_USERS = gql`
-  query {
-    users {
-      id
-      name
-    }
-  }
-`
-const FIND_USER = gql`
-  query findUserById($id: ID!) {
-    user(id: $id) {
-      id
-      name
-    }
-  }
-`
 
 const Main: React.FC = () => {
   const classes = useStyles();
-  const [user, setUser] = useState(null)
+  const [posts, setPosts] = useState<any[]>([])
+  // const result = useQuery<any>(ALL_USERS)
+  // const [getUser, userResult] = useLazyQuery(FIND_USER)
 
-  const result = useQuery<any>(ALL_USERS)
-  const [getUser, userResult] = useLazyQuery(FIND_USER)
-
+  const result = useQuery<any>(ALL_POSTS)
 
   useEffect(() => {
-    if (userResult.data) {
-      setUser(userResult.data.user)
+    if (!result.loading) {
+      setPosts(result.data.posts)
     }
-  }, [userResult])
+  }, [result])
 
-  if (result.loading) {
-    return <h1>...loading</h1>
-  } else {
-    console.log(result.data)
-  }
-
-  if (user) {
-    return (
-      <div>
-        {/* @ts-ignore */}
-        <h2>{user.name}</h2>
-        <button onClick={() => setUser(null)}>close</button>
-      </div>
-    )
-  }
-
-  const showUser = (id: String) =>  {
-    getUser({variables: {id}})
-  }
+  console.log('posts', posts)
 
   return (
     <main className={classes.root}>
@@ -140,14 +107,9 @@ const Main: React.FC = () => {
         </ListItem>
       </List>
       {/* created posts */}
-      {/* {result.data.map(user => (
-        <Post post={user} key={user.id}/>
-      ))} */}
-      {
-        //@ts-ignore
-        // result.data.users.map(user => <button onClick={() => showUser(user.id)}>showUser</button>)
-      }
-
+      {posts.map(post => (
+        <Post post={post} key={post.id}/>
+      ))}
     </main>
   );
 };
