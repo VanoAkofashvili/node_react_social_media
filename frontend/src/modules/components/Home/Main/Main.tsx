@@ -18,6 +18,8 @@ import profileAvatar from "../../../../assets/avatar/1.jpg";
 import MovieCreationOutlinedIcon from "@material-ui/icons/MovieCreationOutlined";
 import PanoramaOutlinedIcon from "@material-ui/icons/PanoramaOutlined";
 import Post from "../Post";
+import { gql, useLazyQuery, useQuery } from '@apollo/client'
+import { SettingsBackupRestoreSharp } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,38 +53,56 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const ALL_USERS = gql`
+  query {
+    users {
+      id
+      name
+    }
+  }
+`
+const FIND_USER = gql`
+  query findUserById($id: ID!) {
+    user(id: $id) {
+      id
+      name
+    }
+  }
+`
+
 const Main: React.FC = () => {
   const classes = useStyles();
-  const [posts, setPosts] = useState<any[]>([])
+  const [user, setUser] = useState(null)
+
+  const result = useQuery<any>(ALL_USERS)
+  const [getUser, userResult] = useLazyQuery(FIND_USER)
+
+
   useEffect(() => {
-    fetch('http://localhost:3002/api/posts/all').then((data) => data.json()).then(data => setPosts(data.posts))
-  },[])
-  // const posts = [
-  // {
-  //     id: "1",
-  //     text: "This will be the first post"
-  //   },
-  //   {
-  //     id: "2",
-  //     text: "This is the second post"
-  //   },
-  //   {
-  //     id: "3",
-  //     text: "This is third post"
-  //   },
-  //   {
-  //     id: "4",
-  //     text: "This will be the first post"
-  //   },
-  //   {
-  //     id: "5",
-  //     text: "This is the second post"
-  //   },
-  //   {
-  //     id: "6",
-  //     text: "This is third post"
-  //   }
-  // ]
+    if (userResult.data) {
+      setUser(userResult.data.user)
+    }
+  }, [userResult])
+
+  if (result.loading) {
+    return <h1>...loading</h1>
+  } else {
+    console.log(result.data)
+  }
+
+  if (user) {
+    return (
+      <div>
+        {/* @ts-ignore */}
+        <h2>{user.name}</h2>
+        <button onClick={() => setUser(null)}>close</button>
+      </div>
+    )
+  }
+
+  const showUser = (id: String) =>  {
+    getUser({variables: {id}})
+  }
 
   return (
     <main className={classes.root}>
@@ -120,9 +140,14 @@ const Main: React.FC = () => {
         </ListItem>
       </List>
       {/* created posts */}
-      {posts.map(post => (
-        <Post post={post} key={post.id}/>
-      ))}
+      {/* {result.data.map(user => (
+        <Post post={user} key={user.id}/>
+      ))} */}
+      {
+        //@ts-ignore
+        // result.data.users.map(user => <button onClick={() => showUser(user.id)}>showUser</button>)
+      }
+
     </main>
   );
 };
