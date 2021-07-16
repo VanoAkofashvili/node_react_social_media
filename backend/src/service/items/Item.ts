@@ -2,6 +2,7 @@ import {Item} from "../../public/models/items/Item";
 import {itemRepo} from "../../repository/items/Item";
 import {userService} from "../users/User";
 import {StatusCodes} from "http-status-codes";
+// import extractFields from "../../shared/extractFields";
 
 const {NOT_FOUND, INTERNAL_SERVER_ERROR, OK} = StatusCodes;
 
@@ -29,14 +30,14 @@ class ItemService {
 
     public async likeItem(itemId: number, userId: number) {
         try {
-            const {user} = await userService.findUserById(userId);
-            if (!user) {
-                return Promise.resolve({
-                    code: NOT_FOUND,
-                    message: "User not found",
-                    success: false,
-                })
-            }
+            const user = await userService.getUserById(userId);
+            // if (!user) {
+            //     return Promise.resolve({
+            //         code: NOT_FOUND,
+            //         message: "User not found",
+            //         success: false,
+            //     })
+            // }
 
             const item = await this.getItemById(itemId);
 
@@ -55,6 +56,74 @@ class ItemService {
             })
         }
 
+    }
+
+    public async unlikeItem(itemId: number, userId: number) {
+        try {
+
+            const user = await userService.getUserById(userId);
+            // if (!user) {
+            //     return Promise.resolve({
+            //         code: NOT_FOUND,
+            //         message: "User not found",
+            //         success: false,
+            //     })
+            // }
+
+            const item = await this.getItemById(itemId);
+
+
+            await item.removeLike(user);
+
+            return Promise.resolve({
+                code: OK,
+                success: true
+            })
+
+        } catch (err) {
+            return Promise.resolve({
+                success: false,
+                message: err.message,
+                code: INTERNAL_SERVER_ERROR
+            })
+        }
+
+
+    }
+
+    public async getLikes(itemId: number, userId: number) {
+        try {
+            // const user = await userService.getUserById(userId);
+            const item = await this.getItemById(itemId);
+            // const likes = await item.getLikes({
+            //     attributes: ['id', 'firstName', 'lastName'],
+            //     plain: true,
+            //     exclude: ['item_like']
+            // });
+
+
+            console.log(Object.keys(item.__proto__));
+
+            const likes = await item.getLikes({
+                attributes: ['id', 'firstName', 'lastName'],
+                joinTableAttributes: []
+            });
+
+            // console.log(likes.length, 'LIKES');
+
+            return Promise.resolve({
+                success: true,
+                likes,
+                code: OK
+            })
+        } catch (err) {
+            console.log('getLikes ERR', err.message);
+            return Promise.resolve({
+                success: false,
+                message: err.message,
+                code: INTERNAL_SERVER_ERROR
+            })
+        }
     }
 }
 

@@ -23,7 +23,7 @@ class PostService {
     // public async createNewPost(post: Post): Promise<WithItemResponse> {
     public async createNewPost(post: Post) {
         try {
-            const {user} = await userService.findUserById(post.userId);
+            const user = await userService.getUserById(post.userId);
             // console.log(Object.keys(user.__proto__));
             const item = await user.createItem({
                 itemType: post.itemType
@@ -60,7 +60,7 @@ class PostService {
     }
 
     public async deletePostById(postId: number, userId: number) {
-        // const {user} = await userService.findUserById(userId);
+        // const user = await userService.getUserById(userId);
         const postResponse = await this.getPostById(postId);
         if (!postResponse.post) {
             return Promise.resolve({

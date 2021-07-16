@@ -117,14 +117,33 @@ const editPost = async (
     res.status(response.code).json(response);
 };
 
-const likePost = async (req: RequestUser, res: Response, next: NextFunction) => {
+const likeItem = async (req: RequestUser, res: Response, next: NextFunction) => {
     const itemId = Number(req.params.id);
     const userId = req.userId!;
 
-
     const response = await itemService.likeItem(itemId, userId);
 
-    return res.status(200).json(response);
+    return res.status(response.code).json(response);
+}
+
+
+const unlikeItem = async (req: RequestUser, res: Response, next: NextFunction) => {
+    const itemId = Number(req.params.id);
+    const userId = req.userId!;
+
+    const response = await itemService.unlikeItem(itemId, userId);
+
+    return res.status(response.code).json(response);
+
+}
+
+const getLikes = async (req: RequestUser, res: Response, next: NextFunction) => {
+    const itemId = Number(req.params.id);
+    const userId = req.userId!;
+
+    const response = await itemService.getLikes(itemId, userId);
+
+    return res.status(response.code).json(response);
 }
 
 router.get("/all", isAuth, asyncHandler(getAllPosts));
@@ -170,7 +189,9 @@ router.put(
 );
 
 // POST - /api/posts/:id/like
-router.post('/:id/like', isAuth, asyncHandler(likePost));
+router.post('/:id/like', isAuth, asyncHandler(likeItem));
+router.post('/:id/unlike', isAuth, asyncHandler(unlikeItem));
+router.get('/:id/likes', isAuth, asyncHandler(getLikes));
 
 
 router.post(
