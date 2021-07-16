@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       });
 
 
-      Item.belongsToMany(models.user, {through: 'item_like'});
+      Item.belongsToMany(models.user, {through: 'item_like', as: 'likes'});
     }
   };
   Item.init({

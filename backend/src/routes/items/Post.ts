@@ -13,6 +13,7 @@ import {RequestUser} from "../../public/models/user/User";
 import {Post} from "../../public/models/items/Post";
 import {param, body} from "express-validator";
 import {IImage} from "../../public/models/photo/Photo";
+import {itemService} from "../../service/items/Item";
 
 const isAuth = require("../../middleware/isAuth");
 const router = Router();
@@ -116,15 +117,15 @@ const editPost = async (
     res.status(response.code).json(response);
 };
 
-// const likePost = async (req: RequestUser, res: Response, next: NextFunction) => {
-//     const postId = Number(req.params.id);
-//     const userId = req.userId!;
-//
-//
-//     const response = await postService.likePost(postId, userId);
-//
-//     return res.status(200).json(response);
-// }
+const likePost = async (req: RequestUser, res: Response, next: NextFunction) => {
+    const itemId = Number(req.params.id);
+    const userId = req.userId!;
+
+
+    const response = await itemService.likeItem(itemId, userId);
+
+    return res.status(200).json(response);
+}
 
 router.get("/all", isAuth, asyncHandler(getAllPosts));
 

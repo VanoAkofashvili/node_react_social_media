@@ -15,9 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId',
         as: 'items'
       });
-      User.belongsToMany(models.item, {through: 'item_like'});
-
-
+      User.belongsToMany(models.item, {through: 'item_like', as: 'liked'});
     }
   };
   User.init({

@@ -7,11 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
     }
   };
-  item_like.init({
-    s: DataTypes.STRING
-  }, {
+  item_like.init({}, {
     sequelize,
     modelName: 'item_like',
+    updatedAt: false
   });
   return item_like;
 };
