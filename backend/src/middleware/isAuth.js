@@ -5,6 +5,7 @@ const {UNAUTHORIZED} = StatusCodes;
 
 module.exports = function (req, res, next) {
   const authHeader = req.get('Authorization');
+
   if (!authHeader) {
     throw new ExtendedError(UNAUTHORIZED, 'Not authenticated.');
   }

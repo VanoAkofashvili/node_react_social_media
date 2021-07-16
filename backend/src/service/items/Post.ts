@@ -7,6 +7,7 @@ import {userService} from "../users/User";
 import {photoRepo} from "../../repository/photos/Photo";
 import {utilService} from "../utility/Utility";
 import {create} from "domain";
+import {NOT} from "sequelize/types/lib/deferrable";
 
 const {INTERNAL_SERVER_ERROR, CREATED, FORBIDDEN, NOT_FOUND} = StatusCodes;
 

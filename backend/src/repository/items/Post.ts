@@ -192,6 +192,7 @@ class PostRepository {
             })
         }
     }
+
 }
 
 export const postRepo = new PostRepository();

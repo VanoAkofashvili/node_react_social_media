@@ -41,6 +41,21 @@ class ItemRepository {
             })
         }
     }
+
+    public async likeItem(itemId: number) {
+        try {
+            // console.log(user, 'USER');
+            // const post = await this.getActualPostObject(postId);
+            // console.log(post, 'USER PROPERTIES');
+        } catch (err) {
+            console.log('LIKE POST ERR', err.message);
+            return Promise.resolve({
+                success: false,
+                message: err.message,
+                code: INTERNAL_SERVER_ERROR
+            })
+        }
+    }
 }
 
 export const itemRepo = new ItemRepository();

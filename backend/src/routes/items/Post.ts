@@ -116,6 +116,16 @@ const editPost = async (
     res.status(response.code).json(response);
 };
 
+// const likePost = async (req: RequestUser, res: Response, next: NextFunction) => {
+//     const postId = Number(req.params.id);
+//     const userId = req.userId!;
+//
+//
+//     const response = await postService.likePost(postId, userId);
+//
+//     return res.status(200).json(response);
+// }
+
 router.get("/all", isAuth, asyncHandler(getAllPosts));
 
 router.get(
@@ -157,6 +167,10 @@ router.put(
     checkValidationErrors,
     asyncHandler(editPost)
 );
+
+// POST - /api/posts/:id/like
+router.post('/:id/like', isAuth, asyncHandler(likePost));
+
 
 router.post(
     "/test/:postId",
