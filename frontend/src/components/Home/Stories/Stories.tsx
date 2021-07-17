@@ -13,12 +13,12 @@ import {
 } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
-import { Blue, MainBackground } from "../../../../const/colors";
+import { Blue, MainBackground } from "../../../const/colors";
 import { Avatar, ListItemAvatar } from "@material-ui/core";
 import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
 import clsx from "clsx";
 
-import storyAvatar from "../../../../assets/avatar/2.jpeg";
+import storyAvatar from "../../../assets/avatar/2.jpeg";
 import { Button } from "@material-ui/core";
 const date = new Date();
 

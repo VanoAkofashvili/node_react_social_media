@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from "@material-ui/styles";
 import React from "react";
-import {LoginForm }from "../modules/components/Forms";
+import {LoginForm }from "../components/Forms";
 import sideImg from '../assets/images/soc-media1.png';
 import "./index.css";
 // import { useMediaQuery } from "@material-ui/core";

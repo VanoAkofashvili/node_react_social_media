@@ -10,7 +10,7 @@ import CloseOutlinedIcon from "@material-ui/icons/CloseOutlined";
 import FileUpload from "./Uploader";
 
 import Fade from "@material-ui/core/Fade";
-import { MainBackground } from "../../../../const/colors";
+import { MainBackground } from "../../../const/colors";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
