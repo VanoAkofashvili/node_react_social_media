@@ -6,18 +6,19 @@ import {
   ListSubheader,
   Divider,
   ListItem,
-  ListItemAvatar,
   Avatar,
   IconButton,
   Box,
 } from "@material-ui/core";
 import { MainBackground } from "../../../const/colors";
 import { contentWrapperWidth } from "../../../const/wrappers";
-import NewPostModal from "../../Modals/NewPost";
+import NewPostModal from "../../molecules/Modals/NewPost";
 import profileAvatar from "../../../assets/avatar/1.jpg";
 import MovieCreationOutlinedIcon from "@material-ui/icons/MovieCreationOutlined";
 import PanoramaOutlinedIcon from "@material-ui/icons/PanoramaOutlined";
 import Post from "../Post";
+
+import ListItemAvatarComponent from "../../atoms/ListItemAvatar";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -70,9 +71,7 @@ const Main: React.FC = () => {
       >
         <Divider />
         <ListItem>
-          <ListItemAvatar>
-            <Avatar alt="profile pic" src={profileAvatar} />
-          </ListItemAvatar>
+          <ListItemAvatarComponent alt="loged in user avatar" src={profileAvatar}/>
           <div style={{ flexBasis: "70%" }}>
             <NewPostModal>
               <Box className={classes.postInput}>

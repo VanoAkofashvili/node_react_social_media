@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { Button } from '@material-ui/core'
 
-const Uploader: React.FC = (props) => {
+const FileInput: React.FC = (props) => {
     const imageRef = useRef([])
 
   const handleChange = (e: any) => {
@@ -30,4 +30,4 @@ const Uploader: React.FC = (props) => {
         </div>
     )
 }
-export default Uploader
+export default FileInput
