@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from "@material-ui/styles";
 import React from "react";
-import { SignUpForm } from "../components/Forms";
+import { SignUpForm } from "../components/organizms/Forms";
 
 const useStyles = makeStyles(() =>
   createStyles({

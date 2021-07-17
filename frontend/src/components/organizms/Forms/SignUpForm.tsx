@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -11,6 +11,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import ButtonSubmit from "../../atoms/Buttons/ButtonSubmit";
+import { ButtonColors } from "../../../const/enums";
 // import { Alert, AlertTitle } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
@@ -47,7 +49,7 @@ export function SignUpForm() {
   const classes = useStyles();
 
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (validatePassword()) {
@@ -65,7 +67,7 @@ export function SignUpForm() {
     }
   };
 
-  const validatePassword = (e) => {
+  const validatePassword = () => {
     return password === confirmPassword;
   };
 
@@ -116,7 +118,7 @@ export function SignUpForm() {
                   required
                   native
                   value={sex}
-                  onChange={(e) => setSex(e.target.value)}
+                  onChange={(e: any) => setSex(e.target.value)}
                   name="sex"
                   label="sex"
                   inputProps={{
@@ -189,15 +191,7 @@ export function SignUpForm() {
               />
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign Up
-          </Button>
+          <ButtonSubmit color={ButtonColors.primary}>Sign Up</ButtonSubmit>
           <Grid container justifyContent="center">
             <Grid item>
               <Link to="/login">Already have an account? Sign in</Link>

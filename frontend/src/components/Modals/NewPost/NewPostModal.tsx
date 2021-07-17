@@ -84,7 +84,7 @@ const NewPostModal: React.FC = (props) => {
             <Divider />
             <TextareaAutosize
               autoFocus
-              rowsMin={5}
+              minRows={5}
               placeholder="Write a post"
               className={classes.textArea}
             />
