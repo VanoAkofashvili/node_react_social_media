@@ -91,7 +91,7 @@ class ItemService {
 
     }
 
-    public async getLikes(itemId: number, userId: number) {
+    public async getLikes(itemId: number) {
         try {
             // const user = await userService.getUserById(userId);
             const item = await this.getItemById(itemId);
@@ -125,6 +125,7 @@ class ItemService {
             })
         }
     }
+
 }
 
 export const itemService = new ItemService();

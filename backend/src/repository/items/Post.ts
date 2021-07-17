@@ -12,6 +12,7 @@ class PostRepository {
     // Needs better approach
     public async getPostById(postId: number): Promise<PostResponse> {
         try {
+
             const post = await models.post.findByPk(postId, {
                 include: [
                     {
@@ -31,6 +32,13 @@ class PostRepository {
                     [models.Sequelize.col('item.userId'), 'userId']
                 ]
             });
+            //
+            // let likes = await itemService.getLikes(postId); // postId is same as itemId bcz. one to one relationship
+            // likes = JSON.parse(JSON.stringify(likes)).likes.slice();
+            // console.log(likes, 'likesss');
+
+
+            // console.log(Object.keys(post.__proto__));
 
             return Promise.resolve({
                 code: OK,

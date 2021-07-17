@@ -28,15 +28,9 @@ const getAllPosts = async (req: Request, res: Response) => {
 const getSinglePost = async (req: Request, res: Response) => {
     // Get the post id
     const {id} = req.params;
-    // console.log(id, "id");
-    // if (check.undefined(id) || !check.integer(id)) {
-    //     return res.status(BAD_REQUEST).json({
-    //         code: BAD_REQUEST,
-    //         success: false,
-    //         message: "bad params",
-    //     });
-    // }
+
     const response = await postService.getPostById(+id);
+    console.log(response, 'REPONSE');
     res.status(response.code).json(response);
 };
 
@@ -141,7 +135,7 @@ const getLikes = async (req: RequestUser, res: Response, next: NextFunction) => 
     const itemId = Number(req.params.id);
     const userId = req.userId!;
 
-    const response = await itemService.getLikes(itemId, userId);
+    const response = await itemService.getLikes(itemId);
 
     return res.status(response.code).json(response);
 }
@@ -150,7 +144,7 @@ router.get("/all", isAuth, asyncHandler(getAllPosts));
 
 router.get(
     "/:id",
-    isAuth,
+    // isAuth,
     [
         param("id")
             .exists()
@@ -220,9 +214,35 @@ router.post(
     })
 );
 
-router.post('/t', asyncHandler(async (req, res, next) => {
-    const resp = await postService.getPostById(14);
-    return res.json(resp);
+router.get('/s/t', asyncHandler(async (req, res, next) => {
+    // const resp = await postService.getPostById(14);
+    // return res.json(resp);
+    const models = require('../../database/models');
+
+
+    const post = await models.item.findOne({
+        where: {
+            id: 1
+        },
+        include: [
+            models.post,
+            {
+                model: models.user,
+                as: 'likes',
+                through: {attributes: []}
+            }
+        ],
+        attributes: ['id', 'post.content', 'likes.firstName']
+
+    });
+    console.log(JSON.stringify(post, null, 2), 'post');
+    // const likes = await post.getLikes();
+    // console.log(likes, 'likes');
+    console.log(Object.keys(post.__proto__), 'post');
+
+    return res.json({
+        message: 'test'
+    })
 }))
 
 export default router;
