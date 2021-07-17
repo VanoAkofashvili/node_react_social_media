@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import { contentWrapperWidth } from "../../../const/wrappers";
 import NewPostForm from "../../molecules/Forms/NewPost";
-import Post from "../../Home/Post";
+import Post from "../../molecules/Post";
 import { MainBackground } from "../../../const/colors";
 
 const useStyles = makeStyles((theme: Theme) =>

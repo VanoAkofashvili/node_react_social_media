@@ -10,7 +10,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Home from "./pages/Home";
 import { MainBackground } from "./const/colors";
 
-import PrivateRoute from "./components/HOC/PrivateRoute";
+import PrivateRoute from "./HOC/PrivateRoute";
 import { Login, SignUp } from "./pages";
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -1,6 +1,6 @@
 import React from "react";
-import Sidebar from "../components/Home/Sidebar";
-import Stories from "../components/Home/Stories";
+import Sidebar from "../components/molecules/Sidebar";
+import Stories from "../components/molecules/Stories";
 import Header from '../components/organizms/Header'
 import PostsOnHome from "../components/organizms/PostsOnHome";
 
