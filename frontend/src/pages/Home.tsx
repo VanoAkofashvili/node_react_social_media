@@ -2,7 +2,7 @@ import React from "react";
 import Sidebar from "../components/Home/Sidebar";
 import Main from "../components/Home/Main";
 import Stories from "../components/Home/Stories";
-import Header from '../components/Header'
+import Header from '../components/organizms/Header'
 
  const Home: React.FC = () =>  {
   return (

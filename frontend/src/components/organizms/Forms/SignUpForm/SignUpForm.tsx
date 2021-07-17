@@ -11,8 +11,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import ButtonSubmit from "../../atoms/Buttons/ButtonSubmit";
-import { ButtonColors } from "../../../const/enums";
+import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
+import { ButtonColors } from "../../../../const/enums";
 // import { Alert, AlertTitle } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({

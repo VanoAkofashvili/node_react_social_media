@@ -1,8 +1,5 @@
-import { createStyles, makeStyles } from "@material-ui/styles";
 import React from "react";
-import {LoginForm }from "../components/organizms/Forms";
-import sideImg from '../assets/images/soc-media1.png';
-import "./index.css";
+import { createStyles, makeStyles } from "@material-ui/styles";
 // import { useMediaQuery } from "@material-ui/core";
 
 const useStyles = makeStyles(() =>
@@ -19,20 +16,32 @@ const useStyles = makeStyles(() =>
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
+    },
+    bg_img: {
+        margin: "1rem",
+        width: "100%",
+        maxWidth: "350px",
+        marginLeft: "auto",
     }
+    
   })
 );
 
-export const Login: React.FC = () => {
+interface LogInTemplateProps {
+    image: any,
+    loginForm: React.ReactNode
+}
+
+export const LogInTemplate: React.FC<LogInTemplateProps> = (props) => {
     const classes = useStyles()
     // const matches = useMediaQuery('(min-width: 600px)')
 
   return (
     <div className={classes.root}>
       <div className={classes.imgDiv}>
-        <img src={sideImg} className="bg_img" alt="connectnions"/>
+        <img src={props.image} className={classes.bg_img} alt="connections"/>
       </div>
-      <LoginForm />
+      {props.loginForm}
     </div>
   );
 };

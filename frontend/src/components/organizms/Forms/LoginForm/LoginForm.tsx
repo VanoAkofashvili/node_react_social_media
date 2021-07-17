@@ -9,10 +9,10 @@ import Typography from "@material-ui/core/Typography";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-import { TextFieldBordered } from "../../atoms/TextField/TextFieldBordered";
-import { ButtonColors } from "../../../const/enums";
-import  ButtonSubmit  from "../../atoms/Buttons/ButtonSubmit";
-import { TextFieldVariant } from "../../../const/enums";
+import { TextFieldBordered } from "../../../atoms/TextField/TextFieldBordered";
+import { ButtonColors } from "../../../../const/enums";
+import  ButtonSubmit  from "../../../atoms/Buttons/ButtonSubmit";
+import { TextFieldVariant } from "../../../../const/enums";
 
 
 const useStyles = makeStyles((theme) => createStyles({

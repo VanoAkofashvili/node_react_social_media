@@ -7,11 +7,11 @@ import {
 } from "react-router-dom";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Home from "./routes/Home";
+import Home from "./pages/Home";
 import { MainBackground } from "./const/colors";
 
 import PrivateRoute from "./components/HOC/PrivateRoute";
-import { Login, SignUp } from "./routes";
+import { Login, SignUp } from "./pages";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
