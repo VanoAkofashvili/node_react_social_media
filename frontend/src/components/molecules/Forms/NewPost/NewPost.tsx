@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import {
   List,
@@ -6,27 +6,19 @@ import {
   ListSubheader,
   Divider,
   ListItem,
-  Avatar,
-  IconButton,
   Box,
 } from "@material-ui/core";
-import { MainBackground } from "../../../const/colors";
-import { contentWrapperWidth } from "../../../const/wrappers";
-import NewPostModal from "../../molecules/Modals/NewPost";
-import profileAvatar from "../../../assets/avatar/1.jpg";
+import { MainBackground } from "../../../../const/colors";
+import NewPostModal from "../../Modals/NewPost";
+import profileAvatar from "../../../../assets/avatar/1.jpg";
 import MovieCreationOutlinedIcon from "@material-ui/icons/MovieCreationOutlined";
 import PanoramaOutlinedIcon from "@material-ui/icons/PanoramaOutlined";
-import Post from "../Post";
 
-import ListItemAvatarComponent from "../../atoms/ListItemAvatar";
+import ListItemAvatarComponent from "../../../atoms/ListItemAvatar";
+import { default as IconButton } from "../../../atoms/Buttons/IconButton/IconButton";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      backgroundColor: MainBackground,
-      width: contentWrapperWidth,
-      padding: theme.spacing(3),
-    },
     list: {
       backgroundColor: "white",
       borderRadius: "15px",
@@ -49,15 +41,17 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       marginLeft: "auto",
     },
+    modal: {
+      flexBasis: "70%",
+    },
   })
 );
 
-const Main: React.FC = () => {
+const NewPostForm: React.FC = () => {
   const classes = useStyles();
-  const [posts, setPosts] = useState<any[]>([]);
 
   return (
-    <main className={classes.root}>
+    <>
       <Toolbar />
       {/* create post */}
       <List
@@ -71,29 +65,30 @@ const Main: React.FC = () => {
       >
         <Divider />
         <ListItem>
-          <ListItemAvatarComponent alt="loged in user avatar" src={profileAvatar}/>
-          <div style={{ flexBasis: "70%" }}>
+          <ListItemAvatarComponent
+            alt="loged in user avatar"
+            src={profileAvatar}
+          />
+          <Box className={classes.modal}>
             <NewPostModal>
               <Box className={classes.postInput}>
                 Write what's in your mind...
               </Box>
             </NewPostModal>
-          </div>
-          <div className={classes.buttonGroup}>
-            <IconButton>
-              <MovieCreationOutlinedIcon fontSize="large" />
-            </IconButton>
-            <IconButton>
-              <PanoramaOutlinedIcon fontSize="large" />
-            </IconButton>
-          </div>
+          </Box>
+          <Box className={classes.buttonGroup}>
+            <IconButton
+              icon={<MovieCreationOutlinedIcon fontSize="large" />}
+              onClick={(e: React.MouseEvent) => console.log(e)}
+            />
+             <IconButton
+              icon={<PanoramaOutlinedIcon fontSize="large" />}
+              onClick={(e: React.MouseEvent) => console.log(e)}
+            />
+          </Box>
         </ListItem>
       </List>
-      {/* created posts */}
-      {posts.map((post) => (
-        <Post post={post} key={post.id} />
-      ))}
-    </main>
+    </>
   );
 };
-export default Main;
+export default NewPostForm;

@@ -10,6 +10,8 @@ import CloseOutlinedIcon from "@material-ui/icons/CloseOutlined";
 import FileInput from "../../../atoms/Inputs/FileInput";
 
 import Fade from "@material-ui/core/Fade";
+import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
+import { ButtonColors } from "../../../../const/enums";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -85,9 +87,7 @@ const NewPostModal: React.FC = (props) => {
               className={classes.textArea}
             />
             <FileInput />
-            <Button variant="contained" color="primary">
-              Post
-            </Button>
+            <ButtonSubmit color={ButtonColors.primary}>Post</ButtonSubmit>
           </div>
         </Fade>
       </Modal>
