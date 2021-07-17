@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,10 +12,6 @@ import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 import moment from "moment";
 // import { Alert, AlertTitle } from '@material-ui/lab';
-
-import { SIGN_UP } from "../../../Graphql/queries";
-import { useMutation } from "@apollo/client";
-import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -47,24 +43,15 @@ export function SignUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [passwordMatch, setPasswordMatch] = useState(false);
+  const [isPasswordMatching, setIsPasswordMatching] = useState(false);
   const classes = useStyles();
-
-  const [signUp, result] = useMutation(SIGN_UP)
-
-  useEffect(() => {
-    if (!result.loading && result.called) {
-      console.log('result.data', result)
-    }
-  }, [result])
-
 
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
     if (validatePassword()) {
-      setPasswordMatch(false);
+      setIsPasswordMatching(false);
       const obj = {
         firstName,
         lastName,
@@ -73,9 +60,8 @@ export function SignUpForm() {
         sex: Number(sex),
         password,
       };
-      signUp({variables: obj})
     } else {
-      setPasswordMatch(true);
+      setIsPasswordMatching(true);
     }
   };
 
@@ -184,7 +170,7 @@ export function SignUpForm() {
                 type="password"
                 id="password"
                 autoComplete="none"
-                error={passwordMatch}
+                error={isPasswordMatching}
               />
             </Grid>
             <Grid item xs={12}>
@@ -199,7 +185,7 @@ export function SignUpForm() {
                 type="password"
                 id="confirm-password"
                 autoComplete="none"
-                error={passwordMatch}
+                error={isPasswordMatching}
               />
             </Grid>
           </Grid>

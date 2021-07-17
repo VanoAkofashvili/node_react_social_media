@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState } from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import {
   List,
@@ -18,9 +18,6 @@ import profileAvatar from "../../../../assets/avatar/1.jpg";
 import MovieCreationOutlinedIcon from "@material-ui/icons/MovieCreationOutlined";
 import PanoramaOutlinedIcon from "@material-ui/icons/PanoramaOutlined";
 import Post from "../Post";
-import {  useQuery } from '@apollo/client'
-import { ALL_POSTS } from "../../../../Graphql/queries";
-// import { SettingsBackupRestoreSharp } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -54,22 +51,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-
 const Main: React.FC = () => {
   const classes = useStyles();
-  const [posts, setPosts] = useState<any[]>([])
-  // const result = useQuery<any>(ALL_USERS)
-  // const [getUser, userResult] = useLazyQuery(FIND_USER)
-
-  const result = useQuery<any>(ALL_POSTS)
-
-  useEffect(() => {
-    if (!result.loading) {
-      setPosts(result.data.posts)
-    }
-  }, [result])
-
-  console.log('posts', posts)
+  const [posts, setPosts] = useState<any[]>([]);
 
   return (
     <main className={classes.root}>
@@ -107,8 +91,8 @@ const Main: React.FC = () => {
         </ListItem>
       </List>
       {/* created posts */}
-      {posts.map(post => (
-        <Post post={post} key={post.id}/>
+      {posts.map((post) => (
+        <Post post={post} key={post.id} />
       ))}
     </main>
   );
