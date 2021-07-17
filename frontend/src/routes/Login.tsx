@@ -3,7 +3,7 @@ import React from "react";
 import {LoginForm }from "../modules/components/Forms";
 import sideImg from '../assets/images/soc-media1.png';
 import "./index.css";
-import { useMediaQuery } from "@material-ui/core";
+// import { useMediaQuery } from "@material-ui/core";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -25,7 +25,7 @@ const useStyles = makeStyles(() =>
 
 export const Login: React.FC = () => {
     const classes = useStyles()
-    const matches = useMediaQuery('(min-width: 600px)')
+    // const matches = useMediaQuery('(min-width: 600px)')
 
   return (
     <div className={classes.root}>

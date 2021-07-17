@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,6 +13,9 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 // import { Alert, AlertTitle } from '@material-ui/lab';
 
+import { SIGN_UP } from "../../../Graphql/queries";
+import { useMutation } from "@apollo/client";
+import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -47,8 +50,19 @@ export function SignUpForm() {
   const [passwordMatch, setPasswordMatch] = useState(false);
   const classes = useStyles();
 
-  const onSubmit = (e) => {
+  const [signUp, result] = useMutation(SIGN_UP)
+
+  useEffect(() => {
+    if (!result.loading && result.called) {
+      console.log('result.data', result)
+    }
+  }, [result])
+
+
+
+  const onSubmit = async (e) => {
     e.preventDefault();
+
     if (validatePassword()) {
       setPasswordMatch(false);
       const obj = {
@@ -56,10 +70,10 @@ export function SignUpForm() {
         lastName,
         email,
         dateOfBirth,
-        sex,
+        sex: Number(sex),
         password,
       };
-      console.log(obj);
+      signUp({variables: obj})
     } else {
       setPasswordMatch(true);
     }
@@ -79,7 +93,7 @@ export function SignUpForm() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} onSubmit={onSubmit}>
+        <form className={classes.form} noValidate onSubmit={onSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -124,9 +138,9 @@ export function SignUpForm() {
                   }}
                 >
                   <option aria-label="None" value="" />
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
+                  <option value={1}>Male</option>
+                  <option value={2}>Female</option>
+                  <option value={3}>Other</option>
                 </Select>
               </FormControl>
             </Grid>
@@ -198,7 +212,7 @@ export function SignUpForm() {
           >
             Sign Up
           </Button>
-          <Grid container justify="center">
+          <Grid container justifyContent="center">
             <Grid item>
               <Link to="/login">Already have an account? Sign in</Link>
             </Grid>
