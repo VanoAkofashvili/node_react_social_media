@@ -1,27 +1,30 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "services/authService";
 
-const initialState: RegisterState = {
+const initialState: authState = {
   userRegistered: false,
   error: null,
+  token: "",
 };
 
 // action creator
 export const registerUserAsync = createAsyncThunk(
-  "register/registerUserAsync",
-  async (user: IUser) => {
-    const response = await authService.registerUser(user);
-    return response;
-  }
-);
+    "register/registerUserAsync",
+    async (user: IUser) => {
+      const response = await authService.registerUser(user);
+      return response;
+    }
+  );
 
-// reducer
-export const registerSlice = createSlice({
-  name: "register",
+const authSlice = createSlice({
+  name: "auth",
   initialState,
   reducers: {
     toggleRegister: (state, action: PayloadAction<boolean>) => {
-      state.userRegistered = action.payload
+      state.userRegistered = action.payload;
+    },
+    toggleError: (state, action) => {
+        state.error = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -38,5 +41,5 @@ export const registerSlice = createSlice({
   },
 });
 
-export const { toggleRegister } = registerSlice.actions
-export default registerSlice.reducer
+export const {toggleRegister, toggleError} = authSlice.actions
+export default authSlice.reducer

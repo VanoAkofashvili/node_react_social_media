@@ -23,3 +23,22 @@ interface RegisterState {
     userRegistered: boolean;
     error?: string | null
 }
+
+/** Login */
+
+interface ILoginCredentials {
+    email: string;
+    password: string;
+}
+
+interface LoginState {
+    token: string
+}
+
+/** AUTH */
+
+interface authState {
+    userRegistered: boolean;
+    error?: string | null;
+    token: string
+}

@@ -1,6 +1,5 @@
 import React, { FormEvent, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
@@ -16,9 +15,9 @@ import { ButtonColors } from "../../../../const/enums";
 // import { Alert, AlertTitle } from '@material-ui/lab';
 
 import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
-import { registerUserAsync } from "redux_tk/features/register/registerSlice";
+import { registerUserAsync, toggleError } from "redux_tk/features/auth/authSlice";
 import { useEffect } from "react";
-import { toggleRegister } from "redux_tk/features/register/registerSlice";
+import { toggleRegister } from "redux_tk/features/auth/authSlice";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -53,13 +52,14 @@ export function SignUpForm() {
   const [isPasswordMatching, setIsPasswordMatching] = useState(true);
   const classes = useStyles();
 
-  const {error, userRegistered} = useAppSelector((state) => state.register);
+  const {error, userRegistered} = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const history = useHistory()
 
     useEffect(() => {
       if (error) {
         alert(error)
+        dispatch(toggleError(false))
       }
       if (userRegistered) {
         history.push('/login')
