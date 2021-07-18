@@ -9,7 +9,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import moment from "moment";
 import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
 import { ButtonColors } from "../../../../const/enums";
@@ -17,6 +17,8 @@ import { ButtonColors } from "../../../../const/enums";
 
 import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
 import { registerUserAsync } from "redux_tk/features/register/registerSlice";
+import { useEffect } from "react";
+import { toggleRegister } from "redux_tk/features/register/registerSlice";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -48,34 +50,47 @@ export function SignUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isPasswordMatching, setIsPasswordMatching] = useState(false);
+  const [isPasswordMatching, setIsPasswordMatching] = useState(true);
   const classes = useStyles();
 
-  const registerError = useAppSelector(state => state.register.error)
+  const {error, userRegistered} = useAppSelector((state) => state.register);
   const dispatch = useAppDispatch();
+  const history = useHistory()
 
+    useEffect(() => {
+      if (error) {
+        alert(error)
+      }
+      if (userRegistered) {
+        history.push('/login')
+        dispatch(toggleRegister(false))
+      }
+    }, [error, userRegistered])
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (validatePassword()) {
-      setIsPasswordMatching(false);
-      const obj = {
+      const newUser: IUser = {
         firstName,
         lastName,
         email,
         dateOfBirth,
         sex: Number(sex),
-        password,
+        password
       };
-      dispatch(registerUserAsync(obj))
-    } else {
-      setIsPasswordMatching(true);
+      dispatch(registerUserAsync(newUser));
     }
   };
 
   const validatePassword = () => {
-    return password === confirmPassword;
+    if (password === confirmPassword) {
+      setIsPasswordMatching(true);
+      return true;
+    } else {
+      setIsPasswordMatching(false);
+      return false;
+    }
   };
 
   return (
@@ -179,7 +194,7 @@ export function SignUpForm() {
                 type="password"
                 id="password"
                 autoComplete="none"
-                error={isPasswordMatching}
+                error={!isPasswordMatching}
               />
             </Grid>
             <Grid item xs={12}>
@@ -194,7 +209,7 @@ export function SignUpForm() {
                 type="password"
                 id="confirm-password"
                 autoComplete="none"
-                error={isPasswordMatching}
+                error={!isPasswordMatching}
               />
             </Grid>
           </Grid>

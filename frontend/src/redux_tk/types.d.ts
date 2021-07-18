@@ -21,5 +21,5 @@ interface IUser {
 
 interface RegisterState {
     userRegistered: boolean;
-    error?: string
+    error?: string | null
 }
