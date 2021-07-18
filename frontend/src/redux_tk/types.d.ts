@@ -16,7 +16,7 @@ interface IUser {
     email: string,
     sex: number,
     password: string,
-    dataOfBirth: string
+    dateOfBirth: string
 }
 
 interface RegisterState {

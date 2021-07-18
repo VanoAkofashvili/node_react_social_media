@@ -6,8 +6,8 @@ import registerReducer from '../features/register/registerSlice'
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
-    // justCOunt: counterReducer,
-    // notes: notesReducer,
+    notes: notesReducer,
+    register: registerReducer
   },
 })
 

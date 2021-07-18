@@ -13,7 +13,7 @@ import { MainBackground } from "./const/colors";
 import PrivateRoute from "./HOC/PrivateRoute";
 import { Login, SignUp } from "./pages";
 
-import { Counter } from "redux/Counter";
+import { Counter } from "redux_tk/Counter";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

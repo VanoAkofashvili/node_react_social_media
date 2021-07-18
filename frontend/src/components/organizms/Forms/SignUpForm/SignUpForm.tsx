@@ -15,6 +15,9 @@ import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
 import { ButtonColors } from "../../../../const/enums";
 // import { Alert, AlertTitle } from '@material-ui/lab';
 
+import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
+import { registerUserAsync } from "redux_tk/features/register/registerSlice";
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -48,6 +51,9 @@ export function SignUpForm() {
   const [isPasswordMatching, setIsPasswordMatching] = useState(false);
   const classes = useStyles();
 
+  const registerError = useAppSelector(state => state.register.error)
+  const dispatch = useAppDispatch();
+
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -62,6 +68,7 @@ export function SignUpForm() {
         sex: Number(sex),
         password,
       };
+      dispatch(registerUserAsync(obj))
     } else {
       setIsPasswordMatching(true);
     }
