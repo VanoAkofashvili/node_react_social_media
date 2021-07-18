@@ -7,12 +7,31 @@ import {userService} from "../users/User";
 import {photoRepo} from "../../repository/photos/Photo";
 import {utilService} from "../utility/Utility";
 import {create} from "domain";
+import {NOT} from "sequelize/types/lib/deferrable";
+import {itemService} from "./Item";
 
-const {INTERNAL_SERVER_ERROR, CREATED, FORBIDDEN, NOT_FOUND} = StatusCodes;
+const {INTERNAL_SERVER_ERROR, CREATED, FORBIDDEN, NOT_FOUND, OK} = StatusCodes;
 
 class PostService {
     public async getPostById(postId: number) {
-        return await postRepo.getPostById(postId);
+        let {post} = await postRepo.getPostById(postId);
+        //@ts-ignore
+        let {likes} = await itemService.getLikes(postId);
+        post = JSON.parse(JSON.stringify(post));
+        likes = JSON.parse(JSON.stringify(likes));
+        //@ts-ignore
+        post.likes = likes;
+        //@ts-ignore
+        post.numberOfLikes = likes.length;
+
+
+        console.log(likes, 'likes');
+        console.log(post, 'post');
+        return Promise.resolve({
+            code: OK,
+            success: true,
+            post: post
+        })
     }
 
     public async getActualPostObject(postId: number) {
@@ -22,7 +41,7 @@ class PostService {
     // public async createNewPost(post: Post): Promise<WithItemResponse> {
     public async createNewPost(post: Post) {
         try {
-            const {user} = await userService.findUserById(post.userId);
+            const user = await userService.getUserById(post.userId);
             // console.log(Object.keys(user.__proto__));
             const item = await user.createItem({
                 itemType: post.itemType
@@ -59,7 +78,7 @@ class PostService {
     }
 
     public async deletePostById(postId: number, userId: number) {
-        // const {user} = await userService.findUserById(userId);
+        // const user = await userService.getUserById(userId);
         const postResponse = await this.getPostById(postId);
         if (!postResponse.post) {
             return Promise.resolve({

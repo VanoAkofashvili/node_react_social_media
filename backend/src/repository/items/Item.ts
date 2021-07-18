@@ -41,6 +41,18 @@ class ItemRepository {
             })
         }
     }
+
+    public async getItemById(itemId: number) {
+        try {
+            return await models.item.findByPk(itemId);
+        } catch (err) {
+            return Promise.resolve({
+                success: false,
+                message: err.message,
+                code: INTERNAL_SERVER_ERROR
+            })
+        }
+    }
 }
 
 export const itemRepo = new ItemRepository();

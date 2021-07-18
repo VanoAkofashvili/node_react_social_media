@@ -15,30 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId',
         as: 'items'
       });
-      // User.belongsToMany(models.item, {through: 'liked_items'})
-      // User.belongsToMany(models.item, {through: 'items_comments'});
-
-      // User.belongsTo(models.photo, {
-      //   foreignKey: 'profileId',
-      //   targetKey: 'id',
-      //   onDelete: 'SET NULL',
-      //   onUpdate: 'CASCADE'
-      // });
-      //
-      // User.belongsTo(models.cover, {
-      //   foreignKey: 'coverId',
-      //   targetKey: 'id'
-      // })
-      //
-      // User.hasMany(models.followers, {
-      //   foreignKey: 'userId',
-      //   as: 'Followers',
-      // });
-      // User.hasMany(models.followers, {
-      //   foreignKey: 'followerId',
-      //   as: 'Followings',
-      // });
-
+      User.belongsToMany(models.item, {through: 'item_like', as: 'liked'});
     }
   };
   User.init({
@@ -61,16 +38,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true
     },
-    age: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     dateOfBirth: {
       type: DataTypes.DATE,
       allowNull: false,
     },
     sex: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(1),
       allowNull: false,
     },
     password: {

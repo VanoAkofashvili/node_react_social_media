@@ -4,7 +4,7 @@ import {ItemTypes} from "./ItemTypes";
 
 export interface IPost extends IItem {
     content: string;
-    imageUrl: string;
+    // imageUrl: string;
 }
 
 export class Post extends Item {
