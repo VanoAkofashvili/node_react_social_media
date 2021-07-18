@@ -13,6 +13,8 @@ import { MainBackground } from "./const/colors";
 import PrivateRoute from "./HOC/PrivateRoute";
 import { Login, SignUp } from "./pages";
 
+import { Counter } from "redux/Counter";
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -36,6 +38,7 @@ const App: React.FC = () => {
           <PrivateRoute component={Home} path="/home" exact />
           <PrivateRoute component={Login} path="/login" />
           <PrivateRoute component={SignUp} path="/signUp" />
+          <Route path="/counter" exact><Counter /></Route>
         </Switch>
       </div>
     </Router>
