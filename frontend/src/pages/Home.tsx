@@ -8,11 +8,10 @@ import { HomeTemplate } from "../components/templates/HomeTemplate";
  const Home: React.FC = () =>  {
   return (
     <>
-      {/* <Header />
+      <Header />
       <Sidebar />
       <PostsOnHome />
-      <Stories /> */}
-      <HomeTemplate />
+      <Stories />
     </>
   );
 }
