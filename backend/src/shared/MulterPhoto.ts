@@ -1,6 +1,6 @@
-const md5 = require('md5');
 import multer from "multer";
 
+const {v4: uuidv4} = require('uuid');
 //@ts-ignore
 const fileFilter = (req, file, cb) => {
     if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg') {
@@ -14,10 +14,10 @@ const fileStorage = multer.diskStorage({
         cb(null, 'images');
     },
     filename: (req, file, cb) => {
-        const d = new Date();
-        const dateFileName = `${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}`;
+        // const d = new Date();
+        // const dateFileName = `${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}`;
         const ext = file.mimetype.split('/')[1];
-        cb(null, md5(file.originalname) + '-' + dateFileName + '.' + ext);
+        cb(null, `${uuidv4()}.${ext}`);
     }
 });
 export default function multerPhoto() {

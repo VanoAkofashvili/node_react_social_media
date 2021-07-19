@@ -1,27 +1,44 @@
-import React from 'react';
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Header from './components/Header'
-import Home from './components/Home';
-import { MainBackground } from './assets/const/colors';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Redirect,
+  Route,
+} from "react-router-dom";
+import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Home from "./pages/Home";
+import { MainBackground } from "./const/colors";
+
+import PrivateRoute from "./HOC/PrivateRoute";
+import { Login, SignUp } from "./pages";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: 'flex',
+      display: "flex",
       backgroundColor: MainBackground,
-    }
-  }),
+    },
+  })
 );
 
-export default function ClippedDrawer() {
+const App: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <Header />
-      <Home />
-    </div>
+    <Router>
+      <div className={classes.root}>
+        <CssBaseline />
+        <Switch>
+          <Route path="/" exact>
+            <Redirect to="/home" />
+          </Route>
+          <PrivateRoute component={Home} path="/home" exact />
+          <PrivateRoute component={Login} path="/login" />
+          <PrivateRoute component={SignUp} path="/signUp" />
+        </Switch>
+      </div>
+    </Router>
   );
-}
+};
+export default App;

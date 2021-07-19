@@ -1,6 +1,8 @@
 import {Item} from "../../public/models/items/Item";
 import {ItemResponse} from "../../public/responses/items";
-import {CREATED, INTERNAL_SERVER_ERROR} from "http-status-codes";
+import {StatusCodes} from "http-status-codes";
+
+const {CREATED, OK, INTERNAL_SERVER_ERROR} = StatusCodes;
 
 const models = require('../../database/models');
 
@@ -18,6 +20,36 @@ class ItemRepository {
                 code: INTERNAL_SERVER_ERROR,
                 message: err.message,
                 success: false
+            })
+        }
+    }
+
+    public async deleteById(itemId: number) {
+        try {
+            const response = await models.item.findByPk(itemId);
+            await response.destroy();
+            return Promise.resolve({
+                code: OK,
+                success: true
+            })
+        } catch (err) {
+            console.log(err.message, 'deleteById');
+            return Promise.resolve({
+                code: INTERNAL_SERVER_ERROR,
+                success: false,
+                message: err.message
+            })
+        }
+    }
+
+    public async getItemById(itemId: number) {
+        try {
+            return await models.item.findByPk(itemId);
+        } catch (err) {
+            return Promise.resolve({
+                success: false,
+                message: err.message,
+                code: INTERNAL_SERVER_ERROR
             })
         }
     }

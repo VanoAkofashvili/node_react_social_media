@@ -11,19 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(models.item);
-      User.belongsToMany(models.item, {through: 'liked_items'})
-      // User.belongsToMany(models.item, {through: 'items_comments'});
-
-      User.belongsTo(models.photo, {
-        foreignKey: 'profileId',
-        targetKey: 'id'
+      User.hasMany(models.item, {
+        foreignKey: 'userId',
+        as: 'items'
       });
-
-      User.belongsTo(models.cover, {
-        foreignKey: 'coverId',
-        targetKey: 'id'
-      })
+      User.belongsToMany(models.item, {through: 'item_like', as: 'liked'});
     }
   };
   User.init({
@@ -46,16 +38,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true
     },
-    age: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     dateOfBirth: {
       type: DataTypes.DATE,
       allowNull: false,
     },
     sex: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(1),
       allowNull: false,
     },
     password: {

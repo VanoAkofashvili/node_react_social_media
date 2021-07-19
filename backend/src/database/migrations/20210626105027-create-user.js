@@ -21,16 +21,12 @@ module.exports = {
         allowNull: false,
         unique: true
       },
-      age: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
       dateOfBirth: {
         type: Sequelize.DATE,
         allowNull: false,
       },
       sex: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING(1),
         allowNull: false,
       },
       password: {

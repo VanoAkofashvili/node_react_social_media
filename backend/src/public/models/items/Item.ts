@@ -5,7 +5,7 @@ export interface IItem {
     createdAt?: Date,
     updatedAt?: Date,
     itemType: string,
-    userId: number
+    userId?: number
 }
 
 export class Item {

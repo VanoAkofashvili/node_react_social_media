@@ -28,12 +28,9 @@ class UserRepository {
         }
     }
 
-    public async findUserById(userId: number): Promise<WithItemResponse> {
+    public async getUserById(userId: number): Promise<WithItemResponse> {
         try {
-            const user = await models.user.findByPk(userId);
-            return {
-                user: user
-            }
+            return await models.user.findByPk(userId);
         } catch (err) {
             console.log(err);
             return Promise.resolve({
