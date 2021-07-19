@@ -17,7 +17,7 @@ import { ButtonColors } from "../../../../const/enums";
 import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
 import { registerUserAsync, toggleError } from "redux_tk/features/auth/authSlice";
 import { useEffect } from "react";
-import { toggleRegister } from "redux_tk/features/auth/authSlice";
+import { registerFinished } from "redux_tk/features/auth/authSlice";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -52,7 +52,7 @@ export function SignUpForm() {
   const [isPasswordMatching, setIsPasswordMatching] = useState(true);
   const classes = useStyles();
 
-  const {error, userRegistered} = useAppSelector((state) => state.auth);
+  const {error, userIsRegistering} = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const history = useHistory()
 
@@ -61,11 +61,11 @@ export function SignUpForm() {
         alert(error)
         dispatch(toggleError(false))
       }
-      if (userRegistered) {
+      if (userIsRegistering) {
         history.push('/login')
-        dispatch(toggleRegister(false))
+        dispatch(registerFinished())
       }
-    }, [error, userRegistered])
+    }, [error, userIsRegistering,dispatch, history])
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();

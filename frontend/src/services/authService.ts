@@ -7,4 +7,10 @@ const registerUser = async (user: IUser) => {
   return response.data;
 };
 
-export default { registerUser };
+const loginUser = async (credentials: ILoginCredentials) => {
+  const response = await axios.post(`${baseUrl}/auth/login`, credentials)
+  console.log('login data', response.data)
+  return response.data.token
+}
+
+export default { registerUser, loginUser };

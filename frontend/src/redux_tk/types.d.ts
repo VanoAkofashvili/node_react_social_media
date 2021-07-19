@@ -1,44 +1,46 @@
 interface INote {
-    id: number;
-    content: string;
-    important: boolean;
+  id: number;
+  content: string;
+  important: boolean;
 }
 
 interface NoteState {
-    notes: INote[]
+  notes: INote[];
 }
 
 /** User Register */
 
 interface IUser {
-    firstName: string,
-    lastName: string,
-    email: string,
-    sex: number,
-    password: string,
-    dateOfBirth: string
+  firstName: string;
+  lastName: string;
+  email: string;
+  sex: number;
+  password: string;
+  dateOfBirth: string;
 }
 
 interface RegisterState {
-    userRegistered: boolean;
-    error?: string | null
+  userIsRegistering: boolean;
+  error?: string | null;
 }
 
 /** Login */
 
-interface ILoginCredentials {
-    email: string;
-    password: string;
-}
-
 interface LoginState {
-    token: string
+  token: string;
 }
 
 /** AUTH */
 
 interface authState {
-    userRegistered: boolean;
-    error?: string | null;
-    token: string
+  userIsRegistering: boolean;
+  error?: string | null;
+  token: string;
+  isLoggedIn: boolean;
+  userIsLogging: boolean;
+}
+
+interface ILoginCredentials {
+  email: string;
+  password: string;
 }

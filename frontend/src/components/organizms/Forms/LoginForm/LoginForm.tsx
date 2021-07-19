@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -13,6 +11,8 @@ import { TextFieldBordered } from "../../../atoms/TextField/TextFieldBordered";
 import { ButtonColors } from "../../../../const/enums";
 import  ButtonSubmit  from "../../../atoms/Buttons/ButtonSubmit";
 import { TextFieldVariant } from "../../../../const/enums";
+import { useAppDispatch } from "redux_tk/app/hook";
+import { loginUser } from "redux_tk/features/auth/authSlice";
 
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -38,13 +38,16 @@ export function LoginForm() {
   const [password, setPassword] = useState("");
   const classes = useStyles();
 
+  const dispatch = useAppDispatch()
+
   const onSubmit = (e: any) => {
     e.preventDefault();
-    const obj = {
+    const credentials: ILoginCredentials = {
       email,
       password,
     };
-    console.log(obj);
+    dispatch(loginUser(credentials))
+    // dispatch here
   };
 
   return (
