@@ -13,7 +13,7 @@ import {itemService} from "./Item";
 const {INTERNAL_SERVER_ERROR, CREATED, FORBIDDEN, NOT_FOUND, OK} = StatusCodes;
 
 class PostService {
-    public async getPostById(postId: number) {
+    postById(postId: number) {
         let {post} = await postRepo.getPostById(postId);
         //@ts-ignore
         let {likes} = await itemService.getLikes(postId);
@@ -24,7 +24,7 @@ class PostService {
         //@ts-ignore
         post.numberOfLikes = likes.length;
 
-
+ublic async getP
         console.log(likes, 'likes');
         console.log(post, 'post');
         return Promise.resolve({
