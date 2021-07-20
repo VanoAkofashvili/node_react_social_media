@@ -9,27 +9,29 @@ import Container from "@material-ui/core/Container";
 
 import { TextFieldBordered } from "../../../atoms/TextField/TextFieldBordered";
 import { ButtonColors } from "../../../../const/enums";
-import  ButtonSubmit  from "../../../atoms/Buttons/ButtonSubmit";
+import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
 import { TextFieldVariant } from "../../../../const/enums";
-import { useAppDispatch } from "redux_tk/app/hook";
+import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
 import { loginUser } from "redux_tk/features/auth/authSlice";
+import { useEffect } from "react";
 
-
-const useStyles = makeStyles((theme) => createStyles({
-  paper: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-}));
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    paper: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+    },
+    avatar: {
+      margin: theme.spacing(1),
+      backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+      width: "100%", // Fix IE 11 issue.
+      marginTop: theme.spacing(1),
+    },
+  })
+);
 
 // TO-DO: remember me
 
@@ -38,7 +40,15 @@ export function LoginForm() {
   const [password, setPassword] = useState("");
   const classes = useStyles();
 
-  const dispatch = useAppDispatch()
+  const { error, token } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (token) {
+      console.log(token);
+      localStorage.setItem("token", token);
+    }
+  }, [token]);
 
   const onSubmit = (e: any) => {
     e.preventDefault();
@@ -46,8 +56,7 @@ export function LoginForm() {
       email,
       password,
     };
-    dispatch(loginUser(credentials))
-    // dispatch here
+    dispatch(loginUser(credentials));
   };
 
   return (

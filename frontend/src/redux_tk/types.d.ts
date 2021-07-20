@@ -1,15 +1,9 @@
-interface INote {
-  id: number;
-  content: string;
-  important: boolean;
+// loginstate
+interface LoginState {
+  token: string;
 }
 
-interface NoteState {
-  notes: INote[];
-}
-
-/** User Register */
-
+/** AUTH */
 interface IUser {
   firstName: string;
   lastName: string;
@@ -19,25 +13,13 @@ interface IUser {
   dateOfBirth: string;
 }
 
-interface RegisterState {
-  userIsRegistering: boolean;
-  error?: string | null;
-}
-
-/** Login */
-
-interface LoginState {
-  token: string;
-}
-
-/** AUTH */
-
 interface authState {
-  userIsRegistering: boolean;
+  registerLoading: boolean;
+  registerSuccess: boolean;
   error?: string | null;
   token: string;
-  isLoggedIn: boolean;
-  userIsLogging: boolean;
+  loginLoading: boolean;
+  loginSuccess: boolean;
 }
 
 interface ILoginCredentials {

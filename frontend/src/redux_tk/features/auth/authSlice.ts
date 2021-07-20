@@ -2,16 +2,17 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "services/authService";
 
 const initialState: authState = {
-  userIsRegistering: false,
+  registerLoading: false,
+  registerSuccess: false,
   error: null,
   token: "",
-  isLoggedIn: false,
-  userIsLogging: false,
+  loginLoading: false,
+  loginSuccess: false,
 };
 
 // action creator
 export const registerUserAsync = createAsyncThunk(
-    "register/registerUserAsync",
+  "register/registerUserAsync",
     async (user: IUser) => {
       return await authService.registerUser(user);
     }
@@ -19,7 +20,6 @@ export const registerUserAsync = createAsyncThunk(
 
 export const loginUser = createAsyncThunk('auth/loginUser', async (credentials: ILoginCredentials) => {
   const response = await authService.loginUser(credentials)
-  console.log(response)
   return response
 })
 
@@ -27,11 +27,14 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    registerFinished: (state) => {
-      state.userIsRegistering = false;
+    toggleRegisterLoading: (state, action: PayloadAction<boolean>) => {
+      state.registerLoading = action.payload;
     },
     toggleError: (state, action) => {
         state.error = action.payload
+    },
+    toggleRegisterSuccess: (state, action: PayloadAction<boolean>) => {
+      state.registerSuccess = action.payload
     }
   },
   /** registered thunk action creators */
@@ -39,10 +42,11 @@ const authSlice = createSlice({
     builder
       /** register */
       .addCase(registerUserAsync.pending, (state) => {
-        state.userIsRegistering = false
+        state.registerLoading = false
       })
       .addCase(registerUserAsync.fulfilled, (state) => {
-        state.userIsRegistering = true;
+        state.registerLoading = true;
+        state.registerSuccess = true;
       })
       .addCase(registerUserAsync.rejected, (state, action) => {
         state.error = action.error.message;
@@ -50,19 +54,19 @@ const authSlice = createSlice({
 
       /**login */
       .addCase(loginUser.pending, (state: authState) => {
-        state.userIsLogging = true
+        state.loginLoading = true
       })
       .addCase(loginUser.fulfilled, (state, action: PayloadAction<string>) => {
-        state.userIsLogging = false
-        state.userIsLogging = true
+        state.loginLoading = false
+        state.loginSuccess = true
         state.token = action.payload
       })
       .addCase(loginUser.rejected, (state, action) => {
-        state.userIsLogging = false
+        state.loginLoading = false
         state.error = action.error.message
       })
   },
 });
 
-export const {registerFinished, toggleError} = authSlice.actions
+export const {toggleRegisterLoading, toggleError, toggleRegisterSuccess} = authSlice.actions
 export default authSlice.reducer

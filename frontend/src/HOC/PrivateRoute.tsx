@@ -10,13 +10,13 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({
   component: Component,
   ...rest
 }) => {
-  const isLoggedIn = true;
+  const loginLoading = true;
   return (
     <Route
       {...rest}
       render={(props) => {
         // console.log(props);
-        return isLoggedIn ? <Component /> : <Redirect to="/login" />;
+        return loginLoading ? <Component /> : <Redirect to="/login" />;
       }}
     />
   );
