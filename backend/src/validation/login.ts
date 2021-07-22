@@ -7,5 +7,7 @@ export const validateLogin = [
         .normalizeEmail(),
     body('password')
         .trim()
-        .isLength({min: 8}),
+        .not()
+        .isEmpty()
+        .withMessage('Invalid password')
 ]
