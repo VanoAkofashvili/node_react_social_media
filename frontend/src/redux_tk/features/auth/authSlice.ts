@@ -1,32 +1,50 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  PayloadAction,
+  createAsyncThunk,
+  AsyncThunkPayloadCreator,
+} from "@reduxjs/toolkit";
 import authService from "services/authService";
 
 const initialState: authState = {
   registerLoading: false,
   registerSuccess: false,
-  error: null,
+  error: [],
   token: "",
   loginLoading: false,
   loginSuccess: false,
 };
 
-// action creator
-export const registerUserAsync = createAsyncThunk(
-  "auth/registerUserAsync",
-  async (user: IUser) => {
-    const response = await authService.registerUser(user);
-    return response;
+// User registrations Thunk
+export const registerUserAsync = createAsyncThunk<string[] | number, IUser, {}>(
+  "auth/register",
+  async (user: IUser, { rejectWithValue }) => {
+    try {
+      const response = await authService.registerUser(user);
+      return response.userId;
+    } catch (err) {
+      // Use `err.response.data` as `action.payload` for a `rejected` action,
+      // by explicitly returning it using the `rejectWithValue()` utility
+      // it allows return objects
+      return rejectWithValue(err.errors);
+    }
   }
 );
 
+// User Login Thunk
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
-  async (credentials: ILoginCredentials) => {
-    const response = await authService.loginUser(credentials);
-    return response;
+  async (credentials: ILoginCredentials, { rejectWithValue }) => {
+    try {
+      const response = await authService.loginUser(credentials);
+      return response;
+    } catch (err) {
+      return rejectWithValue(err.errors);
+    }
   }
 );
 
+// reducers and action creators for auth store
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -45,15 +63,18 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       /** register */
-      .addCase(registerUserAsync.pending, (state) => {
+      .addCase(registerUserAsync.pending, (state, action) => {
+        console.log("pending", action);
         state.registerLoading = false;
       })
       .addCase(registerUserAsync.fulfilled, (state, action) => {
+        console.log("fullfilled");
         state.registerLoading = true;
         state.registerSuccess = true;
       })
-      .addCase(registerUserAsync.rejected, (state, action) => {
-        state.error = action.error.message;
+      .addCase(registerUserAsync.rejected, (state, {payload}) => {
+        //@ts-ignore
+        state.error = payload
       })
 
       /**login */
@@ -61,7 +82,7 @@ const authSlice = createSlice({
         state.loginLoading = true;
       })
       .addCase(loginUser.fulfilled, (state, action: PayloadAction<string>) => {
-        console.log('fulliled', action)
+        console.log("fulliled", action);
 
         state.loginLoading = false;
         state.loginSuccess = true;
@@ -69,7 +90,8 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loginLoading = false;
-        state.error = action.error.message;
+        //@ts-ignore
+        state.error = action.payload;
       });
   },
 });

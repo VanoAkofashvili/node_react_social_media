@@ -122,7 +122,8 @@ export function SignUpForm() {
     <>
       {/* {registerSuccess && <Alert message="You signed up successfuly" severity="success"/>} */}
       {/* {true  && <Alert message="message" severity="error"/>} */}
-      {error  && <Alert error={error}/>}
+      {/* {error  && <Alert error={error}/>} */}
+      { error && console.log(error)}
 
       <Container component="main" maxWidth="xs">
         <CssBaseline />

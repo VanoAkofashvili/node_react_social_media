@@ -16,7 +16,7 @@ interface IUser {
 interface authState {
   registerLoading: boolean;
   registerSuccess: boolean;
-  error?: string | null;
+  error?: string[] | null;
   token: string;
   loginLoading: boolean;
   loginSuccess: boolean;
