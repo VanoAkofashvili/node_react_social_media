@@ -6,14 +6,14 @@ const {INTERNAL_SERVER_ERROR} = StatusCodes;
 
 export const errorHandler = (error: ExtendedError, req: Request, res: Response, next: NextFunction) => {
     const status = error.statusCode || INTERNAL_SERVER_ERROR;
+
     const errorMessage = error.message;
-    console.log(errorMessage);
     const errObj = {
         success: false,
         // message: errorMessage,
-        errors: []
+        // message: errorMessage,
+        errors: [errorMessage]
     }
-
 
     if (error.data) {
         errObj.errors = errObj.errors.concat(error.data);
