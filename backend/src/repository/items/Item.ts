@@ -53,6 +53,25 @@ class ItemRepository {
             })
         }
     }
+
+    public async countItemLikes(itemId: number) {
+        try {
+            const numOfLikes = models.item_like.count({
+                where: {
+                    itemId
+                }
+            })
+
+            return numOfLikes;
+        } catch (err) {
+            console.log(err.message, 'countItemLikes');
+            return Promise.resolve({
+                success: false,
+                message: err.message,
+                code: INTERNAL_SERVER_ERROR
+            })
+        }
+    }
 }
 
 export const itemRepo = new ItemRepository();

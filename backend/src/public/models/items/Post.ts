@@ -1,10 +1,16 @@
 import {Expose} from "class-transformer";
 import {IItem, Item} from "./Item";
 import {ItemTypes} from "./ItemTypes";
+import {IPhoto} from "../photo/Photo";
 
 export interface IPost extends IItem {
+    id: number;
     content: string;
-    // imageUrl: string;
+    createdAt: Date;
+    updatedAt: Date;
+    userId: number;
+    photos: IPhoto[]
+
 }
 
 export class Post extends Item {
