@@ -3,7 +3,7 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Alert from "components/atoms/alerts/Alert";
 
 interface Props {
-  error: string;
+  errors: string[];
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -22,13 +22,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const ErrorAlert: React.FC<Props> = ({ error }) => {
+const ErrorAlert: React.FC<Props> = ({ errors }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Alert severity="error">
-        {error}
-      </Alert>
+      {errors.map((error, i) => (
+        <Alert severity="error" key={i}>{error}</Alert>
+      ))}
     </div>
   );
 };

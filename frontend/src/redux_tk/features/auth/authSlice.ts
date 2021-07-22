@@ -9,7 +9,7 @@ import authService from "services/authService";
 const initialState: authState = {
   registerLoading: false,
   registerSuccess: false,
-  error: [],
+  errors: [],
   token: "",
   loginLoading: false,
   loginSuccess: false,
@@ -53,7 +53,7 @@ const authSlice = createSlice({
       state.registerLoading = action.payload;
     },
     toggleError: (state, action) => {
-      state.error = action.payload;
+      state.errors = action.payload;
     },
     toggleRegisterSuccess: (state, action: PayloadAction<boolean>) => {
       state.registerSuccess = action.payload;
@@ -74,7 +74,7 @@ const authSlice = createSlice({
       })
       .addCase(registerUserAsync.rejected, (state, {payload}) => {
         //@ts-ignore
-        state.error = payload
+        state.errors = payload
       })
 
       /**login */
@@ -91,7 +91,7 @@ const authSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.loginLoading = false;
         //@ts-ignore
-        state.error = action.payload;
+        state.errors = action.payload;
       });
   },
 });

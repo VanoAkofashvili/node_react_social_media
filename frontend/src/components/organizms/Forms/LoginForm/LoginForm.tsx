@@ -14,6 +14,7 @@ import { TextFieldVariant } from "../../../../const/enums";
 import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
 import { loginUser } from "redux_tk/features/auth/authSlice";
 import { useEffect } from "react";
+import { Snackbar } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -40,16 +41,23 @@ export function LoginForm() {
   const [password, setPassword] = useState("");
   const classes = useStyles();
   const history = useHistory()
+  const [open, setOpen] = useState(true);
 
-  const { error, token } = useAppSelector((state) => state.auth);
+
+  const { errors, token, registerSuccess } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (token) {
       localStorage.setItem("token", token);
       history.push('/home')
+      if (registerSuccess) {
+        setTimeout(() => {
+          dispatch(toggleRegisterSuccess(false));
+        }, 3000); //
+      }
     }
-  }, [token, history]);
+  }, [token, history, dispatch, registerSuccess]);
 
   const onSubmit = (e: any) => {
     e.preventDefault();
@@ -60,8 +68,23 @@ export function LoginForm() {
     dispatch(loginUser(credentials));
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // TO-DO: change notification to alert
   return (
     <Container component="main" maxWidth="xs">
+      {registerSuccess && (
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+          <p>This is a success message!</p>
+        </Snackbar>
+      )}
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -114,3 +137,7 @@ export function LoginForm() {
     </Container>
   );
 }
+function toggleRegisterSuccess(arg0: boolean): any {
+  throw new Error("Function not implemented.");
+}
+

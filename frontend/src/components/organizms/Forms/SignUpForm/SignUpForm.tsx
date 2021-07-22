@@ -3,7 +3,7 @@ import Avatar from "@material-ui/core/Avatar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
-import { FormControl, InputLabel, Select } from "@material-ui/core";
+import { FormControl, InputLabel, Select, Snackbar } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -56,22 +56,23 @@ export function SignUpForm() {
   const [isPasswordMatching, setIsPasswordMatching] = useState(true);
   const classes = useStyles();
 
-  const { error, registerLoading, registerSuccess } = useAppSelector(
+  const { errors, registerLoading, registerSuccess } = useAppSelector(
     (state) => state.auth
   );
   const dispatch = useAppDispatch();
   const history = useHistory();
 
+
+  // TO-DO: handle eror disapear
   useEffect(() => {
     // if (error) {
     //   dispatch(toggleError(false));
     // }
     if (registerSuccess) {
       history.push("/login");
-      dispatch(toggleRegisterSuccess(false)) // 
       dispatch(toggleRegisterLoading(false));
     }
-  }, [error, registerLoading, dispatch, history, registerSuccess]);
+  }, [errors, registerLoading, dispatch, history, registerSuccess]);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -99,31 +100,12 @@ export function SignUpForm() {
     }
   };
 
-  const data= [
-    {
-        "msg": "Please enter a valid email.",
-        "param": "email",
-        "location": "body"
-    },
-    {
-        "msg": "Invalid value",
-        "param": "password",
-        "location": "body"
-    },
-    {
-        "value": "",
-        "msg": "Invalid value",
-        "param": "firstName",
-        "location": "body"
-    }
-]
 
   return (
     <>
       {/* {registerSuccess && <Alert message="You signed up successfuly" severity="success"/>} */}
       {/* {true  && <Alert message="message" severity="error"/>} */}
-      {/* {error  && <Alert error={error}/>} */}
-      { error && console.log(error)}
+      {errors && <Alert errors={errors} />}
 
       <Container component="main" maxWidth="xs">
         <CssBaseline />
