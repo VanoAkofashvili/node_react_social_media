@@ -26,3 +26,10 @@ interface ILoginCredentials {
   email: string;
   password: string;
 }
+
+/** Homepage */
+
+interface IPost {
+  id: number;
+  content: string;
+}

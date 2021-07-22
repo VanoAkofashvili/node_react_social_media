@@ -4,6 +4,7 @@ import { contentWrapperWidth } from "../../../const/wrappers";
 import NewPostForm from "../../molecules/Forms/NewPost";
 import Post from "../../molecules/Post";
 import { MainBackground } from "../../../const/colors";
+import { useAppSelector } from "redux_tk/app/hook";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,14 +18,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Main: React.FC = () => {
   const classes = useStyles();
-  const [posts, setPosts] = useState<any[]>([]);
+  const {posts} = useAppSelector(state => state.homePage)
+
+  // const [posts, setPosts] = useState<any[]>([]);
 
   return (
     <main className={classes.root}>
       <NewPostForm />
       {/* fetched posts */}
       {posts.map((post) => (
-        <Post post={post} key={post.id} />
+        <Post post={post} />
       ))}
     </main>
   );

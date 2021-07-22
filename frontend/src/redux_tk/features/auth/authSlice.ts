@@ -12,16 +12,20 @@ const initialState: authState = {
 
 // action creator
 export const registerUserAsync = createAsyncThunk(
-  "register/registerUserAsync",
-    async (user: IUser) => {
-      return await authService.registerUser(user);
-    }
-  );
+  "auth/registerUserAsync",
+  async (user: IUser) => {
+    const response = await authService.registerUser(user);
+    return response;
+  }
+);
 
-export const loginUser = createAsyncThunk('auth/loginUser', async (credentials: ILoginCredentials) => {
-  const response = await authService.loginUser(credentials)
-  return response
-})
+export const loginUser = createAsyncThunk(
+  "auth/loginUser",
+  async (credentials: ILoginCredentials) => {
+    const response = await authService.loginUser(credentials);
+    return response;
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -31,20 +35,20 @@ const authSlice = createSlice({
       state.registerLoading = action.payload;
     },
     toggleError: (state, action) => {
-        state.error = action.payload
+      state.error = action.payload;
     },
     toggleRegisterSuccess: (state, action: PayloadAction<boolean>) => {
-      state.registerSuccess = action.payload
-    }
+      state.registerSuccess = action.payload;
+    },
   },
   /** registered thunk action creators */
   extraReducers: (builder) => {
     builder
       /** register */
       .addCase(registerUserAsync.pending, (state) => {
-        state.registerLoading = false
+        state.registerLoading = false;
       })
-      .addCase(registerUserAsync.fulfilled, (state) => {
+      .addCase(registerUserAsync.fulfilled, (state, action) => {
         state.registerLoading = true;
         state.registerSuccess = true;
       })
@@ -54,19 +58,22 @@ const authSlice = createSlice({
 
       /**login */
       .addCase(loginUser.pending, (state: authState) => {
-        state.loginLoading = true
+        state.loginLoading = true;
       })
       .addCase(loginUser.fulfilled, (state, action: PayloadAction<string>) => {
-        state.loginLoading = false
-        state.loginSuccess = true
-        state.token = action.payload
+        console.log('fulliled', action)
+
+        state.loginLoading = false;
+        state.loginSuccess = true;
+        state.token = action.payload;
       })
       .addCase(loginUser.rejected, (state, action) => {
-        state.loginLoading = false
-        state.error = action.error.message
-      })
+        state.loginLoading = false;
+        state.error = action.error.message;
+      });
   },
 });
 
-export const {toggleRegisterLoading, toggleError, toggleRegisterSuccess} = authSlice.actions
-export default authSlice.reducer
+export const { toggleRegisterLoading, toggleError, toggleRegisterSuccess } =
+  authSlice.actions;
+export default authSlice.reducer;

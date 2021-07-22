@@ -12,7 +12,7 @@ import { Link, useHistory } from "react-router-dom";
 import moment from "moment";
 import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
 import { ButtonColors } from "../../../../const/enums";
-import Alert from "components/molecules/alerts/authAlert";
+import Alert from "components/molecules/alerts/authError";
 
 import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
 import {
@@ -66,9 +66,8 @@ export function SignUpForm() {
     // if (error) {
     //   dispatch(toggleError(false));
     // }
-    console.log(error)
     if (registerSuccess) {
-      // history.push("/login");
+      history.push("/login");
       dispatch(toggleRegisterSuccess(false)) // 
       dispatch(toggleRegisterLoading(false));
     }
@@ -100,10 +99,31 @@ export function SignUpForm() {
     }
   };
 
+  const data= [
+    {
+        "msg": "Please enter a valid email.",
+        "param": "email",
+        "location": "body"
+    },
+    {
+        "msg": "Invalid value",
+        "param": "password",
+        "location": "body"
+    },
+    {
+        "value": "",
+        "msg": "Invalid value",
+        "param": "firstName",
+        "location": "body"
+    }
+]
+
   return (
     <>
-      {registerSuccess && <Alert message="You signed up successfuly" severity="success"/>}
-      {true  && <Alert message="message" severity="error"/>}
+      {/* {registerSuccess && <Alert message="You signed up successfuly" severity="success"/>} */}
+      {/* {true  && <Alert message="message" severity="error"/>} */}
+      {error  && <Alert error={error}/>}
+
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
