@@ -91,9 +91,12 @@ class ItemService {
 
     }
 
-    public async getLikes(itemId: number) {
+    public async countItemLikes(itemId: number) {
+        return await itemRepo.countItemLikes(itemId);
+    }
+
+    public async getLikes(itemId: number, options: any = {}) {
         try {
-            // const user = await userService.getUserById(userId);
             const item = await this.getItemById(itemId);
             // const likes = await item.getLikes({
             //     attributes: ['id', 'firstName', 'lastName'],
@@ -102,14 +105,18 @@ class ItemService {
             // });
 
 
-            console.log(Object.keys(item.__proto__));
+            // console.log(Object.keys(item.__proto__));
 
             const likes = await item.getLikes({
                 attributes: ['id', 'firstName', 'lastName'],
-                joinTableAttributes: []
+                joinTableAttributes: [],
+                ...options
             });
 
+
             // console.log(likes.length, 'LIKES');
+            const numOfLikes = await this.countItemLikes(itemId);
+            console.log(numOfLikes, 'NUM OF LIKES');
 
             return Promise.resolve({
                 success: true,

@@ -16,9 +16,11 @@ export const validateSignUp = [
         .normalizeEmail(),
     body('password')
         .trim()
-        .isLength({min: 8}),
+        .isLength({min: 8})
+        .withMessage('Invalid password'),
     body('firstName')
         .trim()
         .not()
-        .isEmpty(),
+        .isEmpty()
+        .withMessage('Invalid firstName'),
 ]

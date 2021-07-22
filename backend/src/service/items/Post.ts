@@ -2,7 +2,7 @@ import {postRepo} from "../../repository/items/Post";
 import {Post} from "../../public/models/items/Post";
 import {StatusCodes} from "http-status-codes";
 import {WithItemResponse} from "../../public/responses/BaseResponse";
-import {PostsResponse} from "../../public/responses/items/PostResponses";
+import {PostResponse, PostsResponse} from "../../public/responses/items/PostResponses";
 import {userService} from "../users/User";
 import {photoRepo} from "../../repository/photos/Photo";
 import {utilService} from "../utility/Utility";
@@ -15,8 +15,11 @@ const {INTERNAL_SERVER_ERROR, CREATED, FORBIDDEN, NOT_FOUND, OK} = StatusCodes;
 class PostService {
     public async getPostById(postId: number) {
         let {post} = await postRepo.getPostById(postId);
+        const likeOptions = {
+            limit: 2
+        }
         //@ts-ignore
-        let {likes} = await itemService.getLikes(postId);
+        let {likes} = await itemService.getLikes(postId, likeOptions);
         post = JSON.parse(JSON.stringify(post));
         likes = JSON.parse(JSON.stringify(likes));
         //@ts-ignore
@@ -39,7 +42,7 @@ class PostService {
     }
 
     // public async createNewPost(post: Post): Promise<WithItemResponse> {
-    public async createNewPost(post: Post) {
+    public async createNewPost(post: Post) : Promise<PostResponse> {
         try {
             const user = await userService.getUserById(post.userId);
             // console.log(Object.keys(user.__proto__));

@@ -1,7 +1,10 @@
 import {Expose} from "class-transformer";
 
 export interface IPhoto {
-    [index: number]: { path: string; }
+    id: number;
+    path: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export interface IImage {
