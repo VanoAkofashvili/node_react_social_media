@@ -24,7 +24,6 @@ class AuthService {
         if (!isEqual) {
             console.log('!isEqual');
             throw new Error('Wrong password');
-
         }
 
         const {password: pass, updatedAt, ...forToken} = user.get({plain: true});
