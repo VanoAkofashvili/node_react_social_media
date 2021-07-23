@@ -83,7 +83,10 @@ class PostRepository {
     public async getAllPosts(paging: Paging, where = {}): Promise<PostsResponse> {
         try {
             console.log(paging, 'PAGING');
-            const {count, rows: posts} = await models.post.findAndCountAll({
+            const posts = await models.post.findAll({
+                offset: paging.offset,
+                limit: paging.limit,
+                // subQuery: true,
                 include: [
                     {
                         model: models.item,
@@ -93,6 +96,7 @@ class PostRepository {
                     {
                         model: models.photo,
                         attributes: ['id', 'path', 'createdAt', 'updatedAt'],
+                        // required: true,
                         // separate: true,
                     }
                 ],
@@ -103,10 +107,12 @@ class PostRepository {
                     [models.Sequelize.col('item.updatedAt'), 'updatedAt'],
                     [models.Sequelize.col('item.userId'), 'userId']
                 ],
-                offset: paging.offset,
-                limit: paging.limit,
-                subQuery: false,
+
             });
+
+            const count = await models.post.count();
+
+            console.log(posts, 'RES');
             // console.log(posts);
             // const {count, rows: posts} = await models.post.findAndCountAll({
             //     offset: paging.offset,
@@ -114,20 +120,20 @@ class PostRepository {
             //     subQuery: false
             // })
             // console.log(posts);
-            // const modifiedPosts = JSON.parse(JSON.stringify(posts)).map((post: any) => {
-            //     let {photos, ...rest} = post;
-            //     photos = photos.slice(0, 1);
-            //
-            //     return {
-            //         ...rest,
-            //         photos
-            //     }
-            // })
+            const modifiedPosts = JSON.parse(JSON.stringify(posts)).map((post: any) => {
+                let {photos, ...rest} = post;
+                photos = photos.slice(0, 1);
+
+                return {
+                    ...rest,
+                    photos
+                }
+            })
 
             return Promise.resolve({
                 code: OK,
                 success: true,
-                posts,
+                posts: modifiedPosts,
                 numberOfPost: count
             })
         } catch (err) {
