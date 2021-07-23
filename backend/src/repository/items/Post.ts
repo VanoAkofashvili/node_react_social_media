@@ -3,6 +3,7 @@ import {Post} from "../../public/models/items/Post";
 import {PostResponse, PostsResponse} from "../../public/responses/items/PostResponses";
 import {itemService} from "../../service/items/Item";
 import {photoRepo} from "../photos/Photo";
+import {Paging} from "../../public/models/general/Paging";
 
 const {INTERNAL_SERVER_ERROR, OK, NOT_FOUND} = StatusCodes;
 
@@ -79,16 +80,20 @@ class PostRepository {
 
     }
 
-    public async getAllPosts(where = {}): Promise<PostsResponse> {
+    public async getAllPosts(paging: Paging, where = {}): Promise<PostsResponse> {
         try {
-            const posts = await models.post.findAll({
-                where,
+            console.log(paging, 'PAGING');
+            const {count, rows: posts} = await models.post.findAndCountAll({
                 include: [
                     {
                         model: models.item,
                         required: true,
-                        attributes: []
-
+                        attributes: [],
+                    },
+                    {
+                        model: models.photo,
+                        attributes: ['id', 'path', 'createdAt', 'updatedAt'],
+                        // separate: true,
                     }
                 ],
                 attributes: [
@@ -97,13 +102,33 @@ class PostRepository {
                     [models.Sequelize.col('item.createdAt'), 'createdAt'],
                     [models.Sequelize.col('item.updatedAt'), 'updatedAt'],
                     [models.Sequelize.col('item.userId'), 'userId']
-                ]
-            })
+                ],
+                offset: paging.offset,
+                limit: paging.limit,
+                subQuery: false,
+            });
+            // console.log(posts);
+            // const {count, rows: posts} = await models.post.findAndCountAll({
+            //     offset: paging.offset,
+            //     limit: paging.limit,
+            //     subQuery: false
+            // })
+            // console.log(posts);
+            // const modifiedPosts = JSON.parse(JSON.stringify(posts)).map((post: any) => {
+            //     let {photos, ...rest} = post;
+            //     photos = photos.slice(0, 1);
+            //
+            //     return {
+            //         ...rest,
+            //         photos
+            //     }
+            // })
+
             return Promise.resolve({
                 code: OK,
                 success: true,
-                posts: posts,
-                numberOfPost: posts.length
+                posts,
+                numberOfPost: count
             })
         } catch (err) {
             return Promise.resolve({
@@ -116,16 +141,6 @@ class PostRepository {
 
     public async deletePostById(postId: number) {
         try {
-            // const post = await models.post.findByPk(postId);
-            // const postPhotos = await post.getPhotos();
-            // await post.removePhotos(postPhotos);
-            // const postItem = await post.getItem();
-            // await postItem.destroy();
-            // await post.destroy();
-            /////////////////////////////
-            // console.log(post, 'POST');
-            // console.log(postPhotos, 'POST PHOTOS');
-            // console.log(removePhotos, 'REMOVE PHOTOS');
             await itemService.deleteById(postId);
             return Promise.resolve({
                 code: OK,

@@ -26,9 +26,11 @@ export class Post extends Item {
         if (rmImages) {
             this.rmImages = rmImages;
         }
-
     }
+
+
 }
+
 
 //
 // export class Post extends Item {

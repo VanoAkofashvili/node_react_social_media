@@ -14,14 +14,17 @@ import {Post} from "../../public/models/items/Post";
 import {param, body} from "express-validator";
 import {IImage} from "../../public/models/photo/Photo";
 import {itemService} from "../../service/items/Item";
+import {withPagination} from "../../middleware/pagination";
+import {Paging} from "../../public/models/general/Paging";
 
 const isAuth = require("../../middleware/isAuth");
 const router = Router();
 
-const {BAD_REQUEST} = StatusCodes;
 
 const getAllPosts = async (req: Request, res: Response) => {
-    const response = await postService.getAllPosts();
+    const paging = plainToClass(Paging, req.body as Paging, {excludeExtraneousValues: true});
+    console.log(paging);
+    const response = await postService.getAllPostsWithPagination(paging);
     return res.status(response.code).json(response);
 };
 
@@ -140,7 +143,7 @@ const getLikes = async (req: RequestUser, res: Response, next: NextFunction) => 
     return res.status(response.code).json(response);
 }
 
-router.get("/all", isAuth, asyncHandler(getAllPosts));
+router.get("/all", withPagination, asyncHandler(getAllPosts));
 
 router.get(
     "/:id",

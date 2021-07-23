@@ -9,6 +9,7 @@ import {utilService} from "../utility/Utility";
 import {create} from "domain";
 import {NOT} from "sequelize/types/lib/deferrable";
 import {itemService} from "./Item";
+import {Paging} from "../../public/models/general/Paging";
 
 const {INTERNAL_SERVER_ERROR, CREATED, FORBIDDEN, NOT_FOUND, OK} = StatusCodes;
 
@@ -42,7 +43,7 @@ class PostService {
     }
 
     // public async createNewPost(post: Post): Promise<WithItemResponse> {
-    public async createNewPost(post: Post) : Promise<PostResponse> {
+    public async createNewPost(post: Post): Promise<PostResponse> {
         try {
             const user = await userService.getUserById(post.userId);
             // console.log(Object.keys(user.__proto__));
@@ -76,8 +77,8 @@ class PostService {
         }
     }
 
-    public async getAllPosts(where = {}): Promise<PostsResponse> {
-        return await postRepo.getAllPosts(where);
+    public async getAllPostsWithPagination(paging: Paging, where = {}): Promise<PostsResponse> {
+        return await postRepo.getAllPosts(paging, where);
     }
 
     public async deletePostById(postId: number, userId: number) {
