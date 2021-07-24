@@ -8,10 +8,13 @@ import {
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Home from "./pages/Home";
-import { MainBackground } from "./const/colors";
+import { MainBackground } from "./assets/const/colors";
 
 import PrivateRoute from "./HOC/PrivateRoute";
 import { Login, SignUp } from "./pages";
+import { useEffect } from "react";
+import { useAppDispatch } from "redux_tk/app/hook";
+import { autoLogin } from "redux_tk/features/auth/authSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,6 +27,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const App: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(autoLogin())
+  })
 
   return (
     <Router>
@@ -34,10 +42,11 @@ const App: React.FC = () => {
             <Redirect to="/home" />
           </Route>
           <PrivateRoute component={Home} path="/home" exact />
-          <PrivateRoute component={Login} path="/login" />
-          <PrivateRoute component={SignUp} path="/signUp" />
+          <Route component={Login} path="/login" />
+          <Route component={SignUp} path="/signUp" />
         </Switch>
       </div>
+
     </Router>
   );
 };

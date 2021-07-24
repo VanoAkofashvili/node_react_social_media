@@ -11,7 +11,7 @@ import FileInput from "../../../atoms/Inputs/FileInput";
 
 import Fade from "@material-ui/core/Fade";
 import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
-import { ButtonColors } from "../../../../const/enums";
+import { ButtonColors } from "../../../../assets/const/enums";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -76,7 +76,7 @@ const NewPostModal: React.FC = (props) => {
                 Creating a Post
               </Typography>
               <IconButton onClick={handleClose} style={{flexBasis: "10%"}}>
-                <CloseOutlinedIcon fontSize="default"/>
+                <CloseOutlinedIcon fontSize="medium"/>
               </IconButton>
             </Box>
             <Divider />

@@ -13,6 +13,7 @@ const initialState: authState = {
   token: "",
   loginLoading: false,
   loginSuccess: false,
+  autoLogin: false
 };
 
 // User registrations Thunk
@@ -58,6 +59,16 @@ const authSlice = createSlice({
     toggleRegisterSuccess: (state, action: PayloadAction<boolean>) => {
       state.registerSuccess = action.payload;
     },
+    autoLogin: (state) => {
+      state.autoLogin = true
+    },
+    setAuthUser: (state, acton) => {
+      state.loginSuccess = true;
+      state.token = acton.payload
+    },
+    logOut: (state) => {
+      state.loginSuccess = false
+    }
   },
   /** registered thunk action creators */
   extraReducers: (builder) => {
@@ -82,8 +93,6 @@ const authSlice = createSlice({
         state.loginLoading = true;
       })
       .addCase(loginUser.fulfilled, (state, action: PayloadAction<string>) => {
-        console.log("fulliled", action);
-
         state.loginLoading = false;
         state.loginSuccess = true;
         state.token = action.payload;
@@ -96,6 +105,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { toggleRegisterLoading, toggleError, toggleRegisterSuccess } =
+export const { toggleRegisterLoading, toggleError, toggleRegisterSuccess, autoLogin, setAuthUser, logOut } =
   authSlice.actions;
 export default authSlice.reducer;

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import { contentWrapperWidth } from "../../../const/wrappers";
+import { contentWrapperWidth } from "../../../assets/const/wrappers";
 import NewPostForm from "../../molecules/Forms/NewPost";
 import Post from "../../molecules/Post";
-import { MainBackground } from "../../../const/colors";
+import { MainBackground } from "../../../assets/const/colors";
 import { useAppSelector } from "redux_tk/app/hook";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -18,14 +18,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Main: React.FC = () => {
   const classes = useStyles();
-  const {posts} = useAppSelector(state => state.homePage)
-
-  // const [posts, setPosts] = useState<any[]>([]);
+  const { posts } = useAppSelector((state) => state.homePage);
 
   return (
     <main className={classes.root}>
       <NewPostForm />
-      {/* fetched posts */}
+
       {posts.map((post) => (
         <Post post={post} />
       ))}

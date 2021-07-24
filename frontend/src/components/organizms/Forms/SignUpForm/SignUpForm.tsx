@@ -11,7 +11,7 @@ import Container from "@material-ui/core/Container";
 import { Link, useHistory } from "react-router-dom";
 import moment from "moment";
 import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
-import { ButtonColors } from "../../../../const/enums";
+import { ButtonColors } from "../../../../assets/const/enums";
 import Alert from "components/molecules/alerts/authError";
 
 import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
@@ -56,7 +56,7 @@ export function SignUpForm() {
   const [isPasswordMatching, setIsPasswordMatching] = useState(true);
   const classes = useStyles();
 
-  const { errors, registerLoading, registerSuccess } = useAppSelector(
+  const { errors, registerLoading, registerSuccess, loginSuccess } = useAppSelector(
     (state) => state.auth
   );
   const dispatch = useAppDispatch();
@@ -68,11 +68,19 @@ export function SignUpForm() {
     // if (error) {
     //   dispatch(toggleError(false));
     // }
+
+    // user is already signed
+    // dont let him/her enter signup page
+    if (loginSuccess) {
+      history.push('/')
+    }
+    
+    // if user is registered redirect to user login page
     if (registerSuccess) {
       history.push("/login");
       dispatch(toggleRegisterLoading(false));
     }
-  }, [errors, registerLoading, dispatch, history, registerSuccess]);
+  }, [errors, registerLoading, dispatch, history, registerSuccess, loginSuccess]);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();

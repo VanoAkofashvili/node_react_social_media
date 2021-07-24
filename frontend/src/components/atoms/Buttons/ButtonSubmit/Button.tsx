@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@material-ui/core";
 import { createStyles, makeStyles } from "@material-ui/styles";
-import { ButtonColors } from "../../../../const/enums";
+import { ButtonColors } from "../../../../assets/const/enums";
 
 const useStyles = makeStyles((theme) =>
   createStyles({

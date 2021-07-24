@@ -1,12 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import authReducer from '../features/auth/authSlice'
 import postsReducer from '../features/posts/postsSlice'
+import { autoLoginMiddleware } from 'redux_tk/middlewares/autoLoginMiddleware'
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     homePage: postsReducer
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(autoLoginMiddleware)
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

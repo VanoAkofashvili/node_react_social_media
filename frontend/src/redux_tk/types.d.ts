@@ -20,6 +20,7 @@ interface authState {
   token: string;
   loginLoading: boolean;
   loginSuccess: boolean;
+  autoLogin: boolean;
 }
 
 interface ILoginCredentials {

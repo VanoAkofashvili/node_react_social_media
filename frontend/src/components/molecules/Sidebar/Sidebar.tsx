@@ -18,7 +18,7 @@ import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
 import CardGiftcardRoundedIcon from "@material-ui/icons/CardGiftcardRounded";
 import AccountTreeOutlinedIcon from "@material-ui/icons/AccountTreeOutlined";
 import profileAvatar from "../../../assets/avatar/1.jpg";
-import { sideWrapperWidth } from "../../../const/wrappers";
+import { sideWrapperWidth } from "../../../assets/const/wrappers";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { useMediaQuery } from "@material-ui/core";
