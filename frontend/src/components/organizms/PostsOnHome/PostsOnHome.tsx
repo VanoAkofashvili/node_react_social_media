@@ -22,43 +22,43 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Main: React.FC = () => {
   const classes = useStyles();
-  // const { posts } = useAppSelector((state) => state.homePage);
-  const [posts, setPosts ] = useState([])
-  const dispatch = useAppDispatch()
+  const { posts } = useAppSelector((state) => state.posts);
+  // const [posts, setPosts] = useState([]);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getAllPosts())
-  }, [dispatch])
-//   const posts = [
-//     {
-//         "id": 1,
-//         "content": "this is the first post",
-//         "createdAt": "2021-07-22T12:00:14.000Z",
-//         "updatedAt": "2021-07-22T12:00:14.000Z",
-//         "userId": 1
-//     },
-//     {
-//         "id": 2,
-//         "content": "this is the second post",
-//         "createdAt": "2021-07-22T12:00:14.000Z",
-//         "updatedAt": "2021-07-22T12:00:14.000Z",
-//         "userId": 1
-//     },
-//     {
-//         "id": 3,
-//         "content": "this is the third post",
-//         "createdAt": "2021-07-22T12:00:14.000Z",
-//         "updatedAt": "2021-07-22T12:00:14.000Z",
-//         "userId": 2
-//     },
-//     {
-//         "id": 4,
-//         "content": "this is the fourth post",
-//         "createdAt": "2021-07-22T12:00:14.000Z",
-//         "updatedAt": "2021-07-22T12:00:14.000Z",
-//         "userId": 2
-//     }
-// ]
+    dispatch(getAllPosts());
+  }, [dispatch]);
+  //   const posts = [
+  //     {
+  //         "id": 1,
+  //         "content": "this is the first post",
+  //         "createdAt": "2021-07-22T12:00:14.000Z",
+  //         "updatedAt": "2021-07-22T12:00:14.000Z",
+  //         "userId": 1
+  //     },
+  //     {
+  //         "id": 2,
+  //         "content": "this is the second post",
+  //         "createdAt": "2021-07-22T12:00:14.000Z",
+  //         "updatedAt": "2021-07-22T12:00:14.000Z",
+  //         "userId": 1
+  //     },
+  //     {
+  //         "id": 3,
+  //         "content": "this is the third post",
+  //         "createdAt": "2021-07-22T12:00:14.000Z",
+  //         "updatedAt": "2021-07-22T12:00:14.000Z",
+  //         "userId": 2
+  //     },
+  //     {
+  //         "id": 4,
+  //         "content": "this is the fourth post",
+  //         "createdAt": "2021-07-22T12:00:14.000Z",
+  //         "updatedAt": "2021-07-22T12:00:14.000Z",
+  //         "userId": 2
+  //     }
+  // ]
 
   return (
     <main className={classes.root}>

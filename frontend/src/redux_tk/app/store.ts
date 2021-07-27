@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import authReducer from 'redux_tk/features/auth/authSlice'
-import postsReducer from 'redux_tk/features/posts/postsSlice'
+import postsReducer from 'redux_tk/features/posts2/postsSlice'
 import { autoLoginMiddleware } from 'redux_tk/middlewares/autoLoginMiddleware'
 
 const reducer = {
