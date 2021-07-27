@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import { contentWrapperWidth } from "../../../utils/const/wrappers";
 import NewPostForm from "../../molecules/Forms/NewPost";
-import Post from "../../molecules/Post";
 import { MainBackground } from "../../../utils/const/colors";
 import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
 import PostsLists from "components/molecules/Posts";
 import { useEffect } from "react";
-import axios from "utils/axios";
-import { getAllPosts } from "redux_tk/features/posts/postsSlice";
+import { getAllPosts } from "redux_tk/features/actions/homeActions";
+// import { getAllPosts } from "redux_tk/features/posts2/homeSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,7 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const Main: React.FC = () => {
   const classes = useStyles();
   const { posts } = useAppSelector((state) => state.posts);
-  // const [posts, setPosts] = useState([]);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
