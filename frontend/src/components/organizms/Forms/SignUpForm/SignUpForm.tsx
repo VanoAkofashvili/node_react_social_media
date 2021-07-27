@@ -11,7 +11,7 @@ import Container from "@material-ui/core/Container";
 import { Link, useHistory } from "react-router-dom";
 import moment from "moment";
 import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
-import { ButtonColors } from "../../../../assets/const/enums";
+import { ButtonColors } from "../../../../utils/const/enums";
 import Alert from "components/molecules/alerts/authError";
 
 import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
@@ -74,7 +74,7 @@ export function SignUpForm() {
     if (loginSuccess) {
       history.push('/')
     }
-    
+
     // if user is registered redirect to user login page
     if (registerSuccess) {
       history.push("/login");

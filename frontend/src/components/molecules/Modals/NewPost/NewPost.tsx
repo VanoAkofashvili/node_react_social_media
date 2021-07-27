@@ -11,7 +11,7 @@ import FileInput from "../../../atoms/Inputs/FileInput";
 
 import Fade from "@material-ui/core/Fade";
 import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
-import { ButtonColors } from "../../../../assets/const/enums";
+import { ButtonColors } from "../../../../utils/const/enums";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

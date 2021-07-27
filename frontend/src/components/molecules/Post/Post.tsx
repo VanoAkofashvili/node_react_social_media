@@ -22,7 +22,7 @@ import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutline
 
 import postOwnerAvatar from "../../../assets/avatar/2.jpeg";
 import profileAvatar from "../../../assets/avatar/1.jpg";
-import { MainBackground } from "../../../assets/const/colors";
+import { MainBackground } from "../../../utils/const/colors";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface PostProps {
-  post: { id: string; content: string };
+  post: IPost;
 }
 
 const Post: React.FC<PostProps> = (props) => {

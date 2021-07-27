@@ -8,14 +8,14 @@ import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
 import { TextFieldBordered } from "../../../atoms/TextField/TextFieldBordered";
-import { ButtonColors } from "../../../../assets/const/enums";
+import { ButtonColors } from "../../../../utils/const/enums";
 import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
-import { TextFieldVariant } from "../../../../assets/const/enums";
+import { TextFieldVariant } from "../../../../utils/const/enums";
 import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
 import { loginUser } from "redux_tk/features/auth/authSlice";
 import { useEffect } from "react";
 import { Snackbar } from "@material-ui/core";
-import { AUTH_TOKEN } from "assets/const/constants";
+import { AUTH_TOKEN } from "utils/const/constants";
 
 const useStyles = makeStyles((theme) =>
   createStyles({

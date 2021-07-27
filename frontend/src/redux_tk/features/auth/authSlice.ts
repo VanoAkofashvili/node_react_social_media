@@ -2,7 +2,6 @@ import {
   createSlice,
   PayloadAction,
   createAsyncThunk,
-  AsyncThunkPayloadCreator,
 } from "@reduxjs/toolkit";
 import authService from "services/authService";
 

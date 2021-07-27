@@ -1,9 +1,7 @@
-import axios from "axios";
-
-const baseUrl = "http://localhost:3002";
+import axios from "utils/axios/axios";
 
 const getAll = async () => {
-  const response = await axios.get(`${baseUrl}/api/posts/all`);
+  const response = await axios.get(`/api/posts/all`);
   console.log(response);
   return response.data;
 };

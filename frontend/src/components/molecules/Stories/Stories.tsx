@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
-import { Blue, MainBackground } from "../../../assets/const/colors";
+import { Blue, MainBackground } from "../../../utils/const/colors";
 import { Avatar, ListItemAvatar } from "@material-ui/core";
 import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
 import clsx from "clsx";

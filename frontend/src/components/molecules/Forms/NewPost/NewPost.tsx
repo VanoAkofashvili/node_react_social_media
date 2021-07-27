@@ -8,7 +8,7 @@ import {
   ListItem,
   Box,
 } from "@material-ui/core";
-import { MainBackground } from "../../../../assets/const/colors";
+import { MainBackground } from "../../../../utils/const/colors";
 import NewPostModal from "../../Modals/NewPost";
 import profileAvatar from "../../../../assets/avatar/1.jpg";
 import MovieCreationOutlinedIcon from "@material-ui/icons/MovieCreationOutlined";

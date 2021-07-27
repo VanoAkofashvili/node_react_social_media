@@ -8,7 +8,7 @@ import {
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Home from "./pages/Home";
-import { MainBackground } from "./assets/const/colors";
+import { MainBackground } from "./utils/const/colors";
 
 import PrivateRoute from "./HOC/PrivateRoute";
 import { Login, SignUp } from "./pages";
@@ -27,11 +27,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const App: React.FC = () => {
   const classes = useStyles();
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
+
 
   useEffect(() => {
-    dispatch(autoLogin())
-  })
+    dispatch(autoLogin());
+  });
 
   return (
     <Router>
@@ -46,7 +47,6 @@ const App: React.FC = () => {
           <Route component={SignUp} path="/signUp" />
         </Switch>
       </div>
-
     </Router>
   );
 };

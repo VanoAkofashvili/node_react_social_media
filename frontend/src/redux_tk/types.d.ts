@@ -33,4 +33,11 @@ interface ILoginCredentials {
 interface IPost {
   id: number;
   content: string;
+  createdAt: string;
+  updatedAt: string;
+  userId: number;
+}
+
+interface homePageState {
+  posts: IPost[]
 }

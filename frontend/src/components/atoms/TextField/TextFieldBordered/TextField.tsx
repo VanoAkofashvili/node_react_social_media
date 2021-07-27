@@ -1,6 +1,6 @@
 import React from "react";
 import { TextField } from "@material-ui/core";
-import { TextFieldVariant } from "../../../../assets/const/enums";
+import { TextFieldVariant } from "../../../../utils/const/enums";
 
 type TextMargin = "normal" | undefined;
 
