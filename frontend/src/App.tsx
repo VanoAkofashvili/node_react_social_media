@@ -14,7 +14,7 @@ import PrivateRoute from "./HOC/PrivateRoute";
 import { Login, SignUp } from "./pages";
 import { useEffect } from "react";
 import { useAppDispatch } from "redux_tk/app/hook";
-import { autoLogin } from "redux_tk/features/auth2/authSlice";
+import { autoLogin } from "redux_tk/features/auth/authSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

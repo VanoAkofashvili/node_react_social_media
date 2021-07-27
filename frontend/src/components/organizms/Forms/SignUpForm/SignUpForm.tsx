@@ -19,9 +19,9 @@ import {
   registerUserAsync,
   toggleError,
   toggleRegisterSuccess,
-} from "redux_tk/features/auth2/authSlice";
+} from "redux_tk/features/auth/authSlice";
 import { useEffect } from "react";
-import { toggleRegisterLoading } from "redux_tk/features/auth2/authSlice";
+import { toggleRegisterLoading } from "redux_tk/features/auth/authSlice";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
