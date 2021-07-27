@@ -1,5 +1,5 @@
 import { AUTH_TOKEN } from "utils/const/constants";
-import { setAuthUser } from "redux_tk/features/auth/authSlice";
+import { setAuthUser } from "redux_tk/features/auth2/authSlice";
 
 export const autoLoginMiddleware =
   ({ dispatch }) =>

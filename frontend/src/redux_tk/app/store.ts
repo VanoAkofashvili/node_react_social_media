@@ -1,15 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
-import authSlice from 'redux_tk/features/auth/authSlice'
-import postsSlice from 'redux_tk/features/posts/postsSlice'
-import testSlice from 'redux_tk/features/test/testSlice'
+import authReducer from 'redux_tk/features/auth/authSlice'
+import postsReducer from 'redux_tk/features/posts/postsSlice'
 import { autoLoginMiddleware } from 'redux_tk/middlewares/autoLoginMiddleware'
 
+const reducer = {
+  auth: authReducer,
+  posts: postsReducer,
+}
 export const store = configureStore({
-  reducer: {
-    auth: authSlice,
-    homePage: postsSlice,
-    test: testSlice
-  },
+  reducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(autoLoginMiddleware)
 })
 

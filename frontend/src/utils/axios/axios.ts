@@ -6,10 +6,10 @@ const instance = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL
 })
 
-// instance.defaults.headers.common["Authorization"] = localStorage.getItem(AUTH_TOKEN)
+// set Authorization header to every axios request
 instance.interceptors.request.use(function(config) {
     const token = store.getState().auth.token
-    config.headers.Authorization =  token;
+    config.headers.Authorization = token
 
     return config
 })

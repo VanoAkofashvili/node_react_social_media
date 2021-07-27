@@ -5,7 +5,6 @@ import {
 } from "@reduxjs/toolkit";
 import authService from "services/authService";
 
-// initial state of auth reducer
 const initialState: authState = {
   registerLoading: false,
   registerSuccess: false,

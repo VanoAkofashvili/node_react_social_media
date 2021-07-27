@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
 import PostsLists from "components/molecules/Posts";
 import { useEffect } from "react";
 import axios from "utils/axios";
-// import { getAllPosts } from "redux_tk/features/posts/postsSlice";
+import { getAllPosts } from "redux_tk/features/posts/postsSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,8 +27,7 @@ const Main: React.FC = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    // axios.get('/api/posts/all').then(({data}) => setPosts(data.posts))
-    // dispatch(getAllPosts())
+    dispatch(getAllPosts())
   }, [dispatch])
 //   const posts = [
 //     {
