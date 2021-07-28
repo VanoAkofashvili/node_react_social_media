@@ -107,4 +107,6 @@ const authSlice = createSlice({
 
 export const { toggleRegisterLoading, toggleError, toggleRegisterSuccess, autoLogin, setAuthUser, logOut } =
   authSlice.actions;
+
+  console.log('authSlice', authSlice.reducer)
 export default authSlice.reducer;

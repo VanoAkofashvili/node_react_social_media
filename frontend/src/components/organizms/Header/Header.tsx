@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+console.log("Header")
 export default function Header() {
   const classes = useStyles();
 

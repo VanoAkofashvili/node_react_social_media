@@ -3,7 +3,9 @@ import Sidebar from "../components/molecules/Sidebar";
 import Stories from "../components/molecules/Stories";
 import Header from '../components/organizms/Header'
 import PostsOnHome from "../components/organizms/PostsOnHome";
-import { HomeTemplate } from "../components/templates/HomeTemplate";
+// import { HomeTemplate } from "../components/templates/HomeTemplate";
+
+console.log('Home')
 
  const Home: React.FC = () =>  {
   return (

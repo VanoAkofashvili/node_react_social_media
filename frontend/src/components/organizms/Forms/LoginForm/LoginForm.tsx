@@ -16,6 +16,9 @@ import { loginUser } from "redux_tk/features/auth/authSlice";
 import { useEffect } from "react";
 import { Snackbar } from "@material-ui/core";
 import { AUTH_TOKEN } from "utils/const/constants";
+import { toggleRegisterSuccess } from 'redux_tk/features/auth/authSlice'
+
+console.log('LoginForm')
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -138,7 +141,5 @@ export function LoginForm() {
     </Container>
   );
 }
-function toggleRegisterSuccess(arg0: boolean): any {
-  throw new Error("Function not implemented.");
-}
+
 

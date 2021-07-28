@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
-import {Divider,  Box, TextareaAutosize, Button, Typography, IconButton } from "@material-ui/core";
+import {Divider,  Box, TextareaAutosize, Typography, IconButton } from "@material-ui/core";
 // import PanoramaOutlinedIcon from "@material-ui/icons/PanoramaOutlined";
 // import InsertDriveFileOutlinedIcon from "@material-ui/icons/InsertDriveFileOutlined";
 // import MovieCreationOutlinedIcon from "@material-ui/icons/MovieCreationOutlined";
@@ -13,6 +13,7 @@ import Fade from "@material-ui/core/Fade";
 import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
 import { ButtonColors } from "../../../../utils/const/enums";
 
+console.log('newPost')
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     modal: {

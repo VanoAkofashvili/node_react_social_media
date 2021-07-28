@@ -5,6 +5,8 @@ interface PostsListsProps {
   posts: IPost[];
 }
 
+
+console.log("PostsList")
 const PostsLists: React.FC<PostsListsProps> = ({ posts }) => {
   return (
     <div>
