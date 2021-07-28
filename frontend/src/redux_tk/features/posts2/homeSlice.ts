@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import postsServise from "services/postServices";
-import { AppThunk } from "redux_tk/app/store";
 
 const initialState: homePageState = {
   posts: [],
@@ -41,13 +40,7 @@ export const postsSlice = createSlice({
 
 console.log('postsSlice', postsSlice.reducer);
 
+export const testing = "testing"
+
 export const { getPosts} = postsSlice.actions
 export default postsSlice.reducer
-// export const getAllPosts = (): AppThunk => async( dispatch:any) => {
-//   try {
-//     const response = await postsServise.getAll()
-//     return dispatch(getPosts(response))
-//   } catch {
-//     console.log('error fetching posts')
-//   }
-// }

@@ -5,5 +5,6 @@ import { LogInTemplate } from "../components/templates/LogInTemplate/LoginTempla
 
 console.log('Login')
 export const Login: React.FC = () => (
-  <LogInTemplate loginForm={<LoginForm />} image={sideImg} />
+  // <LogInTemplate loginForm={<LoginForm />} image={sideImg} />
+  <div>Login</div>
 );

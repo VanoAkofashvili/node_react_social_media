@@ -52,6 +52,7 @@ interface PostProps {
   post: IPost;
 }
 
+console.log("Post")
 const Post: React.FC<PostProps> = (props) => {
   const classes = useStyles();
 

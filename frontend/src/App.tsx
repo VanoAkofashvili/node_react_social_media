@@ -13,10 +13,13 @@ import { MainBackground } from "./utils/const/colors";
 import PrivateRoute from "./HOC/PrivateRoute";
 import { Login, SignUp } from "./pages";
 import { useEffect } from "react";
-import { useAppDispatch } from "redux_tk/app/hook";
-import { autoLogin } from "redux_tk/features/auth/authSlice";
+// import { useAppDispatch } from "redux_tk/app/hook";
+// import { autoLogin } from "redux_tk/features/auth/authSlice";
 
-import { getPosts } from "redux_tk/features/posts2/homeSlice";
+import { testing } from "redux_tk";
+
+console.log(testing)
+console.log('App tsx')
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,12 +32,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const App: React.FC = () => {
   const classes = useStyles();
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
 
   useEffect(() => {
-    dispatch(autoLogin());
-    console.log('posts', getPosts)
+    // dispatch(autoLogin());
+    // console.log('posts', getPosts)
   });
 
   return (

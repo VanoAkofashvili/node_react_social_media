@@ -14,14 +14,14 @@ import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
 import { ButtonColors } from "../../../../utils/const/enums";
 import Alert from "components/molecules/alerts/authError";
 
-import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
+// import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
 import {
-  registerUserAsync,
+  // registerUserAsync,
   // toggleError,
   // toggleRegisterSuccess,
 } from "redux_tk/features/auth/authSlice";
 import { useEffect } from "react";
-import { toggleRegisterLoading } from "redux_tk/features/auth/authSlice";
+// import { toggleRegisterLoading } from "redux_tk/features/auth/authSlice";
 
 
 console.log('SignUpFOrm')
@@ -58,31 +58,31 @@ export function SignUpForm() {
   const [isPasswordMatching, setIsPasswordMatching] = useState(true);
   const classes = useStyles();
 
-  const { errors, registerLoading, registerSuccess, loginSuccess } = useAppSelector(
-    (state) => state.auth
-  );
-  const dispatch = useAppDispatch();
+  // const { errors, registerLoading, registerSuccess, loginSuccess } = useAppSelector(
+  //   (state) => state.auth
+  // );
+  // const dispatch = useAppDispatch();
   const history = useHistory();
 
 
   // TO-DO: handle eror disapear
-  useEffect(() => {
+  // useEffect(() => {
     // if (error) {
     //   dispatch(toggleError(false));
     // }
 
     // user is already signed
     // dont let him/her enter signup page
-    if (loginSuccess) {
-      history.push('/')
-    }
+    // if (loginSuccess) {
+    //   history.push('/')
+    // }
 
     // if user is registered redirect to user login page
-    if (registerSuccess) {
-      history.push("/login");
-      dispatch(toggleRegisterLoading(false));
-    }
-  }, [errors, registerLoading, dispatch, history, registerSuccess, loginSuccess]);
+    // if (registerSuccess) {
+      // history.push("/login");
+      // dispatch(toggleRegisterLoading(false));
+    // }
+  // }, [errors, registerLoading, dispatch, history, registerSuccess, loginSuccess]);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -96,7 +96,7 @@ export function SignUpForm() {
         sex: Number(sex),
         password,
       };
-      dispatch(registerUserAsync(newUser));
+      // dispatch(registerUserAsync(newUser));
     }
   };
 
@@ -115,7 +115,7 @@ export function SignUpForm() {
     <>
       {/* {registerSuccess && <Alert message="You signed up successfuly" severity="success"/>} */}
       {/* {true  && <Alert message="message" severity="error"/>} */}
-      {errors && <Alert errors={errors} />}
+      {/* {errors && <Alert errors={errors} />} */}
 
       <Container component="main" maxWidth="xs">
         <CssBaseline />
