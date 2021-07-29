@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import { Link, useHistory } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
@@ -12,11 +12,9 @@ import { ButtonColors } from "../../../../utils/const/enums";
 import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
 import { TextFieldVariant } from "../../../../utils/const/enums";
 import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
-import { loginUser } from "redux_tk";
-import { useEffect } from "react";
+import { loginUser, toggleRegisterSuccess } from "redux_tk";
 import { Snackbar } from "@material-ui/core";
 import { AUTH_TOKEN } from "utils/const/constants";
-import { toggleRegisterSuccess } from 'redux_tk'
 
 console.log('LoginForm')
 

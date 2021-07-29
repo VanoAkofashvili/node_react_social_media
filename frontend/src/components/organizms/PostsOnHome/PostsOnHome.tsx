@@ -3,7 +3,7 @@ import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import { contentWrapperWidth } from "../../../utils/const/wrappers";
 import NewPostForm from "../../molecules/Forms/NewPost";
 import { MainBackground } from "../../../utils/const/colors";
-import { useAppDispatch, useAppSelector } from "redux_tk";
+import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
 import PostsLists from "components/molecules/Posts";
 // import { homeReducers } from "redux_tk/features/posts2/homeThunks";
 import { getAllPosts}  from "redux_tk";
