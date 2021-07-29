@@ -16,8 +16,6 @@ import { loginUser, toggleRegisterSuccess } from "redux_tk";
 import { Snackbar } from "@material-ui/core";
 import { AUTH_TOKEN } from "utils/const/constants";
 
-console.log('LoginForm')
-
 const useStyles = makeStyles((theme) =>
   createStyles({
     paper: {

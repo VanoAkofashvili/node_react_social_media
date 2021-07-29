@@ -54,7 +54,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-console.log("Sider")
 const Sidebar: React.FC = () => {
   const classes = useStyles();
   const matches = useMediaQuery("(min-width: 712px)");

@@ -4,7 +4,6 @@ import App from "./App";
 import { store } from "./redux_tk/app/store";
 import { Provider } from "react-redux";
 
-console.log('index')
 ReactDOM.render(
   <Provider store={store}>
     <App />

@@ -61,7 +61,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-console.log("Stories")
 export default function Stories() {
   const classes = useStyles();
   const matches = useMediaQuery("(min-width: 972px)");

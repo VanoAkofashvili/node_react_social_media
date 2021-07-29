@@ -3,6 +3,6 @@ export * from './app/hook'
 
 // reducers and actions
 export * from './features/auth/authSlice'
-export * from './features/posts2/homeSlice'
+export * from './features/posts/homeSlice'
 
 export * from './middlewares/autoLoginMiddleware'

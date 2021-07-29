@@ -8,7 +8,6 @@ import PostsLists from "components/molecules/Posts";
 // import { homeReducers } from "redux_tk/features/posts2/homeThunks";
 import { getAllPosts}  from "redux_tk";
 
-console.log('postsOnHome')
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {

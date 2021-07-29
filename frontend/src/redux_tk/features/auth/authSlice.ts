@@ -71,11 +71,9 @@ const authSlice = createSlice({
     builder
       /** register */
       .addCase(registerUserAsync.pending, (state, action) => {
-        console.log("pending", action);
         state.registerLoading = false;
       })
       .addCase(registerUserAsync.fulfilled, (state, action) => {
-        console.log("fullfilled");
         state.registerLoading = true;
         state.registerSuccess = true;
       })
@@ -109,7 +107,5 @@ export const {
   setAuthUser,
   logOut,
 } = authSlice.actions;
-
-console.log("authSlice", authSlice.reducer);
 
 export const {reducer: authReducer} =  authSlice;

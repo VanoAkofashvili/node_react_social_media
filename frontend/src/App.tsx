@@ -16,11 +16,6 @@ import { useEffect } from "react";
 import { useAppDispatch } from "redux_tk";
 import { autoLogin } from "redux_tk";
 
-import { testing } from "redux_tk";
-
-console.log(testing)
-console.log('App tsx')
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -37,7 +32,6 @@ const App: React.FC = () => {
 
   useEffect(() => {
     dispatch(autoLogin());
-    // console.log('posts', getPosts)
   });
 
   return (

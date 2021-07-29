@@ -6,7 +6,6 @@ const initialState: homePageState = {
   posts: [],
 };
 
-console.log('getAll Posts in Slice')
 // get all posts
 export const getAllPosts = createAsyncThunk("posts/getAllPosts", async () => {
   const response = await postsServise.getAll();
@@ -37,8 +36,6 @@ export const postsSlice = createSlice({
   }
 });
 
-
-console.log('postsSlice', postsSlice.reducer);
 
 export const testing = "testing"
 

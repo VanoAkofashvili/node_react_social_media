@@ -13,7 +13,6 @@ import Fade from "@material-ui/core/Fade";
 import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
 import { ButtonColors } from "../../../../utils/const/enums";
 
-console.log('newPost')
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     modal: {

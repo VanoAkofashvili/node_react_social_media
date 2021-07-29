@@ -23,7 +23,6 @@ import {
 import { useEffect } from "react";
 import { toggleRegisterLoading } from "redux_tk/features/auth/authSlice";
 
-console.log("SignUpFOrm");
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
