@@ -44,7 +44,7 @@ export function LoginForm() {
   const [open, setOpen] = useState(true);
 
 
-  const { errors, token, registerSuccess } = useAppSelector((state) => state.auth);
+  const { token, registerSuccess } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

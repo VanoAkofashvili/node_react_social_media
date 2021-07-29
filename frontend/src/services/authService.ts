@@ -15,4 +15,8 @@ const loginUser = async (credentials: ILoginCredentials) => {
   return response.data.token;
 };
 
-export default { registerUser, loginUser };
+const exportedObj = {
+  registerUser,
+  loginUser,
+}
+export default exportedObj

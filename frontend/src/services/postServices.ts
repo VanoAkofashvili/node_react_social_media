@@ -5,4 +5,6 @@ const getAll = async () => {
   return response.data.posts;
 };
 
-export default { getAll };
+const exportedObj = { getAll}
+
+export default exportedObj;
