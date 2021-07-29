@@ -3,10 +3,10 @@ import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import { contentWrapperWidth } from "../../../utils/const/wrappers";
 import NewPostForm from "../../molecules/Forms/NewPost";
 import { MainBackground } from "../../../utils/const/colors";
-// import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
+import { useAppDispatch, useAppSelector } from "redux_tk";
 import PostsLists from "components/molecules/Posts";
 // import { homeReducers } from "redux_tk/features/posts2/homeThunks";
-// import { homeReducers}  from "redux_tk/features/posts2/homeSlice";
+import { getAllPosts}  from "redux_tk";
 
 console.log('postsOnHome')
 const useStyles = makeStyles((theme: Theme) =>
@@ -21,13 +21,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Main: React.FC = () => {
   const classes = useStyles();
-  // const { posts } = useAppSelector((state) => state.posts);
-  const posts: any = []
-  // const dispatch = useAppDispatch();
+  const { posts } = useAppSelector((state) => state.posts);
+  const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-    // dispatch(homeReducers.getAllPosts());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getAllPosts());
+  }, [dispatch]);
 
   return (
     <main className={classes.root}>
