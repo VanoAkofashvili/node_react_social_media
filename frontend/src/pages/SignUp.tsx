@@ -5,7 +5,6 @@ import {SignUpTemplate} from '../components/templates/SignUpTemplate'
 export const SignUp: React.FC = () => {
 
   return (
-      // <SignUpTemplate component={<SignUpForm />}/>
-      <div>signup</div>
+      <SignUpTemplate component={<SignUpForm />}/>
   );
 };

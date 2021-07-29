@@ -12,11 +12,11 @@ import { ButtonColors } from "../../../../utils/const/enums";
 import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
 import { TextFieldVariant } from "../../../../utils/const/enums";
 import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
-// import { loginUser } from "redux_tk/features/auth/authSlice";
+import { loginUser } from "redux_tk";
 import { useEffect } from "react";
 import { Snackbar } from "@material-ui/core";
 import { AUTH_TOKEN } from "utils/const/constants";
-// import { toggleRegisterSuccess } from 'redux_tk/features/auth/authSlice'
+import { toggleRegisterSuccess } from 'redux_tk'
 
 console.log('LoginForm')
 
@@ -57,7 +57,7 @@ export function LoginForm() {
       history.push('/home')
       if (registerSuccess) {
         setTimeout(() => {
-          // dispatch(toggleRegisterSuccess(false));
+          dispatch(toggleRegisterSuccess(false));
         }, 3000); //
       }
     }
@@ -69,7 +69,7 @@ export function LoginForm() {
       email,
       password,
     };
-    // dispatch(loginUser(credentials));
+    dispatch(loginUser(credentials));
   };
 
   const handleClose = () => {

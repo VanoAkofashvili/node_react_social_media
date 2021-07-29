@@ -43,4 +43,4 @@ console.log('postsSlice', postsSlice.reducer);
 export const testing = "testing"
 
 export const { getPosts} = postsSlice.actions
-export default postsSlice.reducer
+export const {reducer: postsReducer} = postsSlice
