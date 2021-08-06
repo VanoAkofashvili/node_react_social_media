@@ -21,11 +21,13 @@ import { ButtonColors } from "../../../../utils/const/enums";
 import useStyles from "./style";
 import axios from "utils/axios";
 
+type ImageProps = FileList | null
+
 const NewPostModal: React.FC = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [postContent, setPostContent] = useState("");
-  const [images, setImages] = useState();
+  const [images, setImages] = useState<ImageProps>();
 
   const handleClose = () => setOpen(false);
 
@@ -33,7 +35,7 @@ const NewPostModal: React.FC = (props) => {
   const handlePostChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
     setPostContent(e.target.value);
 
-  // const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => setImages(e.target.files)
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => setImages(e.target.files)
   
   // handle create new post
   const handleNewPost = (e: React.SyntheticEvent) => {
@@ -81,7 +83,7 @@ const NewPostModal: React.FC = (props) => {
                 placeholder="Write a post"
                 className={classes.textArea}
               />
-              <FileInput />
+              <FileInput handleChange={handleImageChange}/>
               <ButtonSubmit color={ButtonColors.primary}>Post</ButtonSubmit>
             </form>
           </div>

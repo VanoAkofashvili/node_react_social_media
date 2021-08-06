@@ -1,30 +1,28 @@
-import React, { useRef } from 'react'
-import { Button } from '@material-ui/core'
+import React from "react";
+import { Button } from "@material-ui/core";
 
-const FileInput: React.FC = (props) => {
-    const imageRef = useRef([])
+type FileInputProps = {
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
 
-  const handleChange =(e: React.ChangeEvent<HTMLInputElement>) => console.log(e.target.files)
-    return (
-        <div>
-             <input
-              accept="image/*"
-              style={{ display: "none" }}
-              id="raised-button-file"
-              multiple
-              // ref={imageRef}
-              onChange={handleChange}
-              type="file"
-            />
-            <label htmlFor="raised-button-file">
-              <Button
-                component="span"
-              >
-                  UPLOAD Image
-                {/* <PanoramaOutlinedIcon fontSize="large"/> */}
-              </Button>
-            </label>
-        </div>
-    )
-}
-export default FileInput
+const FileInput: React.FC<FileInputProps> = (props) => {
+  return (
+    <div>
+      <input
+        accept="image/*"
+        style={{ display: "none" }}
+        id="raised-button-file"
+        multiple
+        type="file"
+        onChange={props.handleChange}
+      />
+      <label htmlFor="raised-button-file">
+        <Button component="span">
+          UPLOAD Image
+          {/* <PanoramaOutlinedIcon fontSize="large"/> */}
+        </Button>
+      </label>
+    </div>
+  );
+};
+export default FileInput;
