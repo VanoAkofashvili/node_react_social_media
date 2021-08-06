@@ -23,6 +23,7 @@ import axios from "utils/axios";
 
 type ImageProps = FileList | null
 
+
 const NewPostModal: React.FC = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -42,7 +43,7 @@ const NewPostModal: React.FC = (props) => {
     e.preventDefault();
     console.log(postContent);
     console.log(images);
-    // axios.post({content: })
+    // axios.post("")
   };
 
   return (
@@ -67,6 +68,7 @@ const NewPostModal: React.FC = (props) => {
                 align="center"
                 variant="h4"
                 style={{ flexBasis: "80%" }}
+                className={classes.headerStyle}
               >
                 Creating a Post
               </Typography>

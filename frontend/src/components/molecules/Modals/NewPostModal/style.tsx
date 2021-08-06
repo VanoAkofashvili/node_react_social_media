@@ -26,6 +26,15 @@ const useStyles = makeStyles((theme: Theme) =>
       outline: "none",
       border: "none",
     },
+    headerStyle: {
+      color: "rgba(0, 0, 0, 0.54)",
+      fontSize: "2em",
+      boxSizing: "border-box",
+      listStyle: "none",
+      fontFamily:  "Roboto Helvetica Arial sans-serif",
+      fontWeight: "normal",
+      lineHeight:" 48px"
+    }
   })
 );
 

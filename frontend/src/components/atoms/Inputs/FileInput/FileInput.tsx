@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "@material-ui/core";
+import PanoramaOutlinedIcon from '@material-ui/icons/PanoramaOutlined'; 
 
 type FileInputProps = {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -18,8 +19,7 @@ const FileInput: React.FC<FileInputProps> = (props) => {
       />
       <label htmlFor="raised-button-file">
         <Button component="span">
-          UPLOAD Image
-          {/* <PanoramaOutlinedIcon fontSize="large"/> */}
+          <PanoramaOutlinedIcon style={{ color: "rgba(0, 0, 0, 0.54)"}}fontSize="large" color="inherit"/>
         </Button>
       </label>
     </div>

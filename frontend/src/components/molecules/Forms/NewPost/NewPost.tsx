@@ -7,7 +7,7 @@ import {
   ListItem,
   Box,
 } from "@material-ui/core";
-import NewPostModal from "../../Modals/NewPost";
+import NewPostModal from "../../Modals/NewPostModal";
 import profileAvatar from "../../../../assets/avatar/1.jpg";
 import MovieCreationOutlinedIcon from "@material-ui/icons/MovieCreationOutlined";
 import PanoramaOutlinedIcon from "@material-ui/icons/PanoramaOutlined";
