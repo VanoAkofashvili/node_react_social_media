@@ -10,11 +10,11 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Home from "./pages/Home";
 import { MainBackground } from "./utils/const/colors";
 
-import PrivateRoute from "./HOC/PrivateRoute";
+import PrivateRoute from "./utils/HOC/PrivateRoute";
 import { Login, SignUp } from "./pages";
-import { useEffect } from "react";
 import { useAppDispatch } from "redux_tk";
 import { autoLogin } from "redux_tk";
+import { useAuth } from "utils/hooks/useAuth";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,10 +29,12 @@ const App: React.FC = () => {
   const classes = useStyles();
   const dispatch = useAppDispatch();
 
+  const isAuthenticated = useAuth();
 
-  useEffect(() => {
+  // if reload happends authenticate user
+  if (isAuthenticated) {
     dispatch(autoLogin());
-  });
+  }
 
   return (
     <Router>

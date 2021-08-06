@@ -4,10 +4,7 @@ import { Button } from '@material-ui/core'
 const FileInput: React.FC = (props) => {
     const imageRef = useRef([])
 
-  const handleChange = (e: any) => {
-    // imageRef.current = e.target.value
-    console.log(imageRef.current)
-  }
+  const handleChange =(e: React.ChangeEvent<HTMLInputElement>) => console.log(e.target.files)
     return (
         <div>
              <input

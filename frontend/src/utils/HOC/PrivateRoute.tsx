@@ -12,7 +12,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({
   ...rest
 }) => {
   const loginSuccess = useAppSelector(state => state.auth.loginSuccess);
-  // const loginSuccess = true
+  
   return (
     <Route
       {...rest}

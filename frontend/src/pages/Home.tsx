@@ -5,7 +5,7 @@ import Header from '../components/organizms/Header'
 import PostsOnHome from "../components/organizms/PostsOnHome";
 // import { HomeTemplate } from "../components/templates/HomeTemplate";
 
- const Home: React.FC = () =>  {
+const Home: React.FC = () =>  {
   return (
     <>
       <Header />

@@ -1,8 +1,13 @@
-import React from "react";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import React, { useState } from "react";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
-import {Divider,  Box, TextareaAutosize, Typography, IconButton } from "@material-ui/core";
+import {
+  Divider,
+  Box,
+  TextareaAutosize,
+  Typography,
+  IconButton,
+} from "@material-ui/core";
 // import PanoramaOutlinedIcon from "@material-ui/icons/PanoramaOutlined";
 // import InsertDriveFileOutlinedIcon from "@material-ui/icons/InsertDriveFileOutlined";
 // import MovieCreationOutlinedIcon from "@material-ui/icons/MovieCreationOutlined";
@@ -13,50 +18,34 @@ import Fade from "@material-ui/core/Fade";
 import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
 import { ButtonColors } from "../../../../utils/const/enums";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    modal: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    paper: {
-      display: "flex",
-      flexDirection: "column",
-      backgroundColor: theme.palette.background.paper,
-      borderRadius: "10px",
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
-      width: "30%",
-    },
-    header: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between"
-    },
-    textArea: {
-      marginTop: "10px",
-      outline: "none",
-      border: "none"
-    }
-  })
-);
+import useStyles from "./style";
+import axios from "utils/axios";
 
 const NewPostModal: React.FC = (props) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [postContent, setPostContent] = useState("");
+  const [images, setImages] = useState();
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  const handleClose = () => setOpen(false);
 
-  const handleClose = () => {
-    setOpen(false);
+  // Handle posts Text change
+  const handlePostChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
+    setPostContent(e.target.value);
+
+  // const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => setImages(e.target.files)
+  
+  // handle create new post
+  const handleNewPost = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    console.log(postContent);
+    console.log(images);
+    // axios.post({content: })
   };
 
   return (
     <div>
-      <div onClick={handleOpen}>{props.children}</div>
+      <div onClick={() => setOpen(true)}>{props.children}</div>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -72,22 +61,29 @@ const NewPostModal: React.FC = (props) => {
         <Fade in={open}>
           <div className={classes.paper}>
             <Box component="div" className={classes.header}>
-              <Typography align="center" variant="h4" style={{flexBasis: "80%"}}>
+              <Typography
+                align="center"
+                variant="h4"
+                style={{ flexBasis: "80%" }}
+              >
                 Creating a Post
               </Typography>
-              <IconButton onClick={handleClose} style={{flexBasis: "10%"}}>
-                <CloseOutlinedIcon fontSize="medium"/>
+              <IconButton onClick={handleClose} style={{ flexBasis: "10%" }}>
+                <CloseOutlinedIcon fontSize="medium" />
               </IconButton>
             </Box>
             <Divider />
-            <TextareaAutosize
-              autoFocus
-              minRows={5}
-              placeholder="Write a post"
-              className={classes.textArea}
-            />
-            <FileInput />
-            <ButtonSubmit color={ButtonColors.primary}>Post</ButtonSubmit>
+            <form onSubmit={handleNewPost}>
+              <TextareaAutosize
+                autoFocus
+                minRows={5}
+                onChange={handlePostChange}
+                placeholder="Write a post"
+                className={classes.textArea}
+              />
+              <FileInput />
+              <ButtonSubmit color={ButtonColors.primary}>Post</ButtonSubmit>
+            </form>
           </div>
         </Fade>
       </Modal>
