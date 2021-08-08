@@ -1,52 +1,26 @@
 import React from "react";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import {
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
   Avatar,
-  IconButton,
   ListItemIcon,
   Divider,
   TextareaAutosize,
   Button,
 } from "@material-ui/core";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
+import IconButton from "components/atoms/Buttons/IconButton";
 
 import ChatBubbleOutlineOutlinedIcon from "@material-ui/icons/ChatBubbleOutlineOutlined";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
-// import FavoriteOutlinedIcon from "@material-ui/icons/FavoriteOutlined";
 import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 
 import postOwnerAvatar from "../../../assets/avatar/2.jpeg";
 import profileAvatar from "../../../assets/avatar/1.jpg";
-import { MainBackground } from "../../../utils/const/colors";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      background: "white",
-      marginTop: "20px",
-      borderRadius: "15px",
-    },
-    actionsToPost: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-    },
-    commentField: {
-      border: "none",
-      resize: "none",
-      outline: "none",
-      width: "100%",
-      padding: "10px",
-      borderRadius: "15px",
-      backgroundColor: MainBackground,
-    },
-  })
-);
+import useStyles from './styles'
 
 interface PostProps {
   post: IPost;
@@ -70,24 +44,28 @@ const Post: React.FC<PostProps> = (props) => {
         <ListItem>{props.post.content}</ListItem>
         <Divider />
         <ListItem className={classes.actionsToPost}>
-          <ListItemIcon>
-            <IconButton>
-              <ChatBubbleOutlineOutlinedIcon />
-            </IconButton>
-          </ListItemIcon>
-          <ListItemText secondary={`${0} comments`} />
+          {/* likes */}
           <ListItemIcon>
             <IconButton>
               <FavoriteBorderOutlinedIcon />
             </IconButton>
           </ListItemIcon>
           <ListItemText secondary={`${0} likes`} />
+          {/* comments */}
+          <ListItemIcon>
+            <IconButton>
+              <ChatBubbleOutlineOutlinedIcon />
+            </IconButton>
+          </ListItemIcon>
+          <ListItemText secondary={`${0} comments`} />
+          {/* shares */}
           <ListItemIcon>
             <IconButton>
               <ShareOutlinedIcon />
             </IconButton>
           </ListItemIcon>
           <ListItemText secondary={`${0} shares`} />
+          {/* bookmarks */}
           <ListItemIcon>
             <IconButton>
               <BookmarkBorderOutlinedIcon />
@@ -96,6 +74,7 @@ const Post: React.FC<PostProps> = (props) => {
           <ListItemText secondary={`${0} saved`} />
         </ListItem>
         <Divider />
+        {/* comment field */}
         <ListItem>
           <ListItemAvatar>
             <Avatar alt="profile avatar" src={profileAvatar} />

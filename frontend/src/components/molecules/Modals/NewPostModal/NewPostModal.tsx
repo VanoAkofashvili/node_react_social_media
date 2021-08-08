@@ -1,34 +1,30 @@
 import React, { useState } from "react";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
-import {
-  Divider,
-  Box,
-  TextareaAutosize,
-  Typography,
-  IconButton,
-} from "@material-ui/core";
-// import PanoramaOutlinedIcon from "@material-ui/icons/PanoramaOutlined";
+import { Divider } from "@material-ui/core";
+import { TextAreaAutoSize } from "components/atoms/TextAreaAutoSize";
+import Box from "components/atoms/Box";
 // import InsertDriveFileOutlinedIcon from "@material-ui/icons/InsertDriveFileOutlined";
 // import MovieCreationOutlinedIcon from "@material-ui/icons/MovieCreationOutlined";
 import CloseOutlinedIcon from "@material-ui/icons/CloseOutlined";
-import FileInput from "../../../atoms/Inputs/FileInput";
+import FileInput from "../../inputs/FileInput";
 
 import Fade from "@material-ui/core/Fade";
 import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
 import { ButtonColors } from "../../../../utils/const/enums";
+import SentimentVerySatisfiedOutlinedIcon from "@material-ui/icons/SentimentVerySatisfiedOutlined";
+import IconButton from "components/atoms/Buttons/IconButton";
 
 import useStyles from "./style";
 import axios from "utils/axios";
 
-type ImageProps = FileList | null
-
+type ImageProps = FileList | null;
 
 const NewPostModal: React.FC = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [postContent, setPostContent] = useState("");
-  const [images, setImages] = useState<ImageProps>();
+  const [images, setImages] = useState<ImageProps>(null);
 
   const handleClose = () => setOpen(false);
 
@@ -36,11 +32,21 @@ const NewPostModal: React.FC = (props) => {
   const handlePostChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
     setPostContent(e.target.value);
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => setImages(e.target.files)
-  
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.files);
+    //@ts-ignore
+    setImages(e.target.files);
+  };
+
   // handle create new post
-  const handleNewPost = (e: React.SyntheticEvent) => {
+  const handleNewPost = (e: React.FormEvent) => {
     e.preventDefault();
+    // @ts-ignore
+    const files = new FormData();
+    // const buffer = Array.from(images)
+    // const imagBlob = buffer.map(file => URL.createObjectURL(file))
+    // files.append('images', images)
+    console.log(files);
     console.log(postContent);
     console.log(images);
     // axios.post("")
@@ -64,28 +70,32 @@ const NewPostModal: React.FC = (props) => {
         <Fade in={open}>
           <div className={classes.paper}>
             <Box component="div" className={classes.header}>
-              <Typography
-                align="center"
-                variant="h4"
-                style={{ flexBasis: "80%" }}
-                className={classes.headerStyle}
-              >
+              <Box component="span" className={classes.headerStyle}>
                 Creating a Post
-              </Typography>
-              <IconButton onClick={handleClose} style={{ flexBasis: "10%" }}>
+              </Box>
+              <IconButton onClick={handleClose} className={classes.closeModal}>
                 <CloseOutlinedIcon fontSize="medium" />
               </IconButton>
             </Box>
             <Divider />
             <form onSubmit={handleNewPost}>
-              <TextareaAutosize
+              <TextAreaAutoSize
                 autoFocus
                 minRows={5}
                 onChange={handlePostChange}
                 placeholder="Write a post"
                 className={classes.textArea}
               />
-              <FileInput handleChange={handleImageChange}/>
+              <div>{images && <h1>show Images</h1>}</div>
+              <Box className={classes.extras}>
+                <FileInput handleChange={handleImageChange} />
+                <IconButton>
+                  <SentimentVerySatisfiedOutlinedIcon
+                    fontSize="large"
+                    color="primary"
+                  />
+                </IconButton>
+              </Box>
               <ButtonSubmit color={ButtonColors.primary}>Post</ButtonSubmit>
             </form>
           </div>

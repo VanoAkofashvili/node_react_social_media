@@ -14,12 +14,15 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: "10px",
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
-      width: "30%",
+      width: "500px",
     },
     header: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
+      textAlign: "center",
+      position: "relative"
+    },
+    closeModal: {
+      position: "absolute",
+      right: "0"
     },
     textArea: {
       marginTop: "10px",
@@ -34,6 +37,13 @@ const useStyles = makeStyles((theme: Theme) =>
       fontFamily:  "Roboto Helvetica Arial sans-serif",
       fontWeight: "normal",
       lineHeight:" 48px"
+    },
+    extras: {
+      width: "100%",
+      borderRadius: "5px",
+      display: "flex",
+      justifyContent: "flex-start",
+      alignItems: "center"
     }
   })
 );
