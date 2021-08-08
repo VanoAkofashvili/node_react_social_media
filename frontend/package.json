@@ -32,7 +32,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-app-rewired build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "json-server -p3001 --watch db.json"
@@ -56,6 +56,9 @@
     ]
   },
   "devDependencies": {
-    "json-server": "^0.16.3"
+    "babel-plugin-import": "^1.13.3",
+    "customize-cra": "^1.0.0",
+    "json-server": "^0.16.3",
+    "react-app-rewired": "^2.1.8"
   }
 }
