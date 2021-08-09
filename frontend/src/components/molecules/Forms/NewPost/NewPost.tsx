@@ -22,7 +22,7 @@ const NewPostForm: React.FC = () => {
   return (
     <>
       <Toolbar />
-      <Paper>
+      <Paper elevation={0}>
         <List
           component="ul"
           subheader={

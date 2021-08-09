@@ -6,15 +6,21 @@ import {
   Box,
   InputAdornment,
   OutlinedInput,
+  ButtonGroup,
 } from "@material-ui/core";
 import CropSquareIcon from "@material-ui/icons/CropSquare";
 import SearchIcon from "@material-ui/icons/Search";
 import PersonAddOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
 
 import { Blue } from "../../../utils/const/colors";
-import { contentWrapperWidth, sideWrapperWidth } from "../../../utils/const/wrappers";
+import {
+  contentWrapperWidth,
+  sideWrapperWidth,
+} from "../../../utils/const/wrappers";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { IconButton } from "@material-ui/core";
+import ThemeSwitcher from "components/molecules/Swithes/ThemeSwitcher";
+import { SM_THEME, THEME_DARK, THEME_LIGHT } from "utils/const/constants";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     logo: {
       width: sideWrapperWidth,
-      cursor: 'pointer'
+      cursor: "pointer",
     },
     input: {
       paddingRight: "5px",
@@ -32,12 +38,29 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.default,
       marginLeft: "10px",
     },
+    buttonGroup: {
+      padding: theme.spacing(1),
+      marginLeft: "auto",
+      display: "flex",
+      alignItems: "center"
+    }
   })
 );
 
 export default function Header() {
+  const [isThemeLight, setIsThemeLight] = React.useState(localStorage.getItem(SM_THEME) === THEME_LIGHT ? false : true);
   const classes = useStyles();
 
+  const handleSwitch = () => {
+    if (isThemeLight) {
+        localStorage.setItem(SM_THEME, THEME_LIGHT)
+    } else {
+        localStorage.setItem(SM_THEME, THEME_DARK)
+    }
+    
+    setIsThemeLight(!isThemeLight)
+    window.location.reload()
+  }
   return (
     <AppBar color="default" position="fixed" className={classes.appBar}>
       <Toolbar>
@@ -63,11 +86,17 @@ export default function Header() {
             className={classes.input}
           />
         </Box>
-        <IconButton style={{ marginLeft: "auto" }}>
-          {/* <Badge badgeContent={4} color="primary"> */}
+        <div className={classes.buttonGroup}>
+          {!isThemeLight ? "darkMode": "lightMode"}
+          <ThemeSwitcher
+            checked={isThemeLight}
+            onChange={handleSwitch}
+            name="checkedC"
+          />
+          <IconButton >
             <PersonAddOutlinedIcon />
-          {/* </Badge> */}
-        </IconButton>
+          </IconButton>
+        </div>
       </Toolbar>
     </AppBar>
   );

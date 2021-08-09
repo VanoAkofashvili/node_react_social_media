@@ -27,9 +27,9 @@ export default function Stories() {
   const matches = useMediaQuery("(min-width: 972px)");
 
   return (
-    <>
-    <Paper className={clsx(classes.root, matches && classes.rootHide)}>
+    <div>
       <Toolbar />
+      <Paper className={clsx(classes.root, matches && classes.rootHide)}>
         <List
           component="ul"
           subheader={
@@ -87,7 +87,7 @@ export default function Stories() {
           </ListItem>
           <Button className={classes.btnSeeAll}>See All</Button>
         </List>
-    </Paper>
-    </>
+      </Paper>
+    </div>
   );
 }
