@@ -1,10 +1,8 @@
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import { MainBackground } from "utils/const/colors";
 
 const useStyles = makeStyles((theme: Theme) =>
 createStyles({
   list: {
-    backgroundColor: "white",
     borderRadius: "15px",
   },
   listSubHeader: {
@@ -12,7 +10,7 @@ createStyles({
   },
   postInput: {
     flex: "1 1 70%",
-    backgroundColor: MainBackground,
+    backgroundColor: theme.palette.background.default,
     padding: "10px",
     borderRadius: "15px",
     cursor: "pointer",

@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme: Theme) =>
       flexShrink: 0,
       minHeight: "100vh",
       display: "none",
-      backgroundColor: "white",
     },
     border: {
       border: "none"

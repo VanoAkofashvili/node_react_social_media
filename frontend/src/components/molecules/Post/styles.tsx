@@ -1,10 +1,8 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { MainBackground } from "utils/const/colors";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      background: "white",
       marginTop: "20px",
       borderRadius: "15px",
     },
@@ -20,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       padding: "10px",
       borderRadius: "15px",
-      backgroundColor: MainBackground,
+      backgroundColor: theme.palette.background.default,
     },
   })
 );

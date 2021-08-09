@@ -11,7 +11,7 @@ import CropSquareIcon from "@material-ui/icons/CropSquare";
 import SearchIcon from "@material-ui/icons/Search";
 import PersonAddOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
 
-import { Blue, MainBackground } from "../../../utils/const/colors";
+import { Blue } from "../../../utils/const/colors";
 import { contentWrapperWidth, sideWrapperWidth } from "../../../utils/const/wrappers";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { IconButton } from "@material-ui/core";
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingRight: "5px",
       width: "60%",
       borderRadius: "10px",
-      backgroundColor: MainBackground,
+      backgroundColor: theme.palette.background.default,
       marginLeft: "10px",
     },
   })

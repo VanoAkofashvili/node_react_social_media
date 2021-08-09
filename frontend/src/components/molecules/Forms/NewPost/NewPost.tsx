@@ -6,6 +6,7 @@ import {
   Divider,
   ListItem,
   Box,
+  Paper,
 } from "@material-ui/core";
 import NewPostModal from "components/molecules/Modals/NewPostModal";
 import profileAvatar from "../../../../assets/avatar/1.jpg";
@@ -21,38 +22,40 @@ const NewPostForm: React.FC = () => {
   return (
     <>
       <Toolbar />
-      <List
-        component="ul"
-        subheader={
-          <ListSubheader className={classes.listSubHeader}>
-            Post Something
-          </ListSubheader>
-        }
-        className={classes.list}
-      >
-        <Divider />
-        <ListItem>
-          <ListItemAvatarComponent
-            alt="loged in user avatar"
-            src={profileAvatar}
-          />
-          <Box className={classes.modal}>
-            <NewPostModal>
-              <Box className={classes.postInput}>
-                Write what's in your mind...
-              </Box>
-            </NewPostModal>
-          </Box>
-          <Box className={classes.buttonGroup}>
-            <IconButton onClick={(e: React.MouseEvent) => console.log(e)}>
-              <MovieCreationOutlinedIcon fontSize="large" />
-            </IconButton>
-            <IconButton onClick={(e: React.MouseEvent) => console.log(e)}>
-              <PanoramaOutlinedIcon fontSize="large" />
-            </IconButton>
-          </Box>
-        </ListItem>
-      </List>
+      <Paper>
+        <List
+          component="ul"
+          subheader={
+            <ListSubheader className={classes.listSubHeader}>
+              Post Something
+            </ListSubheader>
+          }
+          className={classes.list}
+        >
+          <Divider />
+          <ListItem>
+            <ListItemAvatarComponent
+              alt="loged in user avatar"
+              src={profileAvatar}
+            />
+            <Box className={classes.modal}>
+              <NewPostModal>
+                <Box className={classes.postInput}>
+                  Write what's in your mind...
+                </Box>
+              </NewPostModal>
+            </Box>
+            <Box className={classes.buttonGroup}>
+              <IconButton onClick={(e: React.MouseEvent) => console.log(e)}>
+                <MovieCreationOutlinedIcon fontSize="large" />
+              </IconButton>
+              <IconButton onClick={(e: React.MouseEvent) => console.log(e)}>
+                <PanoramaOutlinedIcon fontSize="large" />
+              </IconButton>
+            </Box>
+          </ListItem>
+        </List>
+      </Paper>
     </>
   );
 };

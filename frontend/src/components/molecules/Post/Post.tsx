@@ -9,6 +9,7 @@ import {
   Divider,
   TextareaAutosize,
   Button,
+  Paper,
 } from "@material-ui/core";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
 import IconButton from "components/atoms/Buttons/IconButton";
@@ -30,7 +31,7 @@ const Post: React.FC<PostProps> = (props) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <Paper className={classes.root} elevation={0}>
       <List>
         <ListItem>
           <ListItemAvatar>
@@ -89,7 +90,7 @@ const Post: React.FC<PostProps> = (props) => {
           </Button>
         </ListItem>
       </List>
-    </div>
+    </Paper>
   );
 };
 export default Post;

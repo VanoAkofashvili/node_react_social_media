@@ -1,3 +1,4 @@
+import { Paper, Toolbar } from "@material-ui/core";
 import React from "react";
 import Sidebar from "../components/molecules/Sidebar";
 import Stories from "../components/molecules/Stories";
@@ -12,6 +13,7 @@ const Home: React.FC = () =>  {
       <Sidebar />
       <PostsOnHome />
       <Stories />
+      <Paper><Toolbar /><h1>Come with me</h1></Paper>
     </>
   );
 }

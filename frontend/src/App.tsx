@@ -8,7 +8,6 @@ import {
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Home from "./pages/Home";
-import { MainBackground } from "./utils/const/colors";
 
 import PrivateRoute from "./utils/HOC/PrivateRoute";
 import { Login, SignUp } from "./pages";
@@ -20,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: "flex",
-      backgroundColor: MainBackground,
+      backgroundColor: theme.palette.background.default,
     },
   })
 );
