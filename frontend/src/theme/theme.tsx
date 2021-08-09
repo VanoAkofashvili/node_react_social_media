@@ -1,6 +1,5 @@
 import { createTheme } from "@material-ui/core/styles";
-import { SM_THEME, THEME_DARK, THEME_LIGHT } from "utils/const/constants";
-import { Palette, PaletteOptions} from "@material-ui/core/styles/createPalette"
+import { SM_THEME, THEME_DARK } from "utils/const/constants";
 
 declare module "@material-ui/core/styles/createTheme" {
   interface Theme {

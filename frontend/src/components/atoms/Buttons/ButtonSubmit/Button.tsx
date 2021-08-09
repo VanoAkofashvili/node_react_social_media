@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@material-ui/core";
 import { createStyles, makeStyles } from "@material-ui/styles";
-import { ButtonColors } from "../../../../utils/const/enums";
+import { ButtonProps } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -11,13 +11,9 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-interface ButtonProps {
-  color: ButtonColors
-}
 
 
 const ButtonSubmit: React.FC<ButtonProps> = (
-  // type = ButtonTypes["button"],
   props
 ) => {
   const styles = useStyles()

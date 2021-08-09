@@ -7,10 +7,8 @@ import Typography from "@material-ui/core/Typography";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-import { TextFieldBordered } from "../../../atoms/TextField/TextFieldBordered";
-import { ButtonColors } from "../../../../utils/const/enums";
+import { TextField } from "components/atoms/TextField/TextFieldBordered";
 import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
-import { TextFieldVariant } from "../../../../utils/const/enums";
 import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
 import { loginUser, toggleRegisterSuccess } from "redux_tk";
 import { Snackbar } from "@material-ui/core";
@@ -98,8 +96,8 @@ export function LoginForm() {
           Sign in
         </Typography>
         <form className={classes.form} onSubmit={onSubmit}>
-          <TextFieldBordered
-            variant={TextFieldVariant.outlined}
+          <TextField
+            variant="outlined"
             margin="normal"
             required={true}
             value={email}
@@ -111,10 +109,10 @@ export function LoginForm() {
             autoFocus
             type="text"
           />
-          <TextFieldBordered
+          <TextField
+            variant="outlined"
             required
             label="Password"
-            variant={TextFieldVariant.outlined}
             margin="normal"
             name="password"
             type="password"
@@ -128,7 +126,7 @@ export function LoginForm() {
             label="Remember me"
             className
           /> */}
-          <ButtonSubmit color={ButtonColors.primary}>SignIn</ButtonSubmit>
+          <ButtonSubmit color="primary">SignIn</ButtonSubmit>
           <Grid container>
             <Grid item xs>
               <Link to="/forgot-password">Forgot password?</Link>

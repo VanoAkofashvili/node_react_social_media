@@ -11,7 +11,6 @@ import FileInput from "../../inputs/FileInput";
 
 import Fade from "@material-ui/core/Fade";
 import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
-import { ButtonColors } from "../../../../utils/const/enums";
 import SentimentVerySatisfiedOutlinedIcon from "@material-ui/icons/SentimentVerySatisfiedOutlined";
 import IconButton from "components/atoms/Buttons/IconButton";
 // import Typography from 'atom'
@@ -94,11 +93,11 @@ const NewPostModal: React.FC = (props) => {
                 <IconButton>
                   <SentimentVerySatisfiedOutlinedIcon
                     fontSize="large"
-                    color="primary"
+                    className={classes.emoji}
                   />
                 </IconButton>
+              <ButtonSubmit color="primary">Post</ButtonSubmit>
               </Box>
-              <ButtonSubmit color={ButtonColors.primary}>Post</ButtonSubmit>
             </form>
           </div>
         </Fade>

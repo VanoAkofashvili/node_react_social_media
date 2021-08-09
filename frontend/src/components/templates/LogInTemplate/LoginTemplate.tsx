@@ -1,6 +1,5 @@
 import React from "react";
 import { createStyles, makeStyles } from "@material-ui/styles";
-// import { useMediaQuery } from "@material-ui/core";
 
 const useStyles = makeStyles(() =>
   createStyles({

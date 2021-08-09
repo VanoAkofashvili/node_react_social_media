@@ -29,6 +29,13 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: "10px",
       outline: "none",
       border: "none",
+      width: "100%",
+      backgroundColor: theme.palette.background.default,
+      borderRadius: theme.shape.borderRadius,
+      padding: theme.spacing(1),
+      '&::placeholder': {
+        color: theme.palette.text.secondary
+      }
     },
     headerStyle: {
       color: theme.palette.text.secondary
@@ -40,6 +47,9 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "flex-start",
       alignItems: "center"
     },
+    emoji: {
+      color: theme.palette.text.secondary,
+    }
   })
 );
 

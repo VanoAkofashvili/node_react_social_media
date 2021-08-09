@@ -11,7 +11,6 @@ import Container from "@material-ui/core/Container";
 import { Link, useHistory } from "react-router-dom";
 import moment from "moment";
 import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
-import { ButtonColors } from "../../../../utils/const/enums";
 import Alert from "components/molecules/alerts/authError";
 
 import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
@@ -238,7 +237,7 @@ export function SignUpForm() {
                 />
               </Grid>
             </Grid>
-            <ButtonSubmit color={ButtonColors.primary}>Sign Up</ButtonSubmit>
+            <ButtonSubmit color="primary">Sign Up</ButtonSubmit>
             <Grid container justifyContent="center">
               <Grid item>
                 <Link to="/login">Already have an account? Sign in</Link>
