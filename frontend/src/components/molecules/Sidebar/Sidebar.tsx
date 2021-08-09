@@ -9,6 +9,7 @@ import {
   ListSubheader,
   Drawer,
 } from "@material-ui/core";
+import { Typography } from "components/atoms/Typography";
 import { ListItemText, Toolbar } from "@material-ui/core";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import EventIcon from "@material-ui/icons/Event";
@@ -119,7 +120,7 @@ const Sidebar: React.FC = () => {
         <ListItem button>
           <ListItemAvatar>
             <Avatar variant="rounded" className={classes.FF}>
-              FF
+              <Typography variant="h6">FF</Typography>
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Football FC" />
@@ -127,7 +128,7 @@ const Sidebar: React.FC = () => {
         <ListItem button>
           <ListItemAvatar>
             <Avatar variant="rounded" className={classes.MH}>
-              M
+            <Typography variant="h6">M</Typography>
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Moto House" />
@@ -135,7 +136,7 @@ const Sidebar: React.FC = () => {
         <ListItem button>
           <ListItemAvatar>
             <Avatar variant="rounded" className={classes.JF}>
-              JF
+              <Typography variant="h6">JF</Typography>
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Jazz Festivals" />

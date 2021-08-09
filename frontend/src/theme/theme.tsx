@@ -1,5 +1,6 @@
 import { createTheme } from "@material-ui/core/styles";
-import { SM_THEME, THEME_DARK } from "utils/const/constants";
+import { SM_THEME, THEME_DARK, THEME_LIGHT } from "utils/const/constants";
+import { Palette, PaletteOptions} from "@material-ui/core/styles/createPalette"
 
 declare module "@material-ui/core/styles/createTheme" {
   interface Theme {
@@ -14,6 +15,7 @@ declare module "@material-ui/core/styles/createTheme" {
   }
 }
 
+let type = localStorage.getItem(SM_THEME);
 
 const theme = createTheme({
   status: {
@@ -27,9 +29,9 @@ const theme = createTheme({
     },
   },
   palette: {
-    type: localStorage.getItem(SM_THEME) === THEME_DARK ? 'dark' : "light",
+    type: type === THEME_DARK ? "dark" : "light",
     background: {
-        default: localStorage.getItem(SM_THEME) === THEME_DARK ? "#5d5d5d" : "#f1f1f1"
+      default: type === THEME_DARK ? "#5d5d5d" : "#f1f1f1",
     },
   },
 });

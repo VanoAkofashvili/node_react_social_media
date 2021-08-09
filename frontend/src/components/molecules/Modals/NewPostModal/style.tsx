@@ -22,7 +22,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     closeModal: {
       position: "absolute",
-      right: "0"
+      right: "0",
+      marginTop: "-8px"
     },
     textArea: {
       marginTop: "10px",
@@ -30,13 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
       border: "none",
     },
     headerStyle: {
-      color: "rgba(0, 0, 0, 0.54)",
-      fontSize: "2em",
-      boxSizing: "border-box",
-      listStyle: "none",
-      fontFamily:  "Roboto Helvetica Arial sans-serif",
-      fontWeight: "normal",
-      lineHeight:" 48px"
+      color: theme.palette.text.secondary
     },
     extras: {
       width: "100%",
@@ -44,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "flex-start",
       alignItems: "center"
-    }
+    },
   })
 );
 

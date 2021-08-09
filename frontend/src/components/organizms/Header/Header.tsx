@@ -19,7 +19,7 @@ import {
 } from "../../../utils/const/wrappers";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { IconButton } from "@material-ui/core";
-import ThemeSwitcher from "components/molecules/Swithes/ThemeSwitcher";
+import ThemeSwitcher from "components/atoms/Swithes/ThemeSwitcher";
 import { SM_THEME, THEME_DARK, THEME_LIGHT } from "utils/const/constants";
 
 const useStyles = makeStyles((theme: Theme) =>

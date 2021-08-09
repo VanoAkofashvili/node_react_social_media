@@ -14,6 +14,8 @@ import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
 import { ButtonColors } from "../../../../utils/const/enums";
 import SentimentVerySatisfiedOutlinedIcon from "@material-ui/icons/SentimentVerySatisfiedOutlined";
 import IconButton from "components/atoms/Buttons/IconButton";
+// import Typography from 'atom'
+import { Typography } from "components/atoms/Typography";
 
 import useStyles from "./style";
 import axios from "utils/axios";
@@ -70,12 +72,12 @@ const NewPostModal: React.FC = (props) => {
         <Fade in={open}>
           <div className={classes.paper}>
             <Box component="div" className={classes.header}>
-              <Box component="span" className={classes.headerStyle}>
-                Creating a Post
-              </Box>
               <IconButton onClick={handleClose} className={classes.closeModal}>
                 <CloseOutlinedIcon fontSize="medium" />
               </IconButton>
+              <Typography variant="h5">
+                Creating a Post
+              </Typography>
             </Box>
             <Divider />
             <form onSubmit={handleNewPost}>
