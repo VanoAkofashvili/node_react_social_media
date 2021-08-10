@@ -1,13 +1,10 @@
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      // display: "none",
       marginTop: "23px",
       flex: "0 1 20%",
-      // backgroundColor: theme.palette.background.default,
       minWidth: "240px",
       positino: "fixed",
     },

@@ -8,14 +8,12 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
-  useMediaQuery,
   Paper,
   Avatar,
   ListItemAvatar,
 } from "@material-ui/core";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
 import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
-import clsx from "clsx";
 
 import storyAvatar from "../../../assets/avatar/2.jpeg";
 import { Button } from "@material-ui/core";
@@ -24,12 +22,11 @@ const date = new Date();
 
 export default function Stories() {
   const classes = useStyles();
-  const matches = useMediaQuery("(min-width: 972px)");
 
   return (
     <>
       <Toolbar />
-      <Paper className={clsx(classes.root, matches && classes.rootHide)}>
+      <Paper className={classes.root}>
         <List
           component="ul"
           subheader={
