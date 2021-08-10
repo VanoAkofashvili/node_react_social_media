@@ -7,7 +7,6 @@ import {
   InputAdornment,
   OutlinedInput,
   Hidden,
-  Grid,
 } from "@material-ui/core";
 import CropSquareIcon from "@material-ui/icons/CropSquare";
 import SearchIcon from "@material-ui/icons/Search";
@@ -45,38 +44,36 @@ export default function Header() {
               Saseburg
             </Typography>
           </Box>
-          <Box className={classes.secondWraper}>
-            {/* search */}
-            <Hidden smDown>
-              <Box className={classes.searchBox}>
-                <OutlinedInput
-                  inputProps={{
-                    style: {
-                      padding: 10,
-                    },
-                  }}
-                  placeholder="Search"
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <SearchIcon />
-                    </InputAdornment>
-                  }
-                  className={classes.input}
-                />
-              </Box>
-            </Hidden>
-            {/* theme swithcer */}
-            <Box className={classes.buttonGroup}>
-              {!isThemeLight ? "darkMode" : "lightMode"}
-              <ThemeSwitcher
-                checked={isThemeLight}
-                onChange={handleThemeSwitch}
-                name="checkedC"
+          {/* search */}
+          <Hidden smDown>
+            <Box className={classes.searchBox}>
+              <OutlinedInput
+                inputProps={{
+                  style: {
+                    padding: 10,
+                  },
+                }}
+                placeholder="Search"
+                endAdornment={
+                  <InputAdornment position="end">
+                    <SearchIcon />
+                  </InputAdornment>
+                }
+                className={classes.input}
               />
-              <IconButton>
-                <PersonAddOutlinedIcon />
-              </IconButton>
             </Box>
+          </Hidden>
+          {/* theme swithcer */}
+          <Box className={classes.buttonGroup}>
+            {!isThemeLight ? "darkMode" : "lightMode"}
+            <ThemeSwitcher
+              checked={isThemeLight}
+              onChange={handleThemeSwitch}
+              name="checkedC"
+            />
+            <IconButton>
+              <PersonAddOutlinedIcon />
+            </IconButton>
           </Box>
         </Box>
       </Toolbar>
