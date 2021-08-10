@@ -8,14 +8,13 @@ import { HomeTemplate } from "../components/templates/HomeTemplate";
 
 const Home: React.FC = () => {
   return (
-    <>
-      {/* <Header />
-      <Sidebar />
-      <PostsOnHome />
-      <Stories />
-      <ActiveUsers /> */}
-      <HomeTemplate />
-    </>
+    <HomeTemplate
+      Sidebar={Sidebar}
+      Posts={PostsOnHome}
+      Header={Header}
+      Stories={Stories}
+      ActiveUsers={ActiveUsers}
+    />
   );
 };
 export default Home;

@@ -5,7 +5,6 @@ import {
   Redirect,
   Route,
 } from "react-router-dom";
-import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Home from "./pages/Home";
 
@@ -15,18 +14,7 @@ import { useAppDispatch } from "redux_tk";
 import { autoLogin } from "redux_tk";
 import { useAuth } from "utils/hooks/useAuth";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: "flex",
-      backgroundColor: theme.palette.background.default,
-      width: ""
-    },
-  })
-);
-
 const App: React.FC = () => {
-  const classes = useStyles();
   const dispatch = useAppDispatch();
 
   const isAuthenticated = useAuth();

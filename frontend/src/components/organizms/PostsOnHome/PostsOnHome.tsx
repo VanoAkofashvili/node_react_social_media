@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import { contentWrapperWidth } from "../../../utils/const/wrappers";
 import NewPostForm from "../../molecules/Forms/NewPost";
 import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
 import PostsLists from "components/molecules/Posts";
