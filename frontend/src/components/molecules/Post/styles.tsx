@@ -19,7 +19,15 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: "10px",
       borderRadius: "15px",
       backgroundColor: theme.palette.background.default,
+      "&::placeholder": {
+        color: theme.palette.text.primary
+      }
     },
+    savedIcon: {
+      [theme.breakpoints.between('md', "md")]: {
+        display: "none"
+      }
+    }
   })
 );
 export default useStyles;

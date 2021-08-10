@@ -14,6 +14,15 @@ declare module "@material-ui/core/styles/createTheme" {
   }
 }
 
+declare module "@material-ui/core/styles/createPalette" {
+  interface Palette {
+    mainBlue: Palette['primary'];
+  }
+  interface PaletteOptions {
+    mainBlue: PaletteOptions['primary'];
+  }
+}
+
 let type = localStorage.getItem(SM_THEME);
 
 const theme = createTheme({
@@ -21,9 +30,12 @@ const theme = createTheme({
     danger: "#f00",
   },
   overrides: {
-    MuiPaper: {
-      root: {
-        //   backgroundColor: "green"
+    MuiCssBaseline: {
+      "@global": {
+        "#root": {
+          display: "flex",
+          justifyContent: "center",
+        },
       },
     },
   },
@@ -31,6 +43,9 @@ const theme = createTheme({
     type: type === THEME_DARK ? "dark" : "light",
     background: {
       default: type === THEME_DARK ? "#5d5d5d" : "#f1f1f1",
+    },
+    mainBlue: {
+      main: '#00b8ff'
     },
   },
 });

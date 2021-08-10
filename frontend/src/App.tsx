@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       display: "flex",
       backgroundColor: theme.palette.background.default,
+      width: ""
     },
   })
 );
@@ -37,7 +38,7 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <div className={classes.root}>
+      {/* <div className={classes.root}> */}
         <CssBaseline />
         <Switch>
           <Route path="/" exact>
@@ -47,7 +48,7 @@ const App: React.FC = () => {
           <Route component={Login} path="/login" />
           <Route component={SignUp} path="/signUp" />
         </Switch>
-      </div>
+      {/* </div> */}
     </Router>
   );
 };

@@ -7,57 +7,66 @@ import Posts from "../../organizms/PostsOnHome";
 import Header from "../../organizms/Header";
 import Stories from "../../molecules/Stories";
 import ActiveUsers from "components/organizms/ActiveUsers";
+import { useMediaQuery } from "@material-ui/core";
+import clsx from "clsx";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      display: "flex",
+      justifyContent: "space-between",
       flexGrow: 1,
+      position: "relative",
+      width: "100%",
       maxWidth: "1560px",
       margin: "auto",
     },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: "center",
-      color: theme.palette.text.secondary,
+    sidebar: {
+      display: "none"
     },
     grid: {
-      justifyContent: "space-between",
-    },
-    sider: {
-      width: "250px",
+      justifyContent: "space-around",
+      flexWrap: "nowrap"
     },
     active: {
-      width: "250px",
+      padding: theme.spacing(1),
+      paddingTop: "0px",
+      width: "260px"
+    },
+    posts: {
+      paddingTop: theme.spacing(3),
+      padding: theme.spacing(1),
     },
     stories: {
-      width: "260px",
+      padding: theme.spacing(1),
+      paddingTop: "0px",
+      maxWidth: "280px"
     },
   })
 );
 
 export const HomeTemplate: React.FC = () => {
   const classes = useStyles();
+  const match = useMediaQuery("(max-width: 777px)")
 
   return (
     <div className={classes.root}>
       <Header />
-      {/* <Hidden smDown>
+      <div className={clsx(match && classes.sidebar)}>
         <Sidebar />
-      </Hidden> */}
-      <Grid container spacing={3} className={classes.grid}>
-        <Grid item sm={12} md={5}>
+      </div>
+      <Grid container className={classes.grid}>
+        <Grid item xs={12} sm={12} md={8} lg={6} className={classes.posts}>
           <Posts />
-          {/* <Paper className={classes.paper}>Posts</Paper> */}
         </Grid>
-        <Hidden smDown>
-          <Grid item className={classes.stories}>
-            <Stories />
-            {/* <Paper className={classes.paper}>Storius</Paper> */}
+        <Hidden mdDown>
+          <Grid item className={classes.stories} >
+            <Stories/>
           </Grid>
         </Hidden>
-        <Hidden mdDown>
+        <Hidden smDown>
           <Grid item className={classes.active}>
-            <ActiveUsers />
+          <ActiveUsers />
           </Grid>
         </Hidden>
       </Grid>

@@ -10,9 +10,10 @@ import {
   ListItemIcon,
   useMediaQuery,
   Paper,
+  Avatar,
+  ListItemAvatar,
 } from "@material-ui/core";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
-import { Avatar, ListItemAvatar } from "@material-ui/core";
 import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
 import clsx from "clsx";
 
@@ -26,7 +27,7 @@ export default function Stories() {
   const matches = useMediaQuery("(min-width: 972px)");
 
   return (
-    <div>
+    <>
       <Toolbar />
       <Paper className={clsx(classes.root, matches && classes.rootHide)}>
         <List
@@ -87,6 +88,6 @@ export default function Stories() {
           <Button className={classes.btnSeeAll}>See All</Button>
         </List>
       </Paper>
-    </div>
+    </>
   );
 }

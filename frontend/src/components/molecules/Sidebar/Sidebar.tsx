@@ -7,7 +7,7 @@ import {
   ListItemAvatar,
   Divider,
   ListSubheader,
-  Drawer,
+  Paper,
 } from "@material-ui/core";
 import { Typography } from "components/atoms/Typography";
 import { ListItemText, Toolbar } from "@material-ui/core";
@@ -22,19 +22,19 @@ import profileAvatar from "../../../assets/avatar/1.jpg";
 import { sideWrapperWidth } from "../../../utils/const/wrappers";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { useMediaQuery } from "@material-ui/core";
-import clsx from "clsx";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    root: {
+      width: sideWrapperWidth,
+      position: "relative",
+    },
     drawer: {
       width: sideWrapperWidth,
       flexShrink: 0,
-      minHeight: "100vh",
-      display: "none",
-    },
-    border: {
-      border: "none"
+      height: "100vh",
+      position: "sticky",
+      top: "0",
     },
     drawerClose: {
       display: "block",
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     FF: {
       backgroundColor: "green",
-      color: "white"
+      color: "white",
     },
     MH: {
       backgroundColor: "purple",
@@ -57,14 +57,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Sidebar: React.FC = () => {
   const classes = useStyles();
-  const matches = useMediaQuery("(min-width: 712px)");
 
   return (
-    <Drawer
-      variant="permanent"
-      className={clsx(classes.drawer, matches && classes.drawerClose)}
-      classes={{paperAnchorDockedLeft: classes.border }}
-    >
+    <Paper className={classes.drawer}>
       <Toolbar />
       <List component="nav" className={classes.list}>
         <ListItem>
@@ -116,7 +111,7 @@ const Sidebar: React.FC = () => {
           <ListItemText primary="Marketplace" />
         </ListItem>
         <Divider />
-        {/* pages you may lika */}
+        {/* pages you may like */}
         <ListSubheader>Pages You May Like</ListSubheader>
         <ListItem button>
           <ListItemAvatar>
@@ -129,7 +124,7 @@ const Sidebar: React.FC = () => {
         <ListItem button>
           <ListItemAvatar>
             <Avatar variant="rounded" className={classes.MH}>
-            <Typography variant="h6">M</Typography>
+              <Typography variant="h6">M</Typography>
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Moto House" />
@@ -143,7 +138,7 @@ const Sidebar: React.FC = () => {
           <ListItemText primary="Jazz Festivals" />
         </ListItem>
       </List>
-    </Drawer>
+    </Paper>
   );
 };
 export default Sidebar;

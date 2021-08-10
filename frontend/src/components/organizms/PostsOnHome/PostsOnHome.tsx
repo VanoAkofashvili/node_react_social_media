@@ -11,8 +11,10 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       backgroundColor: theme.palette.background.default,
-      width: contentWrapperWidth,
-      padding: theme.spacing(3),
+      width: "100%",
+      // maxWidth: contentWrapperWidth,
+      // padding: theme.spacing(3),
+      
     },
   })
 );

@@ -67,12 +67,12 @@ const Post: React.FC<PostProps> = (props) => {
           </ListItemIcon>
           <ListItemText secondary={`${0} shares`} />
           {/* bookmarks */}
-          <ListItemIcon>
+          <ListItemIcon className={classes.savedIcon}>
             <IconButton>
               <BookmarkBorderOutlinedIcon />
             </IconButton>
           </ListItemIcon>
-          <ListItemText secondary={`${0} saved`} />
+          <ListItemText className={classes.savedIcon} secondary={`${0} saved`} />
         </ListItem>
         <Divider />
         {/* comment field */}

@@ -6,12 +6,12 @@ import {
   Box,
   InputAdornment,
   OutlinedInput,
+  Hidden,
 } from "@material-ui/core";
 import CropSquareIcon from "@material-ui/icons/CropSquare";
 import SearchIcon from "@material-ui/icons/Search";
 import PersonAddOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
 
-import { Blue } from "../../../utils/const/colors";
 import {
   contentWrapperWidth,
   sideWrapperWidth,
@@ -28,7 +28,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     logo: {
       width: sideWrapperWidth,
+      minWidth: sideWrapperWidth,
       cursor: "pointer",
+      paddingLeft: theme.spacing(3),
+    },
+    logoIcon: {
+      color: theme.palette.mainBlue.main,
+    },
+    searchBox: {
+      marginLeft: theme.spacing(3),
+      width: contentWrapperWidth,
     },
     input: {
       paddingRight: "5px",
@@ -41,58 +50,62 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(1),
       marginLeft: "auto",
       display: "flex",
-      alignItems: "center"
-    }
+      alignItems: "center",
+    },
   })
 );
 
 export default function Header() {
-  const [isThemeLight, setIsThemeLight] = React.useState(localStorage.getItem(SM_THEME) === THEME_LIGHT ? false : true);
+  const [isThemeLight, setIsThemeLight] = React.useState(
+    localStorage.getItem(SM_THEME) === THEME_LIGHT ? false : true
+  );
   const classes = useStyles();
 
-  const handleSwitch = () => {
+  const handleThemeSwitch = () => {
     if (isThemeLight) {
-        localStorage.setItem(SM_THEME, THEME_LIGHT)
+      localStorage.setItem(SM_THEME, THEME_LIGHT);
     } else {
-        localStorage.setItem(SM_THEME, THEME_DARK)
+      localStorage.setItem(SM_THEME, THEME_DARK);
     }
-    
-    setIsThemeLight(!isThemeLight)
-    window.location.reload()
-  }
+    setIsThemeLight(!isThemeLight);
+    window.location.reload();
+  };
+
   return (
     <AppBar color="default" position="fixed" className={classes.appBar}>
-      <Toolbar>
+      <Toolbar disableGutters={true}>
         <Box display="flex" className={classes.logo}>
-          <CropSquareIcon fontSize="large" style={{ color: Blue }} />
+          <CropSquareIcon fontSize="large" className={classes.logoIcon} />
           <Typography variant="h5" style={{ paddingTop: "2px" }}>
             Saseburg
           </Typography>
         </Box>
-        <Box style={{ width: contentWrapperWidth }}>
-          <OutlinedInput
-            inputProps={{
-              style: {
-                padding: 10,
-              },
-            }}
-            placeholder="Search"
-            endAdornment={
-              <InputAdornment position="end">
-                <SearchIcon />
-              </InputAdornment>
-            }
-            className={classes.input}
-          />
-        </Box>
+        <Hidden smDown>
+          <div className={classes.searchBox}>
+            <OutlinedInput
+              inputProps={{
+                style: {
+                  padding: 10,
+                },
+              }}
+              placeholder="Search"
+              endAdornment={
+                <InputAdornment position="end">
+                  <SearchIcon />
+                </InputAdornment>
+              }
+              className={classes.input}
+            />
+          </div>
+        </Hidden>
         <div className={classes.buttonGroup}>
-          {!isThemeLight ? "darkMode": "lightMode"}
+          {!isThemeLight ? "darkMode" : "lightMode"}
           <ThemeSwitcher
             checked={isThemeLight}
-            onChange={handleSwitch}
+            onChange={handleThemeSwitch}
             name="checkedC"
           />
-          <IconButton >
+          <IconButton>
             <PersonAddOutlinedIcon />
           </IconButton>
         </div>
