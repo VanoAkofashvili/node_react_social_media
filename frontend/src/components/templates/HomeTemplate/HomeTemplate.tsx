@@ -1,53 +1,25 @@
-import React from "react";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import { Hidden } from "@material-ui/core";
-import Sidebar from "../../molecules/Sidebar";
-import Posts from "../../organizms/PostsOnHome";
-import Header from "../../organizms/Header";
-import Stories from "../../molecules/Stories";
-import ActiveUsers from "components/organizms/ActiveUsers";
-import { useMediaQuery } from "@material-ui/core";
+import React, { FC } from "react";
+import { Hidden, Grid, useMediaQuery } from "@material-ui/core";
 import clsx from "clsx";
+import useStyles from './styles'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: "flex",
-      justifyContent: "space-between",
-      flexGrow: 1,
-      position: "relative",
-      width: "100%",
-      maxWidth: "1560px",
-      margin: "auto",
-    },
-    sidebar: {
-      display: "none"
-    },
-    grid: {
-      justifyContent: "space-around",
-      flexWrap: "nowrap"
-    },
-    active: {
-      padding: theme.spacing(1),
-      paddingTop: "0px",
-      width: "260px"
-    },
-    posts: {
-      paddingTop: theme.spacing(3),
-      padding: theme.spacing(1),
-    },
-    stories: {
-      padding: theme.spacing(1),
-      paddingTop: "0px",
-      maxWidth: "280px"
-    },
-  })
-);
+type HomeTemplateProps = {
+  Header: FC;
+  Sidebar: FC;
+  Posts: FC;
+  Stories: FC;
+  ActiveUsers: FC;
+};
 
-export const HomeTemplate: React.FC = () => {
+export const HomeTemplate: React.FC<HomeTemplateProps> = ({
+  Header,
+  Sidebar,
+  Stories,
+  Posts,
+  ActiveUsers,
+}) => {
   const classes = useStyles();
-  const match = useMediaQuery("(max-width: 777px)")
+  const match = useMediaQuery("(max-width: 777px)");
 
   return (
     <div className={classes.root}>
@@ -60,13 +32,13 @@ export const HomeTemplate: React.FC = () => {
           <Posts />
         </Grid>
         <Hidden mdDown>
-          <Grid item className={classes.stories} >
-            <Stories/>
+          <Grid item className={classes.stories}>
+            <Stories />
           </Grid>
         </Hidden>
         <Hidden smDown>
           <Grid item className={classes.active}>
-          <ActiveUsers />
+            <ActiveUsers />
           </Grid>
         </Hidden>
       </Grid>
