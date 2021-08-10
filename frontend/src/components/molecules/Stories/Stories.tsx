@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Toolbar,
-  Box,
   List,
   ListSubheader,
   Divider,

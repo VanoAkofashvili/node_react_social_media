@@ -1,4 +1,4 @@
-import { Paper, Theme, Toolbar } from "@material-ui/core";
+import { Paper, Theme } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/styles";
 import React from "react";
 

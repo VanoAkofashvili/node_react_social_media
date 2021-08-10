@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     FF: {
       backgroundColor: "green",
+      color: "white"
     },
     MH: {
       backgroundColor: "purple",

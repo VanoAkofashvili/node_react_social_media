@@ -13,11 +13,10 @@ import Fade from "@material-ui/core/Fade";
 import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
 import SentimentVerySatisfiedOutlinedIcon from "@material-ui/icons/SentimentVerySatisfiedOutlined";
 import IconButton from "components/atoms/Buttons/IconButton";
-// import Typography from 'atom'
 import { Typography } from "components/atoms/Typography";
 
 import useStyles from "./style";
-import axios from "utils/axios";
+// import axios from "utils/axios";
 
 type ImageProps = FileList | null;
 

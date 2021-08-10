@@ -3,9 +3,10 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { Hidden } from "@material-ui/core";
 import Sidebar from "../../molecules/Sidebar";
-import Main from "../../organizms/PostsOnHome";
+import Posts from "../../organizms/PostsOnHome";
 import Header from "../../organizms/Header";
 import Stories from "../../molecules/Stories";
+import ActiveUsers from "components/organizms/ActiveUsers";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,32 +40,26 @@ export const HomeTemplate: React.FC = () => {
 
   return (
     <div className={classes.root}>
+      <Header />
+      {/* <Hidden smDown>
+        <Sidebar />
+      </Hidden> */}
       <Grid container spacing={3} className={classes.grid}>
-        <Grid item xs={12}>
-            <Header />
-          {/* <Paper className={classes.paper}>xs=12</Paper> */}
-        </Grid>
-        <Hidden smDown>
-          <Grid item className={classes.sider}>
-              <Sidebar />
-            {/* <Paper className={classes.paper}>Sider</Paper> */}
-          </Grid>
-        </Hidden>
         <Grid item sm={12} md={5}>
-            <Main />
+          <Posts />
           {/* <Paper className={classes.paper}>Posts</Paper> */}
         </Grid>
         <Hidden smDown>
           <Grid item className={classes.stories}>
-              <Stories />
+            <Stories />
             {/* <Paper className={classes.paper}>Storius</Paper> */}
           </Grid>
         </Hidden>
-        {/* <Hidden mdDown>
+        <Hidden mdDown>
           <Grid item className={classes.active}>
-            <Paper className={classes.paper}>active</Paper>
+            <ActiveUsers />
           </Grid>
-        </Hidden> */}
+        </Hidden>
       </Grid>
     </div>
   );
