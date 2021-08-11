@@ -8,6 +8,7 @@ import {
   Divider,
   ListSubheader,
   Paper,
+  Box,
 } from "@material-ui/core";
 import { Typography } from "components/atoms/Typography";
 import { ListItemText, Toolbar } from "@material-ui/core";
@@ -116,7 +117,7 @@ const Sidebar: React.FC = () => {
         <ListItem button>
           <ListItemAvatar>
             <Avatar variant="rounded" className={classes.FF}>
-              <Typography variant="h6">FF</Typography>
+              <Box color="primary.contastText">FF</Box>
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Football FC" />
@@ -124,7 +125,7 @@ const Sidebar: React.FC = () => {
         <ListItem button>
           <ListItemAvatar>
             <Avatar variant="rounded" className={classes.MH}>
-              <Typography variant="h6">M</Typography>
+            <Box color="primary.contrastText">M</Box>
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Moto House" />
@@ -132,7 +133,7 @@ const Sidebar: React.FC = () => {
         <ListItem button>
           <ListItemAvatar>
             <Avatar variant="rounded" className={classes.JF}>
-              <Typography variant="h6">JF</Typography>
+            <Box color="primary.contrastText">JF</Box>
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Jazz Festivals" />
