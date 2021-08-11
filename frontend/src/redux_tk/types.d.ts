@@ -41,3 +41,7 @@ interface IPost {
 interface homePageState {
   posts: IPost[]
 }
+
+interface displayState {
+  theme: String | null
+}

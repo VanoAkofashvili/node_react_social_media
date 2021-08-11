@@ -1,18 +1,4 @@
 import { createTheme } from "@material-ui/core/styles";
-import { SM_THEME, THEME_DARK } from "utils/const/constants";
-
-declare module "@material-ui/core/styles/createTheme" {
-  interface Theme {
-    status: {
-      danges: React.CSSProperties["color"];
-    };
-  }
-  interface ThemeOptions {
-    status: {
-      danger: React.CSSProperties["color"];
-    };
-  }
-}
 
 declare module "@material-ui/core/styles/createPalette" {
   interface Palette {
@@ -23,12 +9,12 @@ declare module "@material-ui/core/styles/createPalette" {
   }
 }
 
-let type = localStorage.getItem(SM_THEME);
+// I wrote two themes repeating some values,
+// because I could not merge them, so if Adding new theme value
+// is needed take it into to account to add in both themes
 
-const theme = createTheme({
-  status: {
-    danger: "#f00",
-  },
+// Light theme
+export const lightTheme = createTheme({
   overrides: {
     MuiCssBaseline: {
       "@global": {
@@ -40,9 +26,9 @@ const theme = createTheme({
     },
   },
   palette: {
-    type: type === THEME_DARK ? "dark" : "light",
+    type: "light",
     background: {
-      default: type === THEME_DARK ? "#5d5d5d" : "#f1f1f1",
+      default: "#f1f1f1",
     },
     mainBlue: {
       main: '#00b8ff'
@@ -50,4 +36,25 @@ const theme = createTheme({
   },
 });
 
-export default theme;
+// Dark Theme
+export const darkTheme = createTheme({
+  overrides: {
+    MuiCssBaseline: {
+      "@global": {
+        "#root": {
+          display: "flex",
+          justifyContent: "center",
+        },
+      },
+    },
+  },
+  palette: {
+    type:"dark",
+    background: {
+      default: "#5d5d5d",
+    },
+    mainBlue: {
+      main: '#00b8ff'
+    },
+  },
+});

@@ -37,7 +37,6 @@ export const postsSlice = createSlice({
 });
 
 
-export const testing = "testing"
-
-export const { getPosts} = postsSlice.actions
+export const { getPosts } = postsSlice.actions
+// due to export problems I dont export reducer as default
 export const {reducer: postsReducer} = postsSlice
