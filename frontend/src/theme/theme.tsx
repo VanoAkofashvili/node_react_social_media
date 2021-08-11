@@ -1,7 +1,4 @@
-import { createTheme, Theme } from "@material-ui/core/styles";
-import { store } from "redux_tk";
-import { THEME_DARK, THEME_LIGHT } from "utils/const/constants";
-var _ = require('lodash');
+import { createTheme } from "@material-ui/core/styles";
 
 declare module "@material-ui/core/styles/createPalette" {
   interface Palette {
@@ -12,11 +9,11 @@ declare module "@material-ui/core/styles/createPalette" {
   }
 }
 
-// let type = localStorage.getItem(SM_THEME);
-const type = store.getState().dispay.theme
+// I wrote two themes repeating some values,
+// because I could not merge them, so if Adding new theme value
+// is needed take it into to account to add in both themes
 
-// console.log(type)
-
+// Light theme
 export const lightTheme = createTheme({
   overrides: {
     MuiCssBaseline: {
@@ -39,7 +36,7 @@ export const lightTheme = createTheme({
   },
 });
 
-
+// Dark Theme
 export const darkTheme = createTheme({
   overrides: {
     MuiCssBaseline: {
@@ -61,14 +58,3 @@ export const darkTheme = createTheme({
     },
   },
 });
-
-// const lightTheme: Theme = _.cloneDeep(theme)
-// // lightTheme.palette.type = THEME_LIGHT
-// lightTheme.palette.type = THEME_LIGHT
-
-// const darkTheme = _.cloneDeep(theme)
-// darkTheme.palette.type = THEME_DARK
-
-
-// console.log(lightTheme.palette)
-// export default theme;

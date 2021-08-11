@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,10 +13,10 @@ import { Login, SignUp } from "./pages";
 import { useAppDispatch, useAppSelector } from "redux_tk";
 import { autoLogin } from "redux_tk";
 import { useAuth } from "utils/hooks/useAuth";
-import { ThemeProvider } from "@material-ui/core/styles";
+import { Theme, ThemeProvider } from "@material-ui/core/styles";
 // import themeDefault from "./theme";
-import { lightTheme } from "theme/theme";
-import { darkTheme } from "theme/theme";
+import { lightTheme, darkTheme } from "theme";
+import { THEME_DARK } from "utils/const/constants";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -29,28 +29,19 @@ const App: React.FC = () => {
     dispatch(autoLogin());
   }
 
-  // useEffect(() => {
-  //   theme.
-  // }, [theme])
-
-  const prefered_theme = useMemo(() => {
-    // if (theme === null) {
-    //   return "null";
-    // } else if (theme === "light") {
-    //   return "light"
-    // }
-    if (!theme) {
-      return "theme is not given";
+  // when theme value is changing in the redux this function will execute
+  // returns lightTheme or darkTheme
+  const prefered_theme: Theme = useMemo(() => {
+    if (theme === THEME_DARK) {
+      return darkTheme;
     } else {
-      return theme;
+      return lightTheme;
     }
   }, [theme]);
-  console.log(prefered_theme);
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={prefered_theme}>
       <Router>
-        {/* <div className={classes.root}> */}
         <CssBaseline />
         <Switch>
           <Route path="/" exact>
@@ -60,7 +51,6 @@ const App: React.FC = () => {
           <Route component={Login} path="/login" />
           <Route component={SignUp} path="/signUp" />
         </Switch>
-        {/* </div> */}
       </Router>
     </ThemeProvider>
   );
