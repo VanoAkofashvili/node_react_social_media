@@ -1,5 +1,7 @@
-import { createTheme } from "@material-ui/core/styles";
-import { SM_THEME, THEME_DARK } from "utils/const/constants";
+import { createTheme, Theme } from "@material-ui/core/styles";
+import { store } from "redux_tk";
+import { SM_THEME, THEME_DARK, THEME_LIGHT } from "utils/const/constants";
+var _ = require('lodash');
 
 declare module "@material-ui/core/styles/createTheme" {
   interface Theme {
@@ -23,7 +25,10 @@ declare module "@material-ui/core/styles/createPalette" {
   }
 }
 
-let type = localStorage.getItem(SM_THEME);
+// let type = localStorage.getItem(SM_THEME);
+const type = store.getState().dispay.theme
+
+// console.log(type)
 
 const theme = createTheme({
   status: {
@@ -50,4 +55,13 @@ const theme = createTheme({
   },
 });
 
+const lightTheme: Theme = _.cloneDeep(theme)
+// lightTheme.palette.type = THEME_LIGHT
+lightTheme.palette.type = THEME_LIGHT
+
+const darkTheme = _.cloneDeep(theme)
+darkTheme.palette.type = THEME_DARK
+
+
+console.log(lightTheme.palette)
 export default theme;

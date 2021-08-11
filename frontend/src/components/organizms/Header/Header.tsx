@@ -13,23 +13,23 @@ import SearchIcon from "@material-ui/icons/Search";
 import PersonAddOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
 import { IconButton } from "@material-ui/core";
 import ThemeSwitcher from "components/atoms/Swithes/ThemeSwitcher";
-import { SM_THEME, THEME_DARK, THEME_LIGHT } from "utils/const/constants";
+import { THEME_DARK, THEME_LIGHT } from "utils/const/constants";
 import useStyles from "./styles";
+import { useAppDispatch, useAppSelector } from "redux_tk";
+import { changeTheme } from "redux_tk/features/display/displaySlice";
 
 export default function Header() {
-  const [isThemeLight, setIsThemeLight] = React.useState(
-    localStorage.getItem(SM_THEME) === THEME_LIGHT ? false : true
-  );
+  const { theme } = useAppSelector((state) => state.dispay);
+  const dispatch = useAppDispatch()
+
   const classes = useStyles();
 
   const handleThemeSwitch = () => {
-    if (isThemeLight) {
-      localStorage.setItem(SM_THEME, THEME_LIGHT);
+    if (theme === THEME_DARK) {
+      dispatch(changeTheme(THEME_LIGHT))
     } else {
-      localStorage.setItem(SM_THEME, THEME_DARK);
+      dispatch(changeTheme(THEME_DARK))
     }
-    setIsThemeLight(!isThemeLight);
-    window.location.reload();
   };
 
   return (
@@ -65,11 +65,12 @@ export default function Header() {
           </Hidden>
           {/* theme swithcer */}
           <Box className={classes.buttonGroup}>
-            {!isThemeLight ? "darkMode" : "lightMode"}
+            <Box color="primary">
+              {theme}
+            </Box>
             <ThemeSwitcher
-              checked={isThemeLight}
+              checked={theme === THEME_DARK ? true : false}
               onChange={handleThemeSwitch}
-              name="checkedC"
             />
             <IconButton>
               <PersonAddOutlinedIcon />

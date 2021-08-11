@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,12 +10,15 @@ import Home from "./pages/Home";
 
 import PrivateRoute from "./utils/HOC/PrivateRoute";
 import { Login, SignUp } from "./pages";
-import { useAppDispatch } from "redux_tk";
+import { useAppDispatch, useAppSelector } from "redux_tk";
 import { autoLogin } from "redux_tk";
 import { useAuth } from "utils/hooks/useAuth";
+import { ThemeProvider } from "@material-ui/core/styles";
+import themeDefault from "./theme";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { theme } = useAppSelector((state) => state.dispay);
 
   const isAuthenticated = useAuth();
 
@@ -24,9 +27,28 @@ const App: React.FC = () => {
     dispatch(autoLogin());
   }
 
+  // useEffect(() => {
+  //   theme.
+  // }, [theme])
+
+  const prefered_theme = useMemo(() => {
+    // if (theme === null) {
+    //   return "null";
+    // } else if (theme === "light") {
+    //   return "light"
+    // }
+    if (!theme) {
+      return "theme is not given";
+    } else {
+      return theme;
+    }
+  }, [theme]);
+  console.log(prefered_theme);
+
   return (
-    <Router>
-      {/* <div className={classes.root}> */}
+    <ThemeProvider theme={themeDefault}>
+      <Router>
+        {/* <div className={classes.root}> */}
         <CssBaseline />
         <Switch>
           <Route path="/" exact>
@@ -36,8 +58,9 @@ const App: React.FC = () => {
           <Route component={Login} path="/login" />
           <Route component={SignUp} path="/signUp" />
         </Switch>
-      {/* </div> */}
-    </Router>
+        {/* </div> */}
+      </Router>
+    </ThemeProvider>
   );
 };
 export default App;

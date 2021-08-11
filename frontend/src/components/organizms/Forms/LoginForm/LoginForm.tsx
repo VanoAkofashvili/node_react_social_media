@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
 import { loginUser, toggleRegisterSuccess } from "redux_tk";
 import { Snackbar } from "@material-ui/core";
 import { AUTH_TOKEN, SM_THEME, THEME_LIGHT } from "utils/const/constants";
+import { changeTheme } from "redux_tk/features/display/displaySlice";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -51,7 +52,7 @@ export function LoginForm() {
       localStorage.setItem(AUTH_TOKEN, token);
       // set theme "light" theme
       if (!localStorage.getItem(SM_THEME)) {
-        localStorage.setItem(SM_THEME, THEME_LIGHT)
+        dispatch(changeTheme(THEME_LIGHT))
       }
       history.push('/home')
       if (registerSuccess) {
