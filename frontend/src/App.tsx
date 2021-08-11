@@ -14,7 +14,9 @@ import { useAppDispatch, useAppSelector } from "redux_tk";
 import { autoLogin } from "redux_tk";
 import { useAuth } from "utils/hooks/useAuth";
 import { ThemeProvider } from "@material-ui/core/styles";
-import themeDefault from "./theme";
+// import themeDefault from "./theme";
+import { lightTheme } from "theme/theme";
+import { darkTheme } from "theme/theme";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -46,7 +48,7 @@ const App: React.FC = () => {
   console.log(prefered_theme);
 
   return (
-    <ThemeProvider theme={themeDefault}>
+    <ThemeProvider theme={darkTheme}>
       <Router>
         {/* <div className={classes.root}> */}
         <CssBaseline />
