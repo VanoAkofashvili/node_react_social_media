@@ -7,8 +7,10 @@ import {
   ListItemAvatar,
   Divider,
   ListSubheader,
-  Drawer,
+  Paper,
+  Box,
 } from "@material-ui/core";
+import { Typography } from "components/atoms/Typography";
 import { ListItemText, Toolbar } from "@material-ui/core";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import EventIcon from "@material-ui/icons/Event";
@@ -18,23 +20,22 @@ import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
 import CardGiftcardRoundedIcon from "@material-ui/icons/CardGiftcardRounded";
 import AccountTreeOutlinedIcon from "@material-ui/icons/AccountTreeOutlined";
 import profileAvatar from "../../../assets/avatar/1.jpg";
-import { sideWrapperWidth } from "../../../const/wrappers";
+import { sideWrapperWidth } from "../../../utils/const/wrappers";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { useMediaQuery } from "@material-ui/core";
-import clsx from "clsx";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    root: {
+      width: sideWrapperWidth,
+      position: "relative",
+    },
     drawer: {
       width: sideWrapperWidth,
       flexShrink: 0,
-      minHeight: "100vh",
-      display: "none",
-      backgroundColor: "white",
-    },
-    border: {
-      border: "none"
+      height: "100vh",
+      position: "sticky",
+      top: "0",
     },
     drawerClose: {
       display: "block",
@@ -44,6 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     FF: {
       backgroundColor: "green",
+      color: "white",
     },
     MH: {
       backgroundColor: "purple",
@@ -56,14 +58,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Sidebar: React.FC = () => {
   const classes = useStyles();
-  const matches = useMediaQuery("(min-width: 712px)");
 
   return (
-    <Drawer
-      variant="permanent"
-      className={clsx(classes.drawer, matches && classes.drawerClose)}
-      classes={{paperAnchorDockedLeft: classes.border }}
-    >
+    <Paper className={classes.drawer}>
       <Toolbar />
       <List component="nav" className={classes.list}>
         <ListItem>
@@ -115,12 +112,12 @@ const Sidebar: React.FC = () => {
           <ListItemText primary="Marketplace" />
         </ListItem>
         <Divider />
-        {/* pages you may lika */}
+        {/* pages you may like */}
         <ListSubheader>Pages You May Like</ListSubheader>
         <ListItem button>
           <ListItemAvatar>
             <Avatar variant="rounded" className={classes.FF}>
-              FF
+              <Box color="primary.contastText">FF</Box>
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Football FC" />
@@ -128,7 +125,7 @@ const Sidebar: React.FC = () => {
         <ListItem button>
           <ListItemAvatar>
             <Avatar variant="rounded" className={classes.MH}>
-              M
+            <Box color="primary.contrastText">M</Box>
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Moto House" />
@@ -136,13 +133,13 @@ const Sidebar: React.FC = () => {
         <ListItem button>
           <ListItemAvatar>
             <Avatar variant="rounded" className={classes.JF}>
-              JF
+            <Box color="primary.contrastText">JF</Box>
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary="Jazz Festivals" />
         </ListItem>
       </List>
-    </Drawer>
+    </Paper>
   );
 };
 export default Sidebar;

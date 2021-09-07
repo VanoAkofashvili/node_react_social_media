@@ -6,68 +6,77 @@ import {
   Box,
   InputAdornment,
   OutlinedInput,
+  Hidden,
 } from "@material-ui/core";
 import CropSquareIcon from "@material-ui/icons/CropSquare";
 import SearchIcon from "@material-ui/icons/Search";
 import PersonAddOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
-
-import { Blue, MainBackground } from "../../../const/colors";
-import { contentWrapperWidth, sideWrapperWidth } from "../../../const/wrappers";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { IconButton } from "@material-ui/core";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    appBar: {
-      zIndex: theme.zIndex.drawer + 1,
-    },
-    logo: {
-      width: sideWrapperWidth,
-      cursor: 'pointer'
-    },
-    input: {
-      paddingRight: "5px",
-      width: "60%",
-      borderRadius: "10px",
-      backgroundColor: MainBackground,
-      marginLeft: "10px",
-    },
-  })
-);
+import ThemeSwitcher from "components/atoms/Swithes/ThemeSwitcher";
+import { THEME_DARK, THEME_LIGHT } from "utils/const/constants";
+import useStyles from "./styles";
+import { useAppDispatch, useAppSelector } from "redux_tk";
+import { changeTheme } from "redux_tk/features/display/displaySlice";
 
 export default function Header() {
+  const { theme } = useAppSelector((state) => state.dispay);
+  const dispatch = useAppDispatch()
+
   const classes = useStyles();
+
+  const handleThemeSwitch = () => {
+    if (theme === THEME_DARK) {
+      dispatch(changeTheme(THEME_LIGHT))
+    } else {
+      dispatch(changeTheme(THEME_DARK))
+    }
+  };
 
   return (
     <AppBar color="default" position="fixed" className={classes.appBar}>
-      <Toolbar>
-        <Box display="flex" className={classes.logo}>
-          <CropSquareIcon fontSize="large" style={{ color: Blue }} />
-          <Typography variant="h5" style={{ paddingTop: "2px" }}>
-            Saseburg
-          </Typography>
+      <Toolbar disableGutters={true} className={classes.toolbar}>
+        <Box className={classes.wrapper}>
+          <Box className={classes.logoWrapper}>
+            <Box color="mainBlue.main">
+              <CropSquareIcon fontSize="large" />
+            </Box>
+            <Typography variant="h5" style={{ paddingTop: "2px" }}>
+              Saseburg
+            </Typography>
+          </Box>
+          {/* search */}
+          <Hidden smDown>
+            <Box className={classes.searchBox}>
+              <OutlinedInput
+                inputProps={{
+                  style: {
+                    padding: 10,
+                  },
+                }}
+                placeholder="Search"
+                endAdornment={
+                  <InputAdornment position="end">
+                    <SearchIcon />
+                  </InputAdornment>
+                }
+                className={classes.input}
+              />
+            </Box>
+          </Hidden>
+          {/* theme swithcer */}
+          <Box className={classes.buttonGroup}>
+            <Box color="primary">
+              {theme}
+            </Box>
+            <ThemeSwitcher
+              checked={theme === THEME_DARK ? true : false}
+              onChange={handleThemeSwitch}
+            />
+            <IconButton>
+              <PersonAddOutlinedIcon />
+            </IconButton>
+          </Box>
         </Box>
-        <Box style={{ width: contentWrapperWidth }}>
-          <OutlinedInput
-            inputProps={{
-              style: {
-                padding: 10,
-              },
-            }}
-            placeholder="Search"
-            endAdornment={
-              <InputAdornment position="end">
-                <SearchIcon />
-              </InputAdornment>
-            }
-            className={classes.input}
-          />
-        </Box>
-        <IconButton style={{ marginLeft: "auto" }}>
-          {/* <Badge badgeContent={4} color="primary"> */}
-            <PersonAddOutlinedIcon />
-          {/* </Badge> */}
-        </IconButton>
       </Toolbar>
     </AppBar>
   );

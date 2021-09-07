@@ -11,13 +11,16 @@ import Container from "@material-ui/core/Container";
 import { Link, useHistory } from "react-router-dom";
 import moment from "moment";
 import ButtonSubmit from "../../../atoms/Buttons/ButtonSubmit";
-import { ButtonColors } from "../../../../const/enums";
-// import { Alert, AlertTitle } from '@material-ui/lab';
+import Alert from "components/molecules/alerts/authError";
 
 import { useAppDispatch, useAppSelector } from "redux_tk/app/hook";
-import { registerUserAsync, toggleError } from "redux_tk/features/auth/authSlice";
+import {
+  registerUserAsync,
+  // toggleError,
+  // toggleRegisterSuccess,
+} from "redux_tk/features/auth/authSlice";
 import { useEffect } from "react";
-import { registerFinished } from "redux_tk/features/auth/authSlice";
+import { toggleRegisterLoading } from "redux_tk/features/auth/authSlice";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -52,20 +55,36 @@ export function SignUpForm() {
   const [isPasswordMatching, setIsPasswordMatching] = useState(true);
   const classes = useStyles();
 
-  const {error, userIsRegistering} = useAppSelector((state) => state.auth);
+  const { errors, registerLoading, registerSuccess, loginSuccess } =
+    useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
-  const history = useHistory()
+  const history = useHistory();
 
-    useEffect(() => {
-      if (error) {
-        alert(error)
-        dispatch(toggleError(false))
-      }
-      if (userIsRegistering) {
-        history.push('/login')
-        dispatch(registerFinished())
-      }
-    }, [error, userIsRegistering,dispatch, history])
+  // TO-DO: handle eror disapear
+  useEffect(() => {
+    // if (error) {
+    //   dispatch(toggleError(false));
+    // }
+
+    // user is already signed
+    // dont let him/her enter signup page
+    if (loginSuccess) {
+      history.push("/");
+    }
+
+    // if user is registered redirect to user login page
+    if (registerSuccess) {
+      history.push("/login");
+      dispatch(toggleRegisterLoading(false));
+    }
+  }, [
+    errors,
+    registerLoading,
+    dispatch,
+    history,
+    registerSuccess,
+    loginSuccess,
+  ]);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -77,7 +96,7 @@ export function SignUpForm() {
         email,
         dateOfBirth,
         sex: Number(sex),
-        password
+        password,
       };
       dispatch(registerUserAsync(newUser));
     }
@@ -94,133 +113,139 @@ export function SignUpForm() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
-        <form className={classes.form} noValidate onSubmit={onSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                error={false}
-                autoComplete="firstName"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                id="firstName"
-                label="First Name"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lastName"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <FormControl required variant="outlined" fullWidth>
-                <InputLabel htmlFor="sex">Sex</InputLabel>
-                <Select
+    <>
+      {/* {registerSuccess && <Alert message="You signed up successfuly" severity="success"/>} */}
+      {/* {true  && <Alert message="message" severity="error"/>} */}
+      {errors && <Alert errors={errors} />}
+
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <form className={classes.form} noValidate onSubmit={onSubmit}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  error={false}
+                  autoComplete="firstName"
+                  name="firstName"
+                  variant="outlined"
                   required
-                  native
-                  value={sex}
-                  onChange={(e: any) => setSex(e.target.value)}
-                  name="sex"
-                  label="sex"
-                  inputProps={{
-                    id: "sex",
-                  }}
-                >
-                  <option aria-label="None" value="" />
-                  <option value={1}>Male</option>
-                  <option value={2}>Female</option>
-                  <option value={3}>Other</option>
-                </Select>
-              </FormControl>
+                  fullWidth
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="lastName"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <FormControl required variant="outlined" fullWidth>
+                  <InputLabel htmlFor="sex">Sex</InputLabel>
+                  <Select
+                    required
+                    native
+                    value={sex}
+                    onChange={(e: any) => setSex(e.target.value)}
+                    name="sex"
+                    label="sex"
+                    inputProps={{
+                      id: "sex",
+                    }}
+                  >
+                    <option aria-label="None" value="" />
+                    <option value={1}>Male</option>
+                    <option value={2}>Female</option>
+                    <option value={3}>Other</option>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  name="date"
+                  id="date"
+                  label="Date"
+                  type="date"
+                  InputLabelProps={{ shrink: true }}
+                  value={dateOfBirth}
+                  onChange={(e) => setDateOfBirth(e.target.value)}
+                  fullWidth
+                  required
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  type="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="none"
+                  error={!isPasswordMatching}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  name="confirmPassword"
+                  label="Confirm Password"
+                  type="password"
+                  id="confirm-password"
+                  autoComplete="none"
+                  error={!isPasswordMatching}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                name="date"
-                id="date"
-                label="Date"
-                type="date"
-                InputLabelProps={{ shrink: true }}
-                value={dateOfBirth}
-                onChange={(e) => setDateOfBirth(e.target.value)}
-                fullWidth
-                required
-              />
+            <ButtonSubmit color="primary">Sign Up</ButtonSubmit>
+            <Grid container justifyContent="center">
+              <Grid item>
+                <Link to="/login">Already have an account? Sign in</Link>
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                type="email"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="none"
-                error={!isPasswordMatching}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                name="confirmPassword"
-                label="Confirm Password"
-                type="password"
-                id="confirm-password"
-                autoComplete="none"
-                error={!isPasswordMatching}
-              />
-            </Grid>
-          </Grid>
-          <ButtonSubmit color={ButtonColors.primary}>Sign Up</ButtonSubmit>
-          <Grid container justifyContent="center">
-            <Grid item>
-              <Link to="/login">Already have an account? Sign in</Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-    </Container>
+          </form>
+        </div>
+      </Container>
+    </>
   );
 }

@@ -1,13 +1,21 @@
-import { configureStore } from '@reduxjs/toolkit'
-import authReducer from '../features/auth/authSlice'
+import { configureStore } from "@reduxjs/toolkit";
+import {authReducer} from "redux_tk/features/auth/authSlice";
+import  {postsReducer}  from "redux_tk/features/posts/homeSlice";
+import { displayReducer } from "redux_tk/features/display/displaySlice";
+import { autoLoginMiddleware } from "redux_tk/middlewares/autoLoginMiddleware";
+
+const reducer = {
+  posts: postsReducer,
+  auth: authReducer,
+  dispay: displayReducer
+};
 
 export const store = configureStore({
-  reducer: {
-    auth: authReducer
-  },
-})
+  reducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(autoLoginMiddleware),
+});
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

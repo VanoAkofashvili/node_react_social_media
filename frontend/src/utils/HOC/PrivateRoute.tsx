@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import { useAppSelector } from "redux_tk/app/hook";
 
 interface PrivateRouteProps {
   component: React.FC;
@@ -10,13 +11,13 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({
   component: Component,
   ...rest
 }) => {
-  const isLoggedIn = true;
+  const loginSuccess = useAppSelector(state => state.auth.loginSuccess);
+  
   return (
     <Route
       {...rest}
       render={(props) => {
-        // console.log(props);
-        return isLoggedIn ? <Component /> : <Redirect to="/login" />;
+        return loginSuccess ? <Component /> : <Redirect to="/login" />;
       }}
     />
   );
